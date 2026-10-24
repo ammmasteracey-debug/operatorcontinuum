@@ -1,14 +1,14 @@
 const metricCards = [
-  { label: 'Open prospects', value: '10', detail: '+3 touched this week' },
-  { label: 'Walkthroughs booked', value: '2', detail: '2 in the pipeline' },
-  { label: 'Access conveners', value: '2', detail: 'This month' },
-  { label: 'Active directs', value: '1', detail: '11% of direct records active' },
+  { label: 'Desk', value: '28', detail: 'Sessions logged' },
+  { label: 'Competition', value: '16', detail: 'Runs recorded' },
+  { label: 'Signal', value: '9', detail: 'Briefs read' },
+  { label: 'Agent path', value: '14', detail: 'Training data points' },
 ];
 
 const signalCards = [
-  { title: 'Creator / streamer prospects', value: '7', detail: 'Creators 3 · Streamers 2 · Hybrid 2' },
-  { title: 'Lives logged', value: '2', detail: 'Process entries attributed to live activity' },
-  { title: 'Access from content / lives', value: '50%', detail: '1 of 2 recorded conversions' },
+  { title: 'Desk sessions', value: '7', detail: 'Triage and form clarity' },
+  { title: 'Competition runs', value: '2', detail: 'Process entries in active review' },
+  { title: 'Signal reads', value: '50%', detail: 'Briefs converted to action' },
 ];
 
 const queueItems = [
@@ -41,10 +41,10 @@ function App() {
       <div className="app-shell">
         <aside className="sidebar">
           <div className="sidebar-header">
-            <div className="brand-mark">F</div>
+            <div className="brand-mark">O</div>
             <div>
-              <div className="sidebar-title">FORGE NETWORK</div>
-              <div className="sidebar-subtitle">Distribution OS</div>
+              <div className="sidebar-title">OPERATOR</div>
+              <div className="sidebar-subtitle">CONTINUUM</div>
             </div>
           </div>
 
@@ -57,11 +57,11 @@ function App() {
               </button>
               <button className="nav-item">
                 <span className="nav-index">02</span>
-                <span>Prospecting</span>
+                <span>Dossier</span>
               </button>
               <button className="nav-item">
                 <span className="nav-index">03</span>
-                <span>Network</span>
+                <span>Rank</span>
               </button>
               <button className="nav-item">
                 <span className="nav-index">04</span>
@@ -69,11 +69,11 @@ function App() {
               </button>
               <button className="nav-item">
                 <span className="nav-index">05</span>
-                <span>Events</span>
+                <span>Agents</span>
               </button>
               <button className="nav-item">
                 <span className="nav-index">06</span>
-                <span>Agents</span>
+                <span>Training</span>
               </button>
               <button className="nav-item">
                 <span className="nav-index">07</span>
@@ -81,7 +81,7 @@ function App() {
               </button>
               <button className="nav-item">
                 <span className="nav-index">08</span>
-                <span>Seat Plan</span>
+                <span>Records</span>
               </button>
             </nav>
           </div>
@@ -89,7 +89,7 @@ function App() {
           <div className="profile-panel">
             <div className="avatar-mini">AV</div>
             <div>
-              <div className="profile-name">Adrian Vale</div>
+              <div className="profile-name">A. Vale</div>
               <div className="profile-role">Operator seat</div>
             </div>
           </div>
@@ -97,7 +97,7 @@ function App() {
 
         <main className="main-panel">
           <header className="main-header">
-            <div className="bread">KUROGAMI / FORGE NETWORK</div>
+            <div className="bread">KUROGAMI / OPERATOR CONTINUUM</div>
             <div className="header-tools">
               <span className="date-label">Tuesday, October 20</span>
               <button className="guide-button">Guide</button>
@@ -106,14 +106,14 @@ function App() {
 
           <section className="hero-panel">
             <div className="hero-topline">
-              <span className="section-kicker">01 / FORGE NETWORK</span>
+              <span className="section-kicker">01 / OPERATOR CONTINUUM</span>
             </div>
             <div className="hero-head">
               <div>
                 <h1>Operator Continuum</h1>
-                <p>Process in. Distribution out. Agents next.</p>
+                <p>One identity. Every craft. Process that compounds.</p>
               </div>
-              <button className="new-button">+ New Prospect</button>
+              <button className="new-button">+ Log Session</button>
             </div>
 
             <div className="stats-grid">
@@ -129,7 +129,7 @@ function App() {
 
           <section className="signal-panel">
             <div className="panel-header">
-              <span className="section-kicker">Signal from created distribution</span>
+              <span className="section-kicker">Signal from active craft</span>
               <span className="range-label">Last 7 days</span>
             </div>
 
