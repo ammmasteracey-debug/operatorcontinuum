@@ -5,10 +5,11 @@ const navItems = [
   { index: '02', label: 'Manual', href: '#manual', target: 'manual' },
   { index: '03', label: 'Leads', href: '#leads', target: 'leads' },
   { index: '04', label: 'Pipeline', href: '#pipeline', target: 'pipeline' },
-  { index: '05', label: 'Assets', href: '#assets', target: 'assets' },
-  { index: '06', label: 'Outreach', href: '#outreach', target: 'outreach' },
-  { index: '07', label: 'Pilot', href: '#pilot', target: 'pilot' },
-  { index: '08', label: 'Operators', href: '#operators', target: 'operators' },
+  { index: '05', label: 'Prospecting', href: '#prospecting', target: 'prospecting' },
+  { index: '06', label: 'Assets', href: '#assets', target: 'assets' },
+  { index: '07', label: 'Outreach', href: '#outreach', target: 'outreach' },
+  { index: '08', label: 'Pilot', href: '#pilot', target: 'pilot' },
+  { index: '09', label: 'Operators', href: '#operators', target: 'operators' },
 ];
 
 const navItemByTarget = Object.fromEntries(navItems.map((item) => [item.target, item]));
@@ -18,6 +19,7 @@ const navLabelByTarget = {
   manual: 'Manual',
   leads: 'Leads',
   pipeline: 'Pipeline',
+  prospecting: 'Prospecting',
   assets: 'Assets',
   outreach: 'Outreach',
   pilot: 'Pilot',
@@ -29,6 +31,7 @@ const mobileNavIconPaths = {
   manual: 'M6 3.5h12v17l-6-3-6 3zM9 8h6M9 11h6',
   leads: 'M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M16 11h6',
   pipeline: 'M4 4h4v16H4zM10 4h4v10h-4zM16 4h4v13h-4z',
+  prospecting: 'M4 5h16M4 12h10M4 19h7M18 14v7M14.5 17.5h7',
 };
 
 function MobileNavIcon({ target }) {
@@ -54,6 +57,11 @@ const tourSteps = [
     target: 'pipeline',
     title: 'Work the pipeline',
     description: 'Review prospects by their fixed stage and open any card to return to its lead record.',
+  },
+  {
+    target: 'prospecting',
+    title: 'Build the field process',
+    description: 'Appointment → Present → Close. Segment by personality. Fast Start installs the machine same day. Leadership duplicates the standard, not ranks. Compensation applies only to closed, paid, attributed seats under written terms.',
   },
   {
     target: 'assets',
@@ -104,6 +112,121 @@ const pipelineStages = [
   { label: 'Closed won' },
   { label: 'Closed lost' },
   { label: 'Nurture' },
+];
+
+const personalityTypes = [
+  { code: 'C', label: 'Competitive / hustle / influencer' },
+  { code: 'E', label: 'Emotionally motivated' },
+  { code: 'F', label: 'Factually motivated' },
+  { code: 'H', label: 'Humanity motivated' },
+];
+
+const personalityQuestions = [
+  {
+    question: 'What kind of opening tends to hold their attention?',
+    answers: {
+      C: 'A direct challenge, benchmark, or opportunity to lead.',
+      E: 'A story that connects to a personal goal or turning point.',
+      F: 'A clear explanation with specifics they can verify.',
+      H: 'A conversation about people, trust, and shared purpose.',
+    },
+  },
+  {
+    question: 'What do they ask for before deciding whether to continue?',
+    answers: {
+      C: 'The edge, the standard, and what serious operators do differently.',
+      E: 'How the process could fit the future they want.',
+      F: 'The written terms, unit, risks, and how the process works.',
+      H: 'Who is involved and how the Group treats its people.',
+    },
+  },
+  {
+    question: 'What makes a conversation feel credible to them?',
+    answers: {
+      C: 'Confidence, pace, and a clear point of view.',
+      E: 'Being heard and having their reasons understood.',
+      F: 'Evidence, definitions, and room to inspect details.',
+      H: 'Respect, candor, and a real human connection.',
+    },
+  },
+  {
+    question: 'How do they prefer to make a next-step decision?',
+    answers: {
+      C: 'Take a clear next action and own the decision.',
+      E: 'Feel settled about the personal fit before acting.',
+      F: 'Review the facts and written terms before responding.',
+      H: 'Know the people and purpose are aligned.',
+    },
+  },
+];
+
+const prospectStates = ['Cold', 'Warm', 'Set', 'Presented', 'Holding', 'Closed—won', 'Closed—lost', 'Stale'];
+
+const prospectingTracks = {
+  C: {
+    opener: 'I work with people who prefer a clear standard over market noise. Kurogami Group is operators, not spectators. Open to a direct look at the process?',
+    engage: 'What would you need to verify before deciding whether a process seat is worth a conversation? I can point you to the doctrine and let you judge it.',
+    ask_appt: 'If you want the full frame, let’s set a short appointment to review the presentation and published terms. Desk Access is a $15,000 process seat; no guaranteed returns. Process before outcome.',
+    post_present_close: 'You’ve seen the process. If it fits, we can discuss Desk Access at the published $15,000 price. It is not signals or guaranteed returns. Do you want to review the written terms, or leave it here?',
+    followup_24h: 'Following up once on the presentation. Take the time you need. Desk Access remains a $15,000 process seat, with no guaranteed returns. If it is not a fit, a clean no is fine.',
+    no_signals: 'We do not sell signals or guaranteed returns. Desk Access is a $15,000 process seat under published terms. Process before outcome; if you need signals, we are not the fit.',
+  },
+  E: {
+    opener: 'What are you hoping to get clearer about in the way you approach markets? Kurogami Group is built around process before outcome, not promises.',
+    engage: 'What matters most to you when deciding whether a new process or group deserves your time? I can share the doctrine first, with no pressure to continue.',
+    ask_appt: 'Would a short appointment to walk through the presentation help you decide if the process fits? Desk Access is a $15,000 seat under published terms; no guaranteed returns.',
+    post_present_close: 'Now that you have seen the process, does it fit what you are looking for? Desk Access is a $15,000 process seat, not a return promise. We can review the terms together or leave it here.',
+    followup_24h: 'Checking in after yesterday’s presentation. What questions came up for you? There is no pressure to continue. Desk Access is a $15,000 process seat; no guaranteed returns.',
+    no_signals: 'We do not offer signals or promise outcomes. Desk Access is a $15,000 process seat under published terms. If signals are what you need, we are not the fit.',
+  },
+  F: {
+    opener: 'Kurogami Group works from written doctrine: process before outcome, named risk, and published terms. Would you like the doctrine link to review?',
+    engage: 'What information do you need to evaluate a process seat? I can share the published terms and explain what Desk Access does—and does not—include.',
+    ask_appt: 'Let’s set a short appointment to review the presentation, scope, and written terms. Desk Access is the published $15,000 process seat. It includes no signals or guaranteed returns.',
+    post_present_close: 'The unit is Desk Access at the published $15,000 price: process access under written terms, not signals or a return promise. Would you like to review those terms or close the loop?',
+    followup_24h: 'Following up on the presentation. The published unit is a $15,000 process seat; outcomes are not guaranteed. I can answer questions about the written terms, or mark this closed.',
+    no_signals: 'We do not sell signals or guaranteed returns. Desk Access is a $15,000 process seat under published terms. Process before outcome. If you need signals, this is not the fit.',
+  },
+  H: {
+    opener: 'I work with Kurogami Group on a simple standard: process before outcome, and a clean no is respected. Would you like to hear how the Group works?',
+    engage: 'What would help you feel comfortable evaluating a process seat? I can share the doctrine and answer plainly; there is no obligation to continue.',
+    ask_appt: 'Would you be open to a short appointment to review the presentation together? Desk Access is a $15,000 process seat under published terms, with no guaranteed returns.',
+    post_present_close: 'Thanks for taking the time to review it. Desk Access is a $15,000 process seat, not signals or a return promise. Does the written process fit, or would you rather leave it here?',
+    followup_24h: 'Thank you for the conversation yesterday. I wanted to check whether you have questions after the presentation. No pressure either way; Desk Access is a $15,000 process seat with no guaranteed returns.',
+    no_signals: 'We do not offer signals or guaranteed returns. Desk Access is a $15,000 process seat under published terms. If that is not what you need, I respect that and will close the loop.',
+  },
+};
+
+const prospectingTrackSteps = [
+  { id: 'opener', label: 'Opener' },
+  { id: 'engage', label: 'Engage' },
+  { id: 'ask_appt', label: 'Ask appointment' },
+  { id: 'post_present_close', label: 'Post-present close' },
+  { id: 'followup_24h', label: '24-hour follow-up' },
+  { id: 'no_signals', label: 'No signals' },
+];
+
+const fastStartSteps = [
+  { id: 'FS-0', label: 'In', detail: 'Seat/pilot + Continuum + Black Book' },
+  { id: 'FS-1', label: 'Frame', detail: 'Present watched + laws + never-sell' },
+  { id: 'FS-2', label: 'List', detail: '10 names + personality tags' },
+  { id: 'FS-3', label: 'Outreach', detail: '≥5 appointment asks' },
+  { id: 'FS-4', label: 'Present', detail: '≥1 delivered' },
+  { id: 'FS-5', label: 'Close', detail: '≥1 seat conversation logged' },
+  { id: 'FS-6', label: 'Lead', detail: 'Leadership session done' },
+];
+
+const leadershipChecklist = [
+  { id: 'laws', label: 'State the laws and what is never sold.' },
+  { id: 'list', label: 'Review the operator’s list of 10.' },
+  { id: 'quiz', label: 'Review the top five personality reads.' },
+  { id: 'send', label: 'Complete one live, doctrine-safe send.' },
+  { id: 'followups', label: 'Log the 24-hour asks and next actions.' },
+];
+
+const leadershipAcknowledgements = [
+  { id: 'doctrine', label: 'I will represent the published doctrine and terms.' },
+  { id: 'standard', label: 'Leadership duplicates the standard, not rank or downline.' },
 ];
 
 const demoLeads = [
@@ -667,6 +790,28 @@ const assetGroups = [
       },
     ],
   },
+  {
+    title: 'Opportunity Present',
+    range: '14–15',
+    assets: [
+      {
+        title: 'Opportunity Present slideshow',
+        whenToSend: 'Share during a booked appointment; add the Admin-approved URL before field use',
+        url: '',
+        presentationKey: 'slideshowUrl',
+        placeholder: 'Admin URL pending',
+        copy: 'As promised, here is the Opportunity Present slideshow: [add approved slideshow URL]. Desk Access is a $15,000 process seat under published terms. No signals or guaranteed returns. Process before outcome.',
+      },
+      {
+        title: 'Opportunity Present Voiceover v1',
+        whenToSend: 'Use only with the approved slideshow; add the Admin-approved URL before field use',
+        url: '',
+        presentationKey: 'voiceoverUrl',
+        placeholder: 'Admin URL pending',
+        copy: 'Here is the Opportunity Present Voiceover v1: [add approved voiceover URL]. It explains the process, not a return promise. Desk Access is a $15,000 process seat under published terms.',
+      },
+    ],
+  },
 ];
 
 const assetCards = assetGroups.flatMap((group) => group.assets);
@@ -679,6 +824,51 @@ const defaultPilotAcknowledgement = {
   adminDate: '',
   adminNote: 'Admin sets exact % in writing',
 };
+
+const createFastStartChecklist = () => Object.fromEntries(fastStartSteps.map(({ id }) => [id, false]));
+
+const createLeadershipSession = () => ({
+  checklist: Object.fromEntries(leadershipChecklist.map(({ id }) => [id, false])),
+  acknowledgements: Object.fromEntries(leadershipAcknowledgements.map(({ id }) => [id, false])),
+  name: '',
+  date: '',
+  leaderOfRecord: '',
+});
+
+const createPresentationAssets = () => ({
+  slideshowUrl: '',
+  voiceoverUrl: '',
+});
+
+function createProspectTemplateRow(index) {
+  return {
+    id: `prospect-${index + 1}`,
+    leadId: '',
+    name: '',
+    channel: '',
+    personality: 'unknown',
+    state: 'Cold',
+    stage: 'New',
+    nextAction: '',
+    due: '',
+  };
+}
+
+function createProspectingRows(leads = []) {
+  const rows = leads.map((lead, index) => ({
+    ...createProspectTemplateRow(index),
+    id: lead.prospectId || `prospect-${index + 1}`,
+    leadId: lead.id || '',
+    name: lead.name || '',
+    channel: lead.channel || '',
+    personality: personalityTypes.some(({ code }) => code === lead.personality) ? lead.personality : 'unknown',
+    state: prospectStates.includes(lead.state) ? lead.state : lead.temp === 'Cold' ? 'Cold' : 'Warm',
+    stage: pipelineStages.some(({ label }) => label === lead.stage) ? lead.stage : 'New',
+    nextAction: lead.nextAction || '',
+    due: lead.due || '',
+  }));
+  return [...rows, ...Array.from({ length: Math.max(0, 10 - rows.length) }, (_, index) => createProspectTemplateRow(rows.length + index))];
+}
 
 function ManualBlock({ block, onCopyTrack, onOpenSample, hasSample }) {
   return (
@@ -763,6 +953,59 @@ function ManualBlock({ block, onCopyTrack, onOpenSample, hasSample }) {
   );
 }
 
+function LeadershipSessionPanel({ session, onUpdate }) {
+  return (
+    <section className="leadership-session-panel">
+      <div className="panel-header">
+        <span className="section-kicker">Leadership Session</span>
+        <span className="range-label">One-page standard / no rank tree</span>
+      </div>
+      <p className="leadership-session-intro">
+        Leadership is duplication of doctrine and clean process—not pyramid ranks. Review the one-pager together, record the work, and name the leader of record.
+      </p>
+      <div className="leadership-checklist">
+        {leadershipChecklist.map((item) => (
+          <label key={item.id}>
+            <input
+              type="checkbox"
+              checked={session.checklist[item.id]}
+              onChange={(event) => onUpdate('checklist', item.id, event.target.checked)}
+            />
+            <span>{item.label}</span>
+          </label>
+        ))}
+      </div>
+      <div className="leadership-acknowledgements">
+        {leadershipAcknowledgements.map((item) => (
+          <label key={item.id}>
+            <input
+              type="checkbox"
+              checked={session.acknowledgements[item.id]}
+              onChange={(event) => onUpdate('acknowledgements', item.id, event.target.checked)}
+            />
+            <span>{item.label}</span>
+          </label>
+        ))}
+      </div>
+      <div className="leadership-fields">
+        <label>
+          Operator name
+          <input value={session.name} onChange={(event) => onUpdate('profile', 'name', event.target.value)} />
+        </label>
+        <label>
+          Session date
+          <input type="date" value={session.date} onChange={(event) => onUpdate('profile', 'date', event.target.value)} />
+        </label>
+        <label>
+          Leader of record
+          <input value={session.leaderOfRecord} onChange={(event) => onUpdate('profile', 'leaderOfRecord', event.target.value)} />
+        </label>
+      </div>
+      <p className="leadership-session-footnote">Compensation only on closed, paid, attributed seats under written terms.</p>
+    </section>
+  );
+}
+
 const pilotRows = [
   { closer: 'Harry', touches: 52, conversations: 19, methodShares: 13, seatConversations: 8, won: 4, revenue: '$60k', rate: '31%' },
   { closer: 'Mila', touches: 39, conversations: 12, methodShares: 9, seatConversations: 5, won: 2, revenue: '$30k', rate: '18%' },
@@ -804,6 +1047,10 @@ function createDemoWorkspaceData() {
   return {
     mode: 'demo',
     leads: [reyesLead, ...demoLeads],
+    prospects: createProspectingRows([reyesLead, ...demoLeads]),
+    fastStart: createFastStartChecklist(),
+    leadershipSession: createLeadershipSession(),
+    presentationAssets: createPresentationAssets(),
     nextActions: [
       ...nextActions,
       { name: reyesLead.name, due: dueDate, status: reyesLead.nextAction, owner: reyesLead.owner },
@@ -816,6 +1063,10 @@ function createDemoWorkspaceData() {
 const freshWorkspaceData = {
   mode: 'fresh',
   leads: [],
+  prospects: createProspectingRows(),
+  fastStart: createFastStartChecklist(),
+  leadershipSession: createLeadershipSession(),
+  presentationAssets: createPresentationAssets(),
   nextActions: [],
   pilotRows: [],
   pilotAcknowledgement: defaultPilotAcknowledgement,
@@ -838,6 +1089,59 @@ function readWorkspaceData() {
       throw new Error('Saved workspace data has an invalid shape.');
     }
 
+    const prospects = parsedData.prospects ?? createProspectingRows(parsedData.leads);
+    if (
+      !Array.isArray(prospects)
+      || prospects.some((prospect) => (
+        prospect === null
+        || typeof prospect !== 'object'
+        || ['id', 'name', 'channel', 'personality', 'state', 'stage', 'nextAction', 'due'].some((field) => typeof prospect[field] !== 'string')
+        || (prospect.leadId !== undefined && typeof prospect.leadId !== 'string')
+        || !['unknown', ...personalityTypes.map(({ code }) => code)].includes(prospect.personality)
+        || !prospectStates.includes(prospect.state)
+        || !pipelineStages.some(({ label }) => label === prospect.stage)
+      ))
+    ) {
+      throw new Error('Saved prospecting list has an invalid shape.');
+    }
+
+    const fastStart = parsedData.fastStart ?? createFastStartChecklist();
+    if (
+      fastStart === null
+      || typeof fastStart !== 'object'
+      || Array.isArray(fastStart)
+      || fastStartSteps.some(({ id }) => typeof fastStart[id] !== 'boolean')
+    ) {
+      throw new Error('Saved Fast Start checklist has an invalid shape.');
+    }
+
+    const presentationAssets = parsedData.presentationAssets ?? createPresentationAssets();
+    if (
+      presentationAssets === null
+      || typeof presentationAssets !== 'object'
+      || Array.isArray(presentationAssets)
+      || ['slideshowUrl', 'voiceoverUrl'].some((field) => typeof presentationAssets[field] !== 'string')
+    ) {
+      throw new Error('Saved presentation asset URLs have an invalid shape.');
+    }
+
+    const savedLeadershipSession = parsedData.leadershipSession ?? createLeadershipSession();
+    if (
+      savedLeadershipSession === null
+      || typeof savedLeadershipSession !== 'object'
+      || typeof savedLeadershipSession.name !== 'string'
+      || typeof savedLeadershipSession.date !== 'string'
+      || typeof savedLeadershipSession.leaderOfRecord !== 'string'
+      || savedLeadershipSession.checklist === null
+      || typeof savedLeadershipSession.checklist !== 'object'
+      || leadershipChecklist.some(({ id }) => typeof savedLeadershipSession.checklist[id] !== 'boolean')
+      || savedLeadershipSession.acknowledgements === null
+      || typeof savedLeadershipSession.acknowledgements !== 'object'
+      || leadershipAcknowledgements.some(({ id }) => typeof savedLeadershipSession.acknowledgements[id] !== 'boolean')
+    ) {
+      throw new Error('Saved leadership session has an invalid shape.');
+    }
+
     const acknowledgement = parsedData.pilotAcknowledgement;
     if (
       acknowledgement !== undefined
@@ -852,10 +1156,21 @@ function readWorkspaceData() {
     }
 
     const pilotAcknowledgement = { ...defaultPilotAcknowledgement, ...acknowledgement };
+    const prospectingData = {
+      prospects,
+      fastStart: { ...createFastStartChecklist(), ...fastStart },
+      presentationAssets: { ...createPresentationAssets(), ...presentationAssets },
+      leadershipSession: {
+        ...createLeadershipSession(),
+        ...savedLeadershipSession,
+        checklist: { ...createLeadershipSession().checklist, ...savedLeadershipSession.checklist },
+        acknowledgements: { ...createLeadershipSession().acknowledgements, ...savedLeadershipSession.acknowledgements },
+      },
+    };
     return {
       data: parsedData.mode === 'demo'
-        ? { ...createDemoWorkspaceData(), pilotAcknowledgement }
-        : { ...parsedData, pilotAcknowledgement },
+        ? { ...createDemoWorkspaceData(), ...prospectingData, pilotAcknowledgement }
+        : { ...parsedData, ...prospectingData, pilotAcknowledgement },
       warning: null,
     };
   } catch (error) {
@@ -872,6 +1187,49 @@ function formatDueDate(value) {
   return Number.isNaN(date.getTime())
     ? value
     : new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+}
+
+function getLocalDateValue(now = new Date()) {
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+}
+
+function calculatePersonalityResult(answers) {
+  if (answers.length !== personalityQuestions.length || answers.some((answer) => !answer)) return null;
+  const counts = Object.fromEntries(personalityTypes.map(({ code }) => [code, 0]));
+  answers.forEach((answer) => { counts[answer] += 1; });
+  const highestScore = Math.max(...Object.values(counts));
+  const leaders = Object.keys(counts).filter((code) => counts[code] === highestScore);
+  return leaders.length === 1 ? leaders[0] : 'F';
+}
+
+function getAssetUrl(asset, presentationAssets) {
+  if (asset.url) return asset.url;
+  if (!asset.presentationKey || !presentationAssets[asset.presentationKey]) return '';
+
+  try {
+    const url = new URL(presentationAssets[asset.presentationKey]);
+    return url.protocol === 'https:' ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function getAssetCopy(asset, presentationAssets) {
+  if (!asset.presentationKey) return asset.copy;
+  const placeholder = asset.presentationKey === 'slideshowUrl'
+    ? '[add approved slideshow URL]'
+    : '[add approved voiceover URL]';
+  return asset.copy.replace(placeholder, getAssetUrl(asset, presentationAssets) || placeholder);
+}
+
+function getProspectingTrackCopy(personality, stepId) {
+  const copy = prospectingTracks[personality][stepId];
+  const requiredLanguage = [];
+  if (!copy.includes('$15,000')) requiredLanguage.push('Desk Access is the published $15,000 process seat.');
+  if (!copy.includes('Process before outcome')) requiredLanguage.push('Process before outcome.');
+  if (!copy.toLowerCase().includes('signals')) requiredLanguage.push('No signals.');
+  if (!copy.toLowerCase().includes('guaranteed returns')) requiredLanguage.push('No guaranteed returns.');
+  return [copy, ...requiredLanguage].join(' ');
 }
 
 const operatorRules = [
@@ -897,7 +1255,14 @@ function App() {
   const [outreachTab, setOutreachTab] = useState('tracks');
   const [leadSearch, setLeadSearch] = useState('');
   const [leadStageFilter, setLeadStageFilter] = useState('All stages');
+  const [leadPersonalityFilter, setLeadPersonalityFilter] = useState('All personalities');
   const [selectedLeadName, setSelectedLeadName] = useState(null);
+  const [selectedProspectId, setSelectedProspectId] = useState(
+    () => initialWorkspaceData.data.prospects.find((prospect) => prospect.name.trim())?.id || '',
+  );
+  const [personalityTab, setPersonalityTab] = useState('C');
+  const [quizAnswers, setQuizAnswers] = useState(['', '', '', '']);
+  const [prospectingNotice, setProspectingNotice] = useState('');
   const [clipboardFeedback, setClipboardFeedback] = useState('');
   const [isQuickMenuOpen, setIsQuickMenuOpen] = useState(false);
   const [quickAction, setQuickAction] = useState(null);
@@ -999,11 +1364,13 @@ function App() {
   };
 
   const resetWorkspaceData = () => {
-    if (!window.confirm('Reset leads, next actions, and pilot records for this browser? This cannot be undone.')) return;
+    if (!window.confirm('Reset leads, prospecting list, checklist, next actions, and pilot records for this browser? This cannot be undone.')) return;
     setWorkspaceData(freshWorkspaceData);
     setSelectedLeadName(null);
+    setSelectedProspectId('');
     setLeadSearch('');
     setLeadStageFilter('All stages');
+    setLeadPersonalityFilter('All personalities');
     setDataNotice(null);
     setIsQuickMenuOpen(false);
     setQuickAction(null);
@@ -1019,8 +1386,10 @@ function App() {
       pilotAcknowledgement: workspaceData.pilotAcknowledgement ?? defaultPilotAcknowledgement,
     });
     setSelectedLeadName(null);
+    setSelectedProspectId('prospect-1');
     setLeadSearch('');
     setLeadStageFilter('All stages');
+    setLeadPersonalityFilter('All personalities');
     setDataNotice(null);
     setIsQuickMenuOpen(false);
     setQuickAction(null);
@@ -1049,6 +1418,170 @@ function App() {
         [field]: value,
       },
     }));
+  };
+
+  const updateFastStart = (id, checked) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      fastStart: { ...current.fastStart, [id]: checked },
+    }));
+  };
+
+  const updateLeadershipSession = (group, field, value) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      leadershipSession: group === 'profile'
+        ? { ...current.leadershipSession, [field]: value }
+        : {
+          ...current.leadershipSession,
+          [group]: { ...current.leadershipSession[group], [field]: value },
+        },
+    }));
+  };
+
+  const updatePresentationAsset = (field, value) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      presentationAssets: { ...current.presentationAssets, [field]: value },
+    }));
+  };
+
+  const updateProspect = (prospectId, fields) => {
+    setWorkspaceData((current) => {
+      const currentProspect = current.prospects.find((prospect) => prospect.id === prospectId);
+      if (!currentProspect) return current;
+
+      const prospects = current.prospects.map((prospect) => (
+        prospect.id === prospectId ? { ...prospect, ...fields } : prospect
+      ));
+      const updatedProspect = prospects.find((prospect) => prospect.id === prospectId);
+      const leads = current.leads.map((lead) => (
+        lead.prospectId === prospectId || (currentProspect.leadId && lead.id === currentProspect.leadId)
+          ? {
+            ...lead,
+            name: updatedProspect.name || lead.name,
+            channel: updatedProspect.channel,
+            personality: updatedProspect.personality,
+            state: updatedProspect.state,
+            stage: updatedProspect.stage,
+            nextAction: updatedProspect.nextAction,
+            due: updatedProspect.due,
+          }
+          : lead
+      ));
+      return {
+        ...current,
+        mode: leads.some((lead, index) => lead !== current.leads[index]) ? 'custom' : current.mode,
+        prospects,
+        leads,
+      };
+    });
+  };
+
+  const addProspectRow = () => {
+    setWorkspaceData((current) => ({
+      ...current,
+      prospects: [...current.prospects, {
+        ...createProspectTemplateRow(current.prospects.length),
+        id: `prospect-${Date.now()}`,
+      }],
+    }));
+  };
+
+  const deleteProspectRow = (prospectId) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      prospects: current.prospects.filter((prospect) => prospect.id !== prospectId),
+    }));
+    setSelectedProspectId((current) => current === prospectId ? '' : current);
+  };
+
+  const addProspectToLeads = (prospectId) => {
+    const prospect = workspaceData.prospects.find((row) => row.id === prospectId);
+    if (!prospect?.name.trim()) {
+      setProspectingNotice('Add a name before linking this prospect to Leads.');
+      return;
+    }
+
+    const existingLead = workspaceData.leads.find((lead) => (
+      lead.prospectId === prospectId || lead.id === prospect.leadId
+      || lead.name.toLowerCase() === prospect.name.trim().toLowerCase()
+    ));
+    const lead = {
+      ...(existingLead || {}),
+      id: existingLead?.id || prospect.leadId || `LD-${prospect.id}`,
+      prospectId,
+      name: prospect.name.trim(),
+      channel: prospect.channel || 'Other',
+      temp: prospect.state === 'Cold' ? 'Cold' : 'Warm',
+      value: existingLead?.value || '$15k',
+      seatValue: existingLead?.seatValue || 15000,
+      personality: prospect.personality,
+      state: prospect.state,
+      stage: prospect.stage,
+      nextAction: prospect.nextAction,
+      due: prospect.due,
+      owner: existingLead?.owner || 'Harry',
+    };
+
+    setWorkspaceData((current) => ({
+      ...current,
+      mode: 'custom',
+      prospects: current.prospects.map((row) => row.id === prospectId ? { ...row, leadId: lead.id } : row),
+      leads: existingLead
+        ? current.leads.map((row) => row.id === existingLead.id ? lead : row)
+        : [lead, ...current.leads],
+    }));
+    setProspectingNotice(`${lead.name} linked to Leads.`);
+  };
+
+  const setProspectAppointment = (prospect) => {
+    updateProspect(prospect.id, {
+      state: 'Set',
+      stage: 'Seat conversation',
+      nextAction: 'Appointment',
+      due: prospect.due || getLocalDateValue(),
+    });
+  };
+
+  const markProspectPresented = (prospect) => {
+    const followupDate = new Date();
+    followupDate.setDate(followupDate.getDate() + 1);
+    updateProspect(prospect.id, {
+      state: 'Presented',
+      stage: 'Seat conversation',
+      nextAction: '24-hour follow-up',
+      due: getLocalDateValue(followupDate),
+    });
+  };
+
+  const applyPersonalityQuiz = () => {
+    if (!selectedProspectId || quizAnswers.some((answer) => !answer)) {
+      setProspectingNotice('Select a prospect and answer all four questions.');
+      return;
+    }
+
+    const result = calculatePersonalityResult(quizAnswers);
+    if (!result) return;
+    const prospect = workspaceData.prospects.find((row) => row.id === selectedProspectId);
+    updateProspect(selectedProspectId, { personality: result });
+    setProspectingNotice(`${prospect?.name || 'Prospect'} tagged ${result} · ${personalityTypes.find(({ code }) => code === result)?.label}.`);
+  };
+
+  const getLeadPersonality = (lead) => (
+    personalityTypes.some(({ code }) => code === lead.personality)
+      ? lead.personality
+      : workspaceData.prospects.find((prospect) => (
+        prospect.leadId === lead.id || prospect.name.toLowerCase() === lead.name.toLowerCase()
+      ))?.personality || 'unknown'
+  );
+
+  const copyProspectingTrack = (stepId) => {
+    const copy = getProspectingTrackCopy(personalityTab, stepId);
+    const selectedProspect = workspaceData.prospects.find((prospect) => prospect.id === selectedProspectId);
+    const firstName = selectedProspect?.name.trim().split(/\s+/)[0];
+    const personalizedCopy = firstName ? `${firstName}, ${copy}` : copy;
+    copyApprovedText(personalizedCopy, `${personalityTab} ${prospectingTrackSteps.find((step) => step.id === stepId)?.label}`);
   };
 
   const openSampleLead = () => {
@@ -1109,15 +1642,35 @@ function App() {
     const returnToPipeline = activeNav === 'Pipeline';
     const newLead = {
       ...leadDraft,
+      id: `LD-${Date.now()}`,
       name,
       stage: 'New',
       owner: 'Harry',
+      personality: 'unknown',
+      state: leadDraft.temp === 'Cold' ? 'Cold' : 'Warm',
     };
-    setWorkspaceData((current) => ({
-      ...current,
-      mode: 'custom',
-      leads: [newLead, ...current.leads],
-    }));
+    setWorkspaceData((current) => {
+      const emptyRow = current.prospects.find((prospect) => !prospect.name.trim());
+      const prospect = {
+        ...(emptyRow || createProspectTemplateRow(current.prospects.length)),
+        leadId: newLead.id,
+        name,
+        channel: leadDraft.channel,
+        personality: 'unknown',
+        state: newLead.state,
+        stage: 'New',
+        nextAction: '',
+        due: '',
+      };
+      return {
+        ...current,
+        mode: 'custom',
+        leads: [{ ...newLead, prospectId: prospect.id }, ...current.leads],
+        prospects: emptyRow
+          ? current.prospects.map((row) => row.id === emptyRow.id ? prospect : row)
+          : [...current.prospects, prospect],
+      };
+    });
     setLeadDraft({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
     closeQuickAction();
     if (returnToPipeline) {
@@ -1169,9 +1722,14 @@ function App() {
   const filteredLeadRecords = workspaceData.leads.filter((lead) => {
     const matchesQuery = `${lead.name} ${lead.channel} ${lead.stage}`.toLowerCase().includes(leadSearch.toLowerCase());
     const matchesStage = leadStageFilter === 'All stages' || lead.stage === leadStageFilter;
-    return matchesQuery && matchesStage;
+    const matchesPersonality = leadPersonalityFilter === 'All personalities' || getLeadPersonality(lead) === leadPersonalityFilter;
+    return matchesQuery && matchesStage && matchesPersonality;
   });
   const selectedLead = workspaceData.leads.find((lead) => lead.name === selectedLeadName);
+  const selectedProspect = workspaceData.prospects.find((prospect) => prospect.id === selectedProspectId);
+  const dueProspects = workspaceData.prospects.filter((prospect) => (
+    prospect.name.trim() && prospect.due && prospect.due <= getLocalDateValue()
+  ));
   const visibleMetricCards = workspaceData.mode === 'demo'
     ? demoMetricCards
     : [
@@ -1407,6 +1965,7 @@ function App() {
                 { label: 'Manual · The Black Book', target: 'manual' },
                 { label: 'Leads', target: 'leads' },
                 { label: 'Pipeline', target: 'pipeline' },
+                { label: 'Prospecting', target: 'prospecting' },
                 { label: 'Assets', target: 'assets' },
                 { label: 'Outreach', target: 'outreach' },
                 { label: 'Pilot', target: 'pilot' },
@@ -1562,6 +2121,10 @@ function App() {
               </div>
             </div>
           </section>
+          <LeadershipSessionPanel
+            session={workspaceData.leadershipSession}
+            onUpdate={updateLeadershipSession}
+          />
           <article className="manual-export-document">
             <section className="manual-export-cover">
               <span className="manual-export-mark">黒</span>
@@ -1640,6 +2203,14 @@ function App() {
                     {pipelineStages.map((stage) => <option key={stage.label}>{stage.label}</option>)}
                   </select>
                 </label>
+                <label className="lead-stage-filter">
+                  <span>Personality</span>
+                  <select value={leadPersonalityFilter} onChange={(event) => setLeadPersonalityFilter(event.target.value)}>
+                    <option>All personalities</option>
+                    <option value="unknown">Unknown</option>
+                    {personalityTypes.map(({ code }) => <option key={code} value={code}>{code}</option>)}
+                  </select>
+                </label>
               </div>
               <div className="leads-workspace">
                 <div className="lead-registry">
@@ -1650,7 +2221,12 @@ function App() {
                       type="button"
                       onClick={() => setSelectedLeadName(lead.name)}
                     >
-                      <span className="lead-registry-name">{lead.name}</span>
+                      <span className="lead-registry-name">
+                        {lead.name}
+                        <span className={`personality-badge personality-${getLeadPersonality(lead).toLowerCase()}`}>
+                          {getLeadPersonality(lead)}
+                        </span>
+                      </span>
                       <span className="lead-registry-stage">{lead.stage}</span>
                       <span className="lead-registry-source">{lead.channel} · {lead.temp}</span>
                       <span className="lead-value">{lead.value}</span>
@@ -1736,12 +2312,23 @@ function App() {
                 </button>
               </div>
             </div>
+            <label className="lead-stage-filter pipeline-personality-filter">
+              <span>Personality</span>
+              <select value={leadPersonalityFilter} onChange={(event) => setLeadPersonalityFilter(event.target.value)}>
+                <option>All personalities</option>
+                <option value="unknown">Unknown</option>
+                {personalityTypes.map(({ code }) => <option key={code} value={code}>{code}</option>)}
+              </select>
+            </label>
             <div className="kanban-grid">
               {pipelineStages.map((stage) => (
                 <div key={stage.label} className="stage-column">
                   <div className="stage-header">{stage.label}</div>
                   <div className="stage-list">
-                    {workspaceData.leads.filter((lead) => lead.stage === stage.label).map((lead) => (
+                    {workspaceData.leads.filter((lead) => (
+                      lead.stage === stage.label
+                      && (leadPersonalityFilter === 'All personalities' || getLeadPersonality(lead) === leadPersonalityFilter)
+                    )).map((lead) => (
                       <button key={lead.name} className="lead-card" type="button" onClick={() => openLead(lead.name)}>
                         <div className="lead-head">
                           <span>{lead.name}</span>
@@ -1751,9 +2338,15 @@ function App() {
                           <span>{lead.channel}</span>
                           <span>{lead.temp}</span>
                         </div>
+                        <span className={`personality-badge personality-${getLeadPersonality(lead).toLowerCase()}`}>
+                          {getLeadPersonality(lead)}
+                        </span>
                       </button>
                     ))}
-                    {!workspaceData.leads.some((lead) => lead.stage === stage.label) && (
+                    {!workspaceData.leads.some((lead) => (
+                      lead.stage === stage.label
+                      && (leadPersonalityFilter === 'All personalities' || getLeadPersonality(lead) === leadPersonalityFilter)
+                    )) && (
                       <div className="stage-empty-state">No prospects</div>
                     )}
                   </div>
@@ -1761,6 +2354,245 @@ function App() {
               ))}
             </div>
           </section>
+          </div>
+
+          <div className="page-view" hidden={activeNav !== 'Prospecting'}>
+            <div className="banner-warning">
+              Appointment → Present → Close. Process before outcome. No signals or guaranteed returns.
+            </div>
+            <section className={`prospecting-panel ${isTourTarget('prospecting') ? 'tour-target' : ''}`} id="prospecting">
+              <div className="panel-header">
+                <span className="section-kicker">Prospecting / field sequence</span>
+                <span className="range-label">Segment by personality · log the truth</span>
+              </div>
+
+              <section className="fast-start-block" aria-labelledby="fast-start-title">
+                <div className="prospecting-section-heading">
+                  <div>
+                    <span className="prospecting-kicker">INSTALL / SAME DAY</span>
+                    <h2 id="fast-start-title">Fast Start</h2>
+                  </div>
+                  <a className="text-action" href="#prospecting-list">Open my list of 10 <span aria-hidden="true">→</span></a>
+                </div>
+                <div className="fast-start-progress">
+                  <div className="fast-start-progress-label">
+                    <span>{fastStartSteps.filter(({ id }) => workspaceData.fastStart[id]).length} / {fastStartSteps.length} steps complete</span>
+                    <span>{Math.round((fastStartSteps.filter(({ id }) => workspaceData.fastStart[id]).length / fastStartSteps.length) * 100)}%</span>
+                  </div>
+                  <progress
+                    value={fastStartSteps.filter(({ id }) => workspaceData.fastStart[id]).length}
+                    max={fastStartSteps.length}
+                    aria-label="Fast Start progress"
+                  />
+                </div>
+                <div className="fast-start-grid">
+                  {fastStartSteps.map((step) => (
+                    <label className={`fast-start-step ${workspaceData.fastStart[step.id] ? 'complete' : ''}`} key={step.id}>
+                      <input
+                        type="checkbox"
+                        checked={workspaceData.fastStart[step.id]}
+                        onChange={(event) => updateFastStart(step.id, event.target.checked)}
+                      />
+                      <span className="fast-start-step-index">{step.id}</span>
+                      <span><strong>{step.label}</strong><small>{step.detail}</small></span>
+                    </label>
+                  ))}
+                </div>
+              </section>
+
+              <div className="prospecting-grid">
+                <section className="prospecting-card personality-quiz-card">
+                  <div className="prospecting-section-heading">
+                    <div>
+                      <span className="prospecting-kicker">READ / DO NOT ASSUME</span>
+                      <h2>Personality read</h2>
+                    </div>
+                  </div>
+                  <label className="prospecting-field">
+                    Apply to prospect
+                    <select
+                      value={selectedProspectId}
+                      onChange={(event) => {
+                        setSelectedProspectId(event.target.value);
+                        setQuizAnswers(['', '', '', '']);
+                        setProspectingNotice('');
+                      }}
+                    >
+                      <option value="">Select a prospect</option>
+                      {workspaceData.prospects.filter((prospect) => prospect.name.trim()).map((prospect) => (
+                        <option key={prospect.id} value={prospect.id}>{prospect.name}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <div className="personality-legend">
+                    {personalityTypes.map((type) => (
+                      <span key={type.code}><b>{type.code}</b>{type.label}</span>
+                    ))}
+                  </div>
+                  <div className="personality-questions">
+                    {personalityQuestions.map((item, index) => (
+                      <label key={item.question}>
+                        <span><b>0{index + 1}</b>{item.question}</span>
+                        <select
+                          value={quizAnswers[index]}
+                          onChange={(event) => setQuizAnswers((current) => current.map((answer, answerIndex) => (
+                            answerIndex === index ? event.target.value : answer
+                          )))}
+                        >
+                          <option value="">Select the closest read</option>
+                          {personalityTypes.map(({ code }) => (
+                            <option key={code} value={code}>{code} — {item.answers[code]}</option>
+                          ))}
+                        </select>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="personality-quiz-actions">
+                    <span>Top read: {calculatePersonalityResult(quizAnswers) || '—'} <small>(ties resolve to F)</small></span>
+                    <button className="panel-add-lead" type="button" disabled={!selectedProspectId || quizAnswers.some((answer) => !answer)} onClick={applyPersonalityQuiz}>
+                      Apply to prospect
+                    </button>
+                  </div>
+                </section>
+
+                <section className="prospecting-card needs-touch-card">
+                  <div className="prospecting-section-heading">
+                    <div>
+                      <span className="prospecting-kicker">FOLLOW THROUGH</span>
+                      <h2>Needs touch</h2>
+                    </div>
+                    <span className="range-label">{dueProspects.length} due today / overdue</span>
+                  </div>
+                  {dueProspects.length > 0 ? (
+                    <div className="needs-touch-list">
+                      {dueProspects.map((prospect) => (
+                        <button
+                          className="needs-touch-row"
+                          type="button"
+                          key={prospect.id}
+                          onClick={() => {
+                            setSelectedProspectId(prospect.id);
+                            document.getElementById('prospecting-list')?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                        >
+                          <span><strong>{prospect.name}</strong><small>{prospect.nextAction || 'Next action not recorded'}</small></span>
+                          <time>{formatDueDate(prospect.due)}</time>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="prospecting-empty-state">No prospecting touches due today.</div>
+                  )}
+                  <p className="needs-touch-note">Due dates and next actions stay visible in your list of 10.</p>
+                </section>
+              </div>
+
+              {prospectingNotice && <p className="copy-feedback prospecting-feedback" role="status" aria-live="polite">{prospectingNotice}</p>}
+
+              <section className="prospecting-list-section" id="prospecting-list">
+                <div className="prospecting-section-heading">
+                  <div>
+                    <span className="prospecting-kicker">CURRENT OPERATOR / PERSONAL BOOK</span>
+                    <h2>List of 10</h2>
+                  </div>
+                  <button className="panel-add-lead" type="button" onClick={addProspectRow}>+ Add row</button>
+                </div>
+                <div className="prospect-table-scroller">
+                  <table className="prospect-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Channel</th>
+                        <th>Personality</th>
+                        <th>State</th>
+                        <th>Stage</th>
+                        <th>Next action</th>
+                        <th>Due</th>
+                        <th>Record</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {workspaceData.prospects.map((prospect) => (
+                        <tr key={prospect.id}>
+                          <td><input aria-label="Prospect name" value={prospect.name} onChange={(event) => updateProspect(prospect.id, { name: event.target.value })} placeholder="Name" /></td>
+                          <td><input aria-label="Prospect channel" value={prospect.channel} onChange={(event) => updateProspect(prospect.id, { channel: event.target.value })} placeholder="Channel" /></td>
+                          <td>
+                            <select aria-label="Prospect personality" value={prospect.personality} onChange={(event) => updateProspect(prospect.id, { personality: event.target.value })}>
+                              <option value="unknown">Unknown</option>
+                              {personalityTypes.map(({ code }) => <option key={code} value={code}>{code}</option>)}
+                            </select>
+                          </td>
+                          <td>
+                            <select aria-label="Prospect state" value={prospect.state} onChange={(event) => updateProspect(prospect.id, { state: event.target.value })}>
+                              {prospectStates.map((state) => <option key={state}>{state}</option>)}
+                            </select>
+                          </td>
+                          <td>
+                            <select aria-label="Prospect stage" value={prospect.stage} onChange={(event) => updateProspect(prospect.id, { stage: event.target.value })}>
+                              {pipelineStages.map(({ label }) => <option key={label}>{label}</option>)}
+                            </select>
+                          </td>
+                          <td><input aria-label="Prospect next action" value={prospect.nextAction} onChange={(event) => updateProspect(prospect.id, { nextAction: event.target.value })} placeholder="Next action" /></td>
+                          <td><input aria-label="Prospect due date" type="date" value={prospect.due} onChange={(event) => updateProspect(prospect.id, { due: event.target.value })} /></td>
+                          <td>
+                            <div className="prospect-row-actions">
+                              <button type="button" onClick={() => setProspectAppointment(prospect)}>Book appointment</button>
+                              <button type="button" onClick={() => markProspectPresented(prospect)}>Mark presented</button>
+                              {prospect.leadId ? (
+                                <button type="button" onClick={() => openLead(workspaceData.leads.find((lead) => lead.id === prospect.leadId)?.name || prospect.name)}>Open lead</button>
+                              ) : (
+                                <button type="button" disabled={!prospect.name.trim()} onClick={() => addProspectToLeads(prospect.id)}>Add to Leads</button>
+                              )}
+                              <button className="prospect-delete-button" type="button" aria-label={`Delete ${prospect.name || 'empty'} prospect row`} onClick={() => deleteProspectRow(prospect.id)}>Delete</button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="prospecting-list-note">Ten blank rows are ready in a fresh book. Add to Leads links a named prospect to the existing registry and pipeline.</p>
+              </section>
+
+              <section className="prospecting-tracks-section">
+                <div className="prospecting-section-heading">
+                  <div>
+                    <span className="prospecting-kicker">APPROVED LANGUAGE / COPYABLE</span>
+                    <h2>Tracks</h2>
+                  </div>
+                  {selectedProspect?.name && <span className="range-label">Selected / {selectedProspect.name}</span>}
+                </div>
+                <div className="personality-tabs" role="tablist" aria-label="Prospecting personality tracks">
+                  {personalityTypes.map(({ code }) => (
+                    <button
+                      key={code}
+                      type="button"
+                      role="tab"
+                      aria-selected={personalityTab === code}
+                      className={personalityTab === code ? 'active' : ''}
+                      onClick={() => setPersonalityTab(code)}
+                    >
+                      {code} <span>{personalityTypes.find((type) => type.code === code)?.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="prospecting-track-grid">
+                  {prospectingTrackSteps.map((step, index) => (
+                    <article className="prospecting-track-card" key={step.id}>
+                      <div className="prospecting-track-heading">
+                        <span className="prospecting-track-index">0{index + 1}</span>
+                        <h3>{step.label}</h3>
+                        <button type="button" className="copy-button" onClick={() => copyProspectingTrack(step.id)}>
+                          Copy{selectedProspect?.name ? ` for ${selectedProspect.name.trim().split(/\s+/)[0]}` : ' track'}
+                        </button>
+                      </div>
+                      <p>{getProspectingTrackCopy(personalityTab, step.id)}</p>
+                    </article>
+                  ))}
+                </div>
+                {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
+              </section>
+            </section>
           </div>
 
           <div className="page-view" hidden={activeNav !== 'Assets'}>
@@ -1790,13 +2622,31 @@ function App() {
                           {asset.internal && <span className="asset-badge asset-badge-internal">Internal</span>}
                         </div>
                         <p><strong>When to send:</strong> {asset.whenToSend}</p>
-                        <a className="asset-primary-link" href={asset.url} target="_blank" rel="noopener noreferrer">{asset.url}</a>
-                        <blockquote className="asset-copy-text">{asset.copy}</blockquote>
+                        {asset.presentationKey && (
+                          <label className="asset-url-field">
+                            Admin-approved URL
+                            <input
+                              type="url"
+                              value={workspaceData.presentationAssets[asset.presentationKey]}
+                              onChange={(event) => updatePresentationAsset(asset.presentationKey, event.target.value)}
+                              placeholder="https://"
+                            />
+                            {workspaceData.presentationAssets[asset.presentationKey] && !getAssetUrl(asset, workspaceData.presentationAssets) && (
+                              <span role="alert">Enter a valid HTTPS URL before opening or copying this asset.</span>
+                            )}
+                          </label>
+                        )}
+                        {getAssetUrl(asset, workspaceData.presentationAssets) ? (
+                          <a className="asset-primary-link" href={getAssetUrl(asset, workspaceData.presentationAssets)} target="_blank" rel="noopener noreferrer">{getAssetUrl(asset, workspaceData.presentationAssets)}</a>
+                        ) : (
+                          <span className="asset-pending">{asset.placeholder}</span>
+                        )}
+                        <blockquote className="asset-copy-text">{getAssetCopy(asset, workspaceData.presentationAssets)}</blockquote>
                         <div className="asset-actions">
-                          <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
+                          <button className="copy-button" type="button" onClick={() => copyApprovedText(getAssetCopy(asset, workspaceData.presentationAssets), asset.title)}>
                             Copy message
                           </button>
-                          <a href={asset.url} target="_blank" rel="noopener noreferrer">Open link ↗</a>
+                          {getAssetUrl(asset, workspaceData.presentationAssets) && <a href={getAssetUrl(asset, workspaceData.presentationAssets)} target="_blank" rel="noopener noreferrer">Open link ↗</a>}
                         </div>
                       </article>
                     ))}
@@ -1804,7 +2654,7 @@ function App() {
                 </section>
               ))}
             </div>
-            <p className="assets-footer-note">Links verified to kurogamigroup.com + live desk apps. Admin updates Continuum if routes change.</p>
+            <p className="assets-footer-note">Links verified to kurogamigroup.com + live desk apps. Admin updates Continuum if routes change. Opportunity Present URLs remain pending Admin approval.</p>
             {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
           </section>
           </div>
@@ -1894,13 +2744,31 @@ function App() {
                         {asset.internal && <span className="asset-badge asset-badge-internal">Internal</span>}
                       </div>
                       <p><strong>When to send:</strong> {asset.whenToSend}</p>
-                      <a className="asset-primary-link" href={asset.url} target="_blank" rel="noopener noreferrer">{asset.url}</a>
-                      <blockquote className="asset-copy-text">{asset.copy}</blockquote>
+                      {asset.presentationKey && (
+                        <label className="asset-url-field">
+                          Admin-approved URL
+                          <input
+                            type="url"
+                            value={workspaceData.presentationAssets[asset.presentationKey]}
+                            onChange={(event) => updatePresentationAsset(asset.presentationKey, event.target.value)}
+                            placeholder="https://"
+                          />
+                          {workspaceData.presentationAssets[asset.presentationKey] && !getAssetUrl(asset, workspaceData.presentationAssets) && (
+                            <span role="alert">Enter a valid HTTPS URL before opening or copying this asset.</span>
+                          )}
+                        </label>
+                      )}
+                      {getAssetUrl(asset, workspaceData.presentationAssets) ? (
+                        <a className="asset-primary-link" href={getAssetUrl(asset, workspaceData.presentationAssets)} target="_blank" rel="noopener noreferrer">{getAssetUrl(asset, workspaceData.presentationAssets)}</a>
+                      ) : (
+                        <span className="asset-pending">{asset.placeholder}</span>
+                      )}
+                      <blockquote className="asset-copy-text">{getAssetCopy(asset, workspaceData.presentationAssets)}</blockquote>
                       <div className="asset-actions">
-                        <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
+                        <button className="copy-button" type="button" onClick={() => copyApprovedText(getAssetCopy(asset, workspaceData.presentationAssets), asset.title)}>
                           Copy message
                         </button>
-                        <a href={asset.url} target="_blank" rel="noopener noreferrer">Open link ↗</a>
+                        {getAssetUrl(asset, workspaceData.presentationAssets) && <a href={getAssetUrl(asset, workspaceData.presentationAssets)} target="_blank" rel="noopener noreferrer">Open link ↗</a>}
                       </div>
                     </article>
                   ))}
@@ -1984,6 +2852,10 @@ function App() {
                 </p>
               </form>
             </div>
+            <LeadershipSessionPanel
+              session={workspaceData.leadershipSession}
+              onUpdate={updateLeadershipSession}
+            />
             <div className="pilot-scoreboard">
               <div className="pilot-scoreboard-heading">
                 <h3>Display-only scoreboard</h3>
@@ -2167,6 +3039,7 @@ function App() {
               Begin with The Black Book. It sets the law for how we speak, qualify, and hand off every prospect.
             </p>
             <p className="guide-manual-line">Black Book = law; Continuum = desk that runs it</p>
+            <p className="guide-field-note">Appointment → Present → Close. Segment by personality. Fast Start installs the machine same day. Leadership = duplication of standard, not pyramid ranks. Comp only on closed paid attributed seats under written terms.</p>
             <div className="welcome-steps">
               <span><b>01</b> Learn the standard</span>
               <span><b>02</b> Walk the workspace</span>
