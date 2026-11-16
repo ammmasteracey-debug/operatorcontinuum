@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const navItems = [
   { index: '01', label: 'Home', href: '#home', target: 'home' },
@@ -2116,6 +2116,39 @@ const operatorRules = [
   'Admin can revoke prospecting instantly.',
 ];
 
+const backgroundMusicStorageKey = 'operator-continuum-background-music';
+
+function readBackgroundMusicPreference() {
+  try {
+    const savedPreference = window.localStorage.getItem(backgroundMusicStorageKey);
+    if (savedPreference === null) return { enabled: true, notice: '' };
+    if (savedPreference === 'true' || savedPreference === 'false') {
+      return { enabled: savedPreference === 'true', notice: '' };
+    }
+    throw new Error('Saved background music preference has an invalid value.');
+  } catch (error) {
+    console.error('Unable to read background music preference.', error);
+    return {
+      enabled: true,
+      notice: 'Music preference could not be read; background music is on by default.',
+    };
+  }
+}
+
+function BackgroundMusicToggle({ enabled, onToggle, className = '' }) {
+  return (
+    <button
+      className={`background-music-toggle ${className}`}
+      type="button"
+      aria-pressed={enabled}
+      aria-label={enabled ? 'Turn background music off' : 'Turn background music on'}
+      onClick={onToggle}
+    >
+      Music: {enabled ? 'On' : 'Off'}
+    </button>
+  );
+}
+
 function App() {
   const [initialWorkspaceData] = useState(readWorkspaceData);
   const [workspaceData, setWorkspaceData] = useState(initialWorkspaceData.data);
@@ -2123,6 +2156,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isStartScreenOpen, setIsStartScreenOpen] = useState(true);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [initialBackgroundMusicPreference] = useState(readBackgroundMusicPreference);
+  const [isBackgroundMusicEnabled, setIsBackgroundMusicEnabled] = useState(initialBackgroundMusicPreference.enabled);
+  const [backgroundMusicPreferenceNotice, setBackgroundMusicPreferenceNotice] = useState(initialBackgroundMusicPreference.notice);
+  const [backgroundMusicPlaybackNotice, setBackgroundMusicPlaybackNotice] = useState('');
+  const backgroundMusicRef = useRef(null);
   const [tourStep, setTourStep] = useState(null);
   const [isTourCardHidden, setIsTourCardHidden] = useState(false);
   const [activeNav, setActiveNav] = useState(
@@ -2160,6 +2198,38 @@ function App() {
   const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
   const [isMobileMoreOpen, setIsMobileMoreOpen] = useState(false);
 
+  const startBackgroundMusic = () => {
+    const audio = backgroundMusicRef.current;
+    if (!audio) return;
+    audio.volume = 0.25;
+    try {
+      const playback = audio.play();
+      if (playback) {
+        playback.then(
+          () => setBackgroundMusicPlaybackNotice(''),
+          (error) => {
+            console.error('Unable to start background music.', error);
+            setBackgroundMusicPlaybackNotice('Background music is on but playback did not start. Use the music toggle to retry.');
+          },
+        );
+      }
+    } catch (error) {
+      console.error('Unable to start background music.', error);
+      setBackgroundMusicPlaybackNotice('Background music is on but playback did not start. Use the music toggle to retry.');
+    }
+  };
+
+  const toggleBackgroundMusic = () => {
+    const nextEnabled = !isBackgroundMusicEnabled;
+    setIsBackgroundMusicEnabled(nextEnabled);
+    if (nextEnabled) {
+      startBackgroundMusic();
+    } else {
+      backgroundMusicRef.current?.pause();
+      setBackgroundMusicPlaybackNotice('');
+    }
+  };
+
   useEffect(() => {
     try {
       window.localStorage.setItem(workspaceDataStorageKey, JSON.stringify(workspaceData));
@@ -2168,6 +2238,20 @@ function App() {
       setDataNotice('Workspace changes could not be saved in this browser.');
     }
   }, [workspaceData]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(backgroundMusicStorageKey, String(isBackgroundMusicEnabled));
+      setBackgroundMusicPreferenceNotice('');
+    } catch (error) {
+      console.error('Unable to save background music preference.', error);
+      setBackgroundMusicPreferenceNotice('Background music preference could not be saved in this browser.');
+    }
+  }, [isBackgroundMusicEnabled]);
+
+  useEffect(() => {
+    if (isBackgroundMusicEnabled) startBackgroundMusic();
+  }, []);
 
   useEffect(() => {
     try {
@@ -2224,6 +2308,7 @@ function App() {
   const startWorkspace = () => {
     setIsStartScreenOpen(false);
     setIsGuideOpen(true);
+    if (isBackgroundMusicEnabled) startBackgroundMusic();
   };
 
   const goToTourStep = (step) => {
@@ -2647,9 +2732,22 @@ function App() {
     ];
 
   const isTourTarget = (target) => tourStep !== null && tourSteps[tourStep].target === target;
+  const backgroundMusicNotice = [backgroundMusicPreferenceNotice, backgroundMusicPlaybackNotice].filter(Boolean).join(' ');
 
   return (
     <div className="workspace-frame">
+      <audio
+        ref={backgroundMusicRef}
+        src="/assets/leave%20this%20playing.%20let%20abundance%20become%20your%20new%20normal.mp3"
+        loop
+        preload="auto"
+        aria-hidden="true"
+        onError={(event) => {
+          console.error('Unable to load background music.', event.currentTarget.error);
+          setBackgroundMusicPlaybackNotice('Background music could not be loaded from public/assets.');
+        }}
+        onPlay={() => setBackgroundMusicPlaybackNotice('')}
+      />
       {isStartScreenOpen && (
         <div
           className={`launch-screen ${isLoading ? 'booting' : 'ready'}`}
@@ -2678,6 +2776,12 @@ function App() {
               <span className={isLoading ? 'status-pulse' : ''} />
               {isLoading ? 'Loading field manual · Initializing operator desk' : 'Black Book v1.0 loaded · Operator desk online'}
             </div>
+            <BackgroundMusicToggle
+              className="launch-music-toggle"
+              enabled={isBackgroundMusicEnabled}
+              onToggle={toggleBackgroundMusic}
+            />
+            {backgroundMusicNotice && <p className="background-music-notice" role="status">{backgroundMusicNotice}</p>}
             {isLoading ? (
               <div className="launch-progress" aria-label="Loading workspace">
                 <span />
@@ -2700,8 +2804,14 @@ function App() {
           <span className="site-mark">黒</span>
           <span className="site-brand-copy"><strong>KUROGAMI GROUP</strong><small>OPERATOR CONTINUUM</small></span>
         </div>
-        <div className="system-status"><span /> GROUP OPERATIONS / ACTIVE</div>
+        <div className="site-header-tools">
+          <BackgroundMusicToggle enabled={isBackgroundMusicEnabled} onToggle={toggleBackgroundMusic} />
+          <div className="system-status"><span /> GROUP OPERATIONS / ACTIVE</div>
+        </div>
       </header>
+      {!isStartScreenOpen && backgroundMusicNotice && (
+        <p className="background-music-notice app-music-notice" role="status">{backgroundMusicNotice}</p>
+      )}
 
       <div className="app-shell">
         <aside className="sidebar">
