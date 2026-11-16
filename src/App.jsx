@@ -1484,6 +1484,7 @@ function ManualSectionBody({
   section,
   onCopyTrack,
   onOpenSample,
+  onOpenField,
   hasSample,
   curriculumProgress,
   onToggleCurriculumModule,
@@ -1514,6 +1515,13 @@ function ManualSectionBody({
             <li>Do not past curriculum PDFs that contradict Black Book laws.</li>
             <li>If prospect only wants “the course” with no seat path, clarify units with Admin — do not invent a price.</li>
           </ul>
+        </aside>
+        <aside className="curriculum-closer-fast-path" aria-label="Fast path for closers">
+          <div>
+            <h4>Fast path for closers</h4>
+            <p>Already cleared to close? Curriculum I is not a prerequisite for Field. Go straight to §08 for the Appointment → Present → Close track.</p>
+          </div>
+          {onOpenField && <button type="button" onClick={onOpenField}>Open §08 / Field</button>}
         </aside>
         <CurriculumContent
           progress={curriculumProgress}
@@ -2121,7 +2129,7 @@ const backgroundMusicStorageKey = 'operator-continuum-background-music';
 function readBackgroundMusicPreference() {
   try {
     const savedPreference = window.localStorage.getItem(backgroundMusicStorageKey);
-    if (savedPreference === null) return { enabled: true, notice: '' };
+    if (savedPreference === null) return { enabled: false, notice: '' };
     if (savedPreference === 'true' || savedPreference === 'false') {
       return { enabled: savedPreference === 'true', notice: '' };
     }
@@ -2129,8 +2137,8 @@ function readBackgroundMusicPreference() {
   } catch (error) {
     console.error('Unable to read background music preference.', error);
     return {
-      enabled: true,
-      notice: 'Music preference could not be read; background music is on by default.',
+      enabled: false,
+      notice: 'Music preference could not be read; background music is off by default.',
     };
   }
 }
@@ -2264,10 +2272,6 @@ function App() {
   }, [isBackgroundMusicEnabled]);
 
   useEffect(() => {
-    if (isBackgroundMusicEnabled) startBackgroundMusic();
-  }, []);
-
-  useEffect(() => {
     try {
       window.localStorage.setItem(curriculumProgressStorageKey, JSON.stringify(curriculumProgress));
       setCurriculumProgressNotice('');
@@ -2322,7 +2326,6 @@ function App() {
   const startWorkspace = () => {
     setIsStartScreenOpen(false);
     setIsGuideOpen(true);
-    if (isBackgroundMusicEnabled) startBackgroundMusic();
   };
 
   const goToTourStep = (step) => {
@@ -2773,10 +2776,6 @@ function App() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="launch-title"
-          onPointerDown={(event) => {
-            if (event.target.closest?.('button')) return;
-            if (isBackgroundMusicEnabled) startBackgroundMusic();
-          }}
         >
           <div className="launch-hud launch-hud-top">
             <span>KUROGAMI GROUP / OPERATOR CONTINUUM</span>
@@ -3127,6 +3126,7 @@ function App() {
                     section={manualSections[manualTab]}
                     onCopyTrack={copyApprovedText}
                     onOpenSample={openSampleLead}
+                    onOpenField={() => changeManualTab(manualSections.findIndex(({ kind }) => kind === 'curriculum-field'))}
                     hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
                     curriculumProgress={curriculumProgress}
                     onToggleCurriculumModule={(moduleId, isCompleted) => {

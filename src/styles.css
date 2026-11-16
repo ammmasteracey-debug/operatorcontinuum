@@ -2944,6 +2944,53 @@ tbody tr:hover {
   border-left: 2px solid var(--gold);
 }
 
+.curriculum-closer-fast-path {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(197, 164, 90, 0.3);
+  background: rgba(197, 164, 90, 0.06);
+}
+
+.curriculum-closer-fast-path h4 {
+  margin: 0 0 5px;
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.curriculum-closer-fast-path p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.curriculum-closer-fast-path button {
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid rgba(197, 164, 90, 0.4);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(197, 164, 90, 0.1);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.curriculum-closer-fast-path button:hover,
+.curriculum-closer-fast-path button:focus-visible {
+  background: rgba(197, 164, 90, 0.18);
+}
+
+@media (max-width: 680px) {
+  .curriculum-closer-fast-path {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .curriculum-intro a {
   display: inline-flex;
   align-items: center;
@@ -5896,6 +5943,22 @@ tbody tr:hover {
     line-height: 1.55;
     orphans: 3;
     widows: 3;
+  }
+
+  .manual-export-document .curriculum-reference-section,
+  .manual-export-document .curriculum-module,
+  .manual-export-document .field-curriculum-section,
+  .manual-export-document .field-curriculum-module {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .manual-export-document .curriculum-reference-section h4,
+  .manual-export-document .field-curriculum-section h4,
+  .manual-export-document .curriculum-module summary,
+  .manual-export-document .field-curriculum-module summary {
+    break-after: avoid;
+    page-break-after: avoid;
   }
 
   .manual-export-document .manual-laws article,
