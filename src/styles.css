@@ -3769,3 +3769,38 @@ tbody tr:hover {
     transition: none;
   }
 }
+
+.panel-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.panel-add-lead {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid #76e4cf;
+  border-radius: 12px;
+  background: #36b19a;
+  color: #04120f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.panel-add-lead:hover,
+.panel-add-lead:focus-visible {
+  border-color: #9af0dc;
+  background: #50c9ad;
+}
+
+@media (max-width: 680px) {
+  .panel-header-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+}

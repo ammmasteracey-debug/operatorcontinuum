@@ -438,6 +438,7 @@ function App() {
       return;
     }
 
+    const returnToPipeline = activeNav === 'Pipeline';
     const newLead = {
       ...leadDraft,
       name,
@@ -451,7 +452,13 @@ function App() {
     }));
     setLeadDraft({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
     closeQuickAction();
-    openLead(name);
+    if (returnToPipeline) {
+      setSelectedLeadName(null);
+      setActiveNav('Pipeline');
+      window.history.replaceState(null, '', '#pipeline');
+    } else {
+      openLead(name);
+    }
   };
 
   const saveFollowUp = (event) => {
@@ -843,7 +850,12 @@ function App() {
             <section className={`leads-panel ${isTourTarget('leads') ? 'tour-target' : ''}`} id="leads">
               <div className="panel-header">
                 <span className="section-kicker">Lead registry</span>
-                <span className="range-label">{filteredLeadRecords.length} records / select a lead for details</span>
+                <div className="panel-header-actions">
+                  <span className="range-label">{filteredLeadRecords.length} records / select a lead for details</span>
+                  <button className="panel-add-lead" type="button" onClick={() => openQuickAction('lead')}>
+                    + Add prospect
+                  </button>
+                </div>
               </div>
               <div className="leads-toolbar">
                 <label className="lead-search">
@@ -924,7 +936,12 @@ function App() {
           <section className={`pipeline-panel ${isTourTarget('pipeline') ? 'tour-target' : ''}`} id="pipeline">
             <div className="panel-header">
               <span className="section-kicker">Pipeline</span>
-              <span className="range-label">Fixed order</span>
+              <div className="panel-header-actions">
+                <span className="range-label">Fixed order</span>
+                <button className="panel-add-lead" type="button" onClick={() => openQuickAction('lead')}>
+                  + Add prospect
+                </button>
+              </div>
             </div>
             <div className="kanban-grid">
               {pipelineStages.map((stage) => (
