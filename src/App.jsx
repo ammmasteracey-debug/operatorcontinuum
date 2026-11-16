@@ -959,67 +959,163 @@ const curriculumOpsChecklist = [
 
 const curriculumSalesLock = 'Professional desk process as a state machine · capacity grading · path to agent clone · Forge operator track.\nNot financial advice. Not a profit guarantee. Not unlimited mentorship.';
 
-const fieldCurriculumProgramShape = [
-  ['Fast Start', 'First 48 hours', 'List of 10, tags, asks, first present path'],
-  ['Core Field', '~2 weeks self-paced + live reps', 'Full machine + compliance'],
-  ['Leadership', 'On first win or first serious Set', 'Same-day duplication'],
-  ['Agents', 'End of core', 'Sales agent literacy (not builder certification unless separate)'],
+const fieldCurriculumProgramOverview = [
+  ['Name', 'Statecraft Academy — Curriculum II (Field)'],
+  ['Flagship track', 'Sales / Ops · Appointment → Present → Close'],
+  ['Length', 'F0–F10 + Capstone cycle'],
+  ['Mode', 'Fast Start (48h) + ~2 weeks self-paced + live reps'],
+  ['Surfaces', 'Black Book · Operator Continuum · Opportunity Present · Leadership one-pager'],
+  ['Outcome', 'Field-literate operator: can set, present, close under law, run Fast Start, install next operator, use Sales/Ops agent within hard limits'],
+  ['Relation to I', 'Parallel track. Desk (I) = markets process. Field (II) = seat placement. Neither replaces the other.'],
 ];
+
+const fieldCurriculumIncludes = 'Full Field module set · Continuum workflow · approved tracks · Present literacy · objection + clean-no standard · Leadership Session pattern · Sales/Ops agent literacy';
+
+const fieldCurriculumExclusions = 'Trading homework · TDI/EMA drills · signal product · residual/recruit-as-income scheme · unlimited 1:1 · profit or income guarantee';
+
+const fieldCurriculumAudience = [
+  'Pilot closers and field operators',
+  'Desk Access holders who will originate seats under Black Book',
+  'Operators who want elite process sales (high-ticket spine) inside fintech infrastructure—not signal farming',
+];
+
+const fieldCurriculumProgression = [
+  'F0 Orientation & law',
+  'F1 The machine',
+  'F2 Fast Start',
+  'F3 Personality system',
+  'F4 Tracks & outreach',
+  'F5 Opportunity Present',
+  'F6 Close & compliance',
+  'F7 Leadership',
+  'F8 Continuum daily ops',
+  'F9 Sales / Ops agent',
+  'F10 Capstone (full cycle logged)',
+];
+
+const fieldCurriculumGlobalFail = 'Invented product, guaranteed returns, equity-for-seat, or recruit-as-income language = module reset and Admin review (not debate).';
 
 const fieldCurriculumModules = [
   {
     title: 'F0 — Orientation & law',
-    content: 'Group posture · Three Laws · Sell / never sell · Desks at a glance (enough to explain Access, not trade) · Continuum tour · Black Book as law',
-    assignment: 'Continuum login · Law gate (recite laws + never-sells)',
+    focus: 'Group posture · Three Laws · sell / never sell · desks at a glance (enough to explain Access, not trade) · Continuum tour · Black Book as law',
+    paragraphs: [
+      'Field starts with law, not hustle. You represent Kurogami Group under published terms. Desk Access is process and desk entry for the buyer—not signals, not a return promise, not passive income. Your job is to run a clean machine: appointment, present, close or clean no. Continuum is where truth lives; Black Book is the standard you do not rewrite in the DMs.',
+      'Desks exist so you can answer “what am I joining?” without becoming a trading instructor. Method trains process; Access is the commercial door; Board, Veil, Arcade, Forge are real surfaces—but Field does not assign chart homework. If the prospect wants to learn the market machine, that is Curriculum I. If they want a seat under standard, that is your path.',
+    ],
+    deliverables: 'Continuum login confirmed · written or oral law gate',
+    gate: 'Recite Three Laws + never-sell list without prompting',
+    tools: 'Black Book · Continuum · Group site (Doctrine, Access, Desks)',
+    forgeFieldSeed: 'Operator marked Field-training',
   },
   {
     title: 'F1 — The machine',
-    content: 'Appointment → Present → Close · States vs stages · Fortune in the follow-up · Why third-party present exists',
-    assignment: 'Map 3 fictional leads to states',
+    focus: 'Appointment → Present → Close · Continuum states vs pipeline stages · fortune in the follow-up · why third-party present exists',
+    paragraphs: [
+      'The entire Field curriculum collapses to one spine: get the appointment, run the present, ask for the seat under published terms—or take a clean no. Everything else (tags, tracks, leadership, agents) supports that spine. Stages in Continuum (New → Contacted → Site/doctrine → Method shared → Seat conversation → Won / Lost / Nurture) are not vanity labels; they tell you what is allowed next.',
+      'Third-party present (slideshow + voiceover or live under script) exists so the standard does not depend on your mood or improvisation. You are not paid to invent product. You are paid—under pilot terms—only when a seat is closed, paid, and attributed. Follow-up is where most operators leak; the machine assumes you will return to due-today until the file is won, lost, or dated nurture.',
+    ],
+    deliverables: 'Map 3 fictional leads to correct Continuum states/stages with next action',
+    gate: '3/3 maps correct on review',
+    tools: 'Continuum pipeline legend · Black Book sale process',
   },
   {
     title: 'F2 — Fast Start',
-    content: 'FS-0…FS-6 · List of 10 · KPIs · Same-day urgency without fake scarcity',
-    assignment: '10 names entered in Continuum',
+    focus: 'FS-0…FS-6 · list of 10 · KPIs · same-day urgency without fake scarcity',
+    paragraphs: [
+      'Fast Start is the installation ritual for a new field operator: identity under law, tools open, ten names in Continuum, tags, appointment asks, first present path. It is time-boxed on purpose. Urgency is operational (“due today, same-day present”)—not fabricated countdown timers or fake “only three seats left” theater unless Admin publishes real capacity limits.',
+      'Your list of 10 is the first asset. Names without tags and next actions are noise. KPIs for Fast Start are completion of FS steps and logged asks—not fantasy revenue. If you cannot complete FS-0→FS-2, you do not advance to volume outreach.',
+    ],
+    deliverables: '10 names entered in Continuum with channel + next action',
+    gate: 'FS-0–FS-2 complete',
+    tools: 'Continuum Prospects · Fast Start checklist',
   },
   {
     title: 'F3 — Personality system',
-    content: 'C / E / F / H · Quiz · Ethics of adaptation',
-    assignment: 'Tag all 10 · quiz top 5',
+    focus: 'C / E / F / H · quiz · ethics of adaptation',
+    paragraphs: [
+      'People do not fail appointments only because of price; they fail because the opener ignores how they decide. The C / E / F / H system exists to match tone and structure—not to manipulate. Ethics bound adaptation: you change pacing and emphasis inside approved tracks; you do not change price, guarantees, or product definition.',
+      'Tag every name on the list of 10. Quiz yourself on the top 5 until the differences are automatic. Wrong tag is recoverable; inventing a new pitch because “this one is special” is how doctrine dies.',
+    ],
+    deliverables: 'All 10 tagged · quiz on top 5',
+    gate: '10 tagged + quiz pass on top 5',
+    tools: 'Personality tracks · Continuum tag fields',
   },
   {
     title: 'F4 — Tracks & outreach',
-    content: 'Full copy library by type · Opener → ask appointment · No essay-pitch in DM',
-    assignment: '5 type-matched appointment asks sent · logged',
+    focus: 'Full copy library by type · opener → ask appointment · no essay-pitch in DM',
+    paragraphs: [
+      'Approved tracks are the only outreach language. Opener establishes posture; the ask is for time (appointment), not for a wire in the first bubble. Essay-pitches in DM create argument and invite the prospect to negotiate product. Short, typed, logged.',
+      'Send five type-matched appointment asks. Every send is an activity line in Continuum. No send outside the library without Admin approval. If they want “just the signals,” you end clean—you do not rebrand Desk Access mid-thread.',
+    ],
+    deliverables: '5 type-matched appointment asks sent and logged',
+    gate: '5 logged asks with correct type tag',
+    tools: 'Black Book talk tracks · Continuum Assets (copy buttons) · Group home / Doctrine links',
   },
   {
     title: 'F5 — Opportunity Present',
-    content: 'Slideshow · Live script · Voiceover script · Mark Presented',
-    assignment: 'Watch voiceover once · deliver 1 present (prospect or peer role-play)',
+    focus: 'Slideshow · live script · voiceover script · mark Presented',
+    paragraphs: [
+      'The Present is the standard story: Group posture, what Desk Access is, what it is not, desks at a glance, path, compliance. Live or voiceover, you stay on script. After delivery, Continuum stage/activity reflects **Presented**—not “had a good chat.”',
+      'Watch the voiceover once before you deliver. First delivery may be peer role-play if no live prospect is ready; the gate is delivery quality and logging, not a forced close. Present does not replace Method for buyers who need train depth; it positions Access under law.',
+    ],
+    deliverables: 'Watch voiceover once · deliver 1 present (prospect or peer) · logged Presented',
+    gate: '1 delivered + logged',
+    tools: 'Opportunity Slideshow · Voiceover Present · Continuum',
   },
   {
     title: 'F6 — Close & compliance',
-    content: 'Seat ask · Objection map · Clean no · Payment · Attribution · Escalations',
-    assignment: '3 objection role-plays · one written clean-no line',
+    focus: 'Seat ask · objection map · clean no · payment · attribution · Admin escalations',
+    paragraphs: [
+      'The seat ask is plain: Desk Access, published price (default $15,000), process access under terms—not a return promise. Objections get Black Book answers, not debates. Clean no is a successful terminal state. Payment and attribution are what make a close real for pilot comp; verbal yes without payment is not Won.',
+      'Escalations are mandatory: discount theater, multi-seat packages, equity language, institutional structure, “are you a broker,” anything off-book. Wrong sentence in the field costs more than a lost seat.',
+    ],
+    deliverables: '3 objection role-plays · one written clean-no line',
+    gate: 'Objection literacy + clean-no line approved against Black Book',
+    tools: 'Black Book objection map · Pilot rules · Continuum Won/Lost reasons',
   },
   {
     title: 'F7 — Leadership',
-    content: 'Leadership Session one-pager · Their 10 · one live send under observation · No ranks / no passive team fantasy',
-    assignment: 'Complete leadership checklist once (leader or new operator side)',
+    focus: 'Leadership Session one-pager · their 10 · one live send under observation · no ranks / no passive team fantasy',
+    paragraphs: [
+      'On first serious install (or first win path), leadership is same-day duplication of the machine—not a rank chart. The new operator gets law, Continuum, list of 10, and one live send under observation. You are installing process, not building a downline narrative.',
+      'No passive team income story. No “your team will make you rich.” Optional thank-you on referred closed paid seats only if Admin has written referral rules. Leadership checklist once—leader side or new operator side—gates this module.',
+    ],
+    deliverables: 'Leadership checklist complete once',
+    gate: 'Checklist done (observed or documented)',
+    tools: 'Leadership one-pager · Continuum',
   },
   {
     title: 'F8 — Continuum daily ops',
-    content: 'Due today · Appointments calendar · Assets · Pilot comp rules (closed paid attributed only)',
-    assignment: '5 days zero ignored due-queue',
+    focus: 'Due today · appointments calendar · assets · pilot comp rules (closed paid attributed only)',
+    paragraphs: [
+      'Continuum is the operating system. Due-today ignored is pipeline rot. Appointments without notes are theater. Assets exist so links and copy stay canonical. Pilot comp is simple and strict: share only on closed, paid, attributed seats; no share on almost.',
+      'Run five consecutive days with zero ignored due-queue items. That habit is the job. Comp arguments that skip Continuum attribution fail by default.',
+    ],
+    deliverables: '5 days zero ignored due-queue',
+    gate: '5-day hygiene log',
+    tools: 'Continuum (Prospecting, Pipeline, Assets, Pilot)',
   },
   {
     title: 'F9 — Sales / Ops agent',
-    content: 'Third agent in the stack · Inputs/outputs · State machine · Hard rules (no invented price, guarantees, equity, recruit-as-income) · Human remains accountable · Path: suggest copy → supervised send → later calendar/present',
-    assignment: 'Short written answer: when agent must escalate to human (3 triggers)',
+    focus: 'Third agent in the stack · inputs/outputs · state machine · hard rules · human remains accountable',
+    paragraphs: [
+      'Sales/Ops agent is literacy, not builder certification (unless a separate track says so). It may suggest copy, remind due-today, and later assist calendar/present flows—always inside approved language. It must not invent price, guarantee returns, offer equity, or frame recruiting as income.',
+      'Human remains accountable for every external send and every stage change. Path: suggest copy → supervised send → later calendar/present automation only under Admin policy. Know three hard triggers where the agent must stop and escalate to human.',
+    ],
+    deliverables: 'Written answer—3 triggers when agent must escalate to human',
+    gate: '3 correct escalation triggers',
+    tools: 'Sales agent spec v0 · Black Book · Continuum',
   },
   {
     title: 'F10 — Capstone',
-    content: 'One full cycle logged: ask → set → present → seat conversation → won/lost/holding · Continuum export or screenshots · Optional peer review',
+    focus: 'One full cycle logged: ask → set → present → seat conversation → won / lost / holding',
+    paragraphs: [
+      'Capstone is proof of the machine end-to-end. Continuum export or screenshots show the spine without narrative padding. Optional peer review checks doctrine adherence, not charisma. Fail conditions: invented terms, missing attribution on a claimed win, present never logged, due-queue abandoned mid-cycle.',
+    ],
+    deliverables: 'Full cycle pack (Continuum evidence)',
+    pass: 'Cycle complete under law · gates F0–F9 satisfied',
+    fail: 'Out-of-policy language or incomplete log → listed modules reset',
   },
 ];
 
@@ -1039,6 +1135,7 @@ const fieldCurriculumGates = [
   ['Close literacy', 'Objection + clean no'],
   ['Leadership', 'Checklist once'],
   ['Agent', '3 correct escalation triggers'],
+  ['Capstone', 'Full cycle logged under law'],
 ];
 
 const fieldCurriculumDeskTrack = [
@@ -1061,7 +1158,34 @@ const fieldCurriculumResources = [
   'Leadership one-pager',
   'Personality tracks',
   'Sales agent spec v0',
-  'Group site (Doctrine, Access, Operators)',
+  'Group site (Doctrine, Access, Operators, Desks)',
+];
+
+const fieldCurriculumAssessment = [
+  ['Law', 'Gate pass / fail (binary)'],
+  ['Process', 'Appointment → Present → Close adherence; Continuum stage honesty'],
+  ['Hygiene', 'Due-today, logging, asset use'],
+  ['Leadership', 'Checklist once; no MLM narrative'],
+  ['Agent', 'Escalation literacy'],
+  ['Comp eligibility', 'Closed + paid + attributed only (pilot terms)'],
+];
+
+const fieldCurriculumOpsChecklist = [
+  'Module pages F0–F10 in Black Book / Continuum Manual § Curriculum II',
+  'Fast Start card published as front door',
+  'Continuum stages aligned with Black Book',
+  'Assets: Present, tracks, Leadership one-pager, Group URLs',
+  'Gate rubrics pass/fail per module',
+  'Disclaimer on sales surfaces + in-app',
+  'Pilot comp rules visible on Pilot section',
+  'Clear pointer: trading skill → Curriculum I',
+];
+
+const fieldCurriculumSalesLock = [
+  'Curriculum II — Field trains Appointment → Present → Close under Kurogami Group law.',
+  'It does not teach you to trade. It does not guarantee income.',
+  'Comp—if you are on a written pilot—follows closed, paid, attributed Desk Access seats only.',
+  'Not multilevel marketing. Not investment advice.',
 ];
 
 const curriculumProgressStorageKey = 'operator-continuum-curriculum-i-progress';
@@ -1585,56 +1709,65 @@ function FieldCurriculumContent() {
   return (
     <div className="field-curriculum-shell">
       <header className="field-curriculum-header">
-        <h4>CURRICULUM II — FIELD</h4>
+        <h4>STATECRAFT ACADEMY — CURRICULUM II: FIELD</h4>
         <p className="field-curriculum-track-label">Kurogami Group · Sales / Ops Track</p>
         <p>v1.0 · “Appointment → Present → Close”</p>
-        <p>For operators who interact with the sales track: prospecting, presents, seat conversations, Fast Start, leadership duplication, Continuum, and Sales/Ops agent literacy.</p>
+        <p><strong>Price anchor:</strong> $15k Desk Access (professional entry unit for buyers; Field trains operators who place that unit)</p>
+        <p><strong>Credential surface:</strong> Field gates + Continuum hygiene (not a trading band)</p>
         <p className="field-curriculum-disclaimer">
-          Not investment advice. No guaranteed income. Comp only on closed, paid, attributed seats under written terms. Not multilevel marketing.
+          <strong>Principle:</strong> Process before outcome. Comp only on closed, paid, attributed seats under written terms. Not MLM. Not investment advice. No guaranteed income.
         </p>
       </header>
 
       <section className="field-curriculum-section">
-        <h4>Who this is for</h4>
+        <h4>Program overview</h4>
+        <CurriculumDataTable headers={['Item', 'Spec']} rows={fieldCurriculumProgramOverview} />
+        <h5>What Field includes</h5>
+        <p><CurriculumText>{fieldCurriculumIncludes}</CurriculumText></p>
+        <h5>What Field is not</h5>
+        <p><CurriculumText>{fieldCurriculumExclusions}</CurriculumText></p>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Who this is for / not for</h4>
+        <h5>For</h5>
         <ul className="curriculum-list">
-          <li>Pilot closers and field operators</li>
-          <li>Desk Access holders who will originate seats under Black Book</li>
-          <li>People who want elite process sales (solar-style spine) in fintech infrastructure—not signal farming</li>
+          {fieldCurriculumAudience.map((item) => <li key={item}><CurriculumText>{item}</CurriculumText></li>)}
         </ul>
-        <h5>Who should take Curriculum I instead (or first)</h5>
-        <p>Anyone whose primary goal is trading skill. Point them to Desk curriculum; offer Field later if they want the sales track.</p>
+        <p><strong>Take Curriculum I first (or instead)</strong> if the primary goal is <strong>trading skill</strong>. Point them to Desk curriculum; offer Field later if they want the sales track.</p>
       </section>
 
       <section className="field-curriculum-section">
-        <h4>Outcomes (Field only)</h4>
-        <ol className="field-curriculum-outcomes">
-          <li>Run Appointment → Present → Close without inventing product</li>
-          <li>Use Continuum: states, stages, appointments, assets, due-today</li>
-          <li>Segment C / E / F / H and use approved tracks only</li>
-          <li>Complete Fast Start FS-0→FS-6</li>
-          <li>Deliver Opportunity Present (live or voiceover) and seat-ask under published terms</li>
-          <li>Handle objections + clean no + Admin escalations</li>
-          <li>Run Leadership Session same day on first serious install</li>
-          <li>Explain Sales/Ops agent vs Process/Money vs Creative—and agent hard limits</li>
+        <h4>Progression map</h4>
+        <ol className="field-curriculum-progression">
+          {fieldCurriculumProgression.map((step) => <li key={step}>{step}</li>)}
         </ol>
+        <p className="field-curriculum-global-fail"><strong>Global fail rule:</strong> <CurriculumText>{fieldCurriculumGlobalFail}</CurriculumText></p>
       </section>
 
       <section className="field-curriculum-section">
-        <h4>Program shape</h4>
-        <CurriculumDataTable headers={['Phase', 'Time', 'Focus']} rows={fieldCurriculumProgramShape} />
-        <p><strong>Primary tools:</strong> Black Book · Operator Continuum · Opportunity Slideshow · Voiceover Present · Leadership one-pager</p>
-        <p><strong>Trading charts:</strong> out of scope except one optional “what Desk Access is not a substitute for” slide—no TDI/EMA homework in Field.</p>
+        <h4>Fast Start card (front door — first 48 hours)</h4>
+        <CurriculumDataTable headers={['Hours', 'Do']} rows={fieldCurriculumFastStart} />
+        <p>Curriculum I is <strong>not</strong> a blocker for this card.</p>
       </section>
 
       <section className="field-curriculum-section field-curriculum-modules-section">
-        <h4>Module list (Curriculum II only)</h4>
+        <h4>Module catalog (complete)</h4>
         <div className="field-curriculum-modules">
           {fieldCurriculumModules.map((module) => (
             <details className="field-curriculum-module" key={module.title}>
               <summary>{module.title}</summary>
               <div className="field-curriculum-module-body">
-                <p><CurriculumText>{module.content}</CurriculumText></p>
-                {module.assignment && <p><strong>Assign:</strong> <CurriculumText>{module.assignment}</CurriculumText></p>}
+                <p><strong>Focus:</strong> <CurriculumText>{module.focus}</CurriculumText></p>
+                {module.paragraphs.map((paragraph) => (
+                  <p key={paragraph}><CurriculumText>{paragraph}</CurriculumText></p>
+                ))}
+                <p><strong>Deliverables:</strong> <CurriculumText>{module.deliverables}</CurriculumText></p>
+                {module.gate && <p><strong>Gate:</strong> <CurriculumText>{module.gate}</CurriculumText></p>}
+                {module.tools && <p><strong>Tools:</strong> <CurriculumText>{module.tools}</CurriculumText></p>}
+                {module.forgeFieldSeed && <p><strong>Forge / Field seed:</strong> <CurriculumText>{module.forgeFieldSeed}</CurriculumText></p>}
+                {module.pass && <p><strong>Pass:</strong> <CurriculumText>{module.pass}</CurriculumText></p>}
+                {module.fail && <p><strong>Fail:</strong> <CurriculumText>{module.fail}</CurriculumText></p>}
               </div>
             </details>
           ))}
@@ -1642,13 +1775,7 @@ function FieldCurriculumContent() {
       </section>
 
       <section className="field-curriculum-section">
-        <h4>Fast Start card (Field curriculum front door)</h4>
-        <CurriculumDataTable headers={['Hours', 'Do']} rows={fieldCurriculumFastStart} />
-        <p>Curriculum I is not a blocker for this card.</p>
-      </section>
-
-      <section className="field-curriculum-section">
-        <h4>Gates (Field only)</h4>
+        <h4>Gates summary (Field only)</h4>
         <CurriculumDataTable headers={['Gate', 'Pass']} rows={fieldCurriculumGates} />
       </section>
 
@@ -1661,37 +1788,43 @@ function FieldCurriculumContent() {
         <div className="field-curriculum-tracks">
           <article>
             <h5>CURRICULUM I / DESK</h5>
-            <p>{fieldCurriculumDeskTrack[0]}</p>
-            <p>{fieldCurriculumDeskTrack[1]}</p>
-            <p>{fieldCurriculumDeskTrack[2]}</p>
+            {fieldCurriculumDeskTrack.map((item) => <p key={item}>{item}</p>)}
           </article>
           <article>
             <h5>CURRICULUM II / FIELD</h5>
-            <p>{fieldCurriculumSalesTrack[0]}</p>
-            <p>{fieldCurriculumSalesTrack[1]}</p>
-            <p>{fieldCurriculumSalesTrack[2]}</p>
+            {fieldCurriculumSalesTrack.map((item) => <p key={item}>{item}</p>)}
           </article>
         </div>
         <p className="field-curriculum-both-optional">Both optional</p>
         <p className="field-curriculum-creative">Creative agent = build track<br />(art/process; separate or later)</p>
-        <h5>Public positioning</h5>
-        <ul className="curriculum-list">
-          <li>Desk curriculum → “learn to operate the process in markets”</li>
-          <li>Field curriculum → “learn to place Desk Access under standard”</li>
-          <li>Never market Field as “guaranteed income from recruiting”</li>
-        </ul>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Assessment model (Field)</h4>
+        <CurriculumDataTable headers={['Layer', 'Metric']} rows={fieldCurriculumAssessment} />
+        <p className="field-curriculum-global-fail">No pass on vibes. No pass on “almost closed.” No pass on income stories.</p>
       </section>
 
       <section className="field-curriculum-section">
         <h4>Resource index (Field)</h4>
-        <ul className="curriculum-list">
-          {fieldCurriculumResources.map((resource) => <li key={resource}>{resource}</li>)}
-        </ul>
+        <p><CurriculumText>{fieldCurriculumResources.join(' · ')}</CurriculumText></p>
+      </section>
+
+      <section className="field-curriculum-section field-curriculum-sales-lock">
+        <h4>Short sales lock (honest)</h4>
+        {fieldCurriculumSalesLock.map((line) => <p key={line}>{line}</p>)}
       </section>
 
       <section className="field-curriculum-section field-curriculum-one-liner">
         <h4>One-liner for Field students</h4>
         <p>This curriculum does not teach you to trade. It teaches you to set the appointment, run the present, close under law, segment your ten, and install the same machine in the next operator—tools and sales agents assisting, you accountable.</p>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Ops checklist (delivery)</h4>
+        <ul className="curriculum-ops-checklist">
+          {fieldCurriculumOpsChecklist.map((item) => <li key={item}><span aria-hidden="true">☐</span><CurriculumText>{item}</CurriculumText></li>)}
+        </ul>
       </section>
     </div>
   );

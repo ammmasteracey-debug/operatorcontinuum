@@ -3267,7 +3267,7 @@ tbody tr:hover {
   font-weight: 600;
 }
 
-.field-curriculum-outcomes {
+.field-curriculum-progression {
   display: grid;
   gap: 8px;
   margin: 0;
@@ -3277,8 +3277,32 @@ tbody tr:hover {
   line-height: 1.7;
 }
 
-.field-curriculum-outcomes li::marker {
+.field-curriculum-progression li::marker {
   color: var(--gold);
+}
+
+.field-curriculum-progression li::after {
+  content: " →";
+  color: var(--gold);
+}
+
+.field-curriculum-progression li:last-child::after {
+  content: "";
+}
+
+.field-curriculum-global-fail {
+  margin: 13px 0 0;
+  padding: 11px 13px;
+  border-left: 2px solid var(--gold);
+  color: #d9dccf !important;
+  background: rgba(197, 164, 90, 0.06);
+}
+
+.field-curriculum-disclaimer {
+  margin: 14px 0 0 !important;
+  padding: 11px 13px;
+  border-left: 2px solid var(--gold);
+  background: rgba(197, 164, 90, 0.06);
 }
 
 .field-curriculum-modules-section {
