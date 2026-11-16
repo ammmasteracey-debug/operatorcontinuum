@@ -2534,7 +2534,11 @@ function App() {
           <div className="launch-content">
             <div className="launch-mark">黒</div>
             <div className="launch-eyebrow">THE BLACK BOOK / KUROGAMI GROUP FIELD MANUAL v1.0</div>
-            <h1 id="launch-title">THE BLACK BOOK</h1>
+            <h1 id="launch-title" className="black-book-glitch">
+              THE BLACK BOOK
+              <span className="black-book-glitch-layer glitch-cyan" aria-hidden="true">THE BLACK BOOK</span>
+              <span className="black-book-glitch-layer glitch-gold" aria-hidden="true">THE BLACK BOOK</span>
+            </h1>
             <p className="launch-book-subtitle">Process before outcome.</p>
             <p className="launch-description">The law for the operator. Continuum is the desk that runs it.</p>
             <div className="launch-system-status" aria-live="polite">
