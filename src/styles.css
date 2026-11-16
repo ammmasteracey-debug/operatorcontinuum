@@ -1207,6 +1207,8 @@ tr:last-child td {
   }
 }
 
+
+
 :root {
   --button-color: #c5a45a;
   --button-hover: #d7b86f;
@@ -1987,6 +1989,32 @@ button:focus-visible {
   }
 }
 
+.manual-nav {
+  position: static;
+  align-self: start;
+  overflow: visible;
+}
+
+.nav-item[href="#manual"] {
+  border-color: rgba(91, 205, 182, 0.22);
+  background: linear-gradient(100deg, rgba(48, 150, 131, 0.12), rgba(48, 150, 131, 0.025));
+  color: #a9d8cd;
+}
+
+.nav-item[href="#manual"]:hover,
+.nav-item[href="#manual"]:focus-visible,
+.nav-item[href="#manual"].active {
+  border-color: rgba(105, 226, 200, 0.58);
+  border-left-color: #76e4cf;
+  background: linear-gradient(100deg, rgba(54, 177, 154, 0.25), rgba(54, 177, 154, 0.06));
+  color: #d7fff4;
+  box-shadow: inset 12px 0 24px -24px #76e4cf, 0 0 20px rgba(63, 192, 164, 0.1);
+}
+
+.nav-item[href="#manual"] .nav-index {
+  color: #70d7c1;
+}
+
 :root {
   --surface: rgba(7, 14, 11, 0.84);
   --surface-raised: rgba(13, 23, 18, 0.94);
@@ -2651,4 +2679,10 @@ tbody tr:hover {
   .manual-tab.active {
     animation: none;
   }
+}
+
+.manual-nav {
+  position: static;
+  align-self: start;
+  overflow: visible;
 }
