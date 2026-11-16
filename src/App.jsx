@@ -11,6 +11,8 @@ const navItems = [
   { index: '08', label: 'Operators', href: '#operators', target: 'operators' },
 ];
 
+const navItemByTarget = Object.fromEntries(navItems.map((item) => [item.target, item]));
+
 const navLabelByTarget = {
   home: 'Home',
   manual: 'Manual',
@@ -1303,30 +1305,39 @@ function App() {
             </div>
             <div className="hero-head">
               <div>
-                <h1>Operator Continuum</h1>
+                <h1 className="black-book-glitch">
+                  Operator Continuum
+                  <span className="black-book-glitch-layer glitch-cyan" aria-hidden="true">Operator Continuum</span>
+                  <span className="black-book-glitch-layer glitch-gold" aria-hidden="true">Operator Continuum</span>
+                </h1>
                 <p>The Group’s prospecting and seat-conversion rail — Process before outcome.</p>
                 <p className="hero-doctrine">Doctrine: Process before outcome · Risk is named, bounded, and owned · The standard outlives the outcome.</p>
               </div>
               <a
                 className="new-button"
                 href="#pipeline"
-                onClick={(event) => handleNavClick(event, navItems[3])}
+                onClick={(event) => handleNavClick(event, navItemByTarget.pipeline)}
               >
                 + View pipeline
               </a>
             </div>
             <nav className="home-shortcuts" aria-label="Primary workspace links">
               {[
-                { label: 'Manual · The Black Book', item: navItems[1] },
-                { label: 'Pipeline', item: navItems[3] },
-                { label: 'Assets', item: navItems[4] },
-                { label: 'Outreach', item: navItems[5] },
-                { label: 'Pilot', item: navItems[6] },
-              ].map(({ label, item }) => (
-                <a key={item.label} href={item.href} onClick={(event) => handleNavClick(event, item)}>
-                  {label}<span aria-hidden="true">→</span>
-                </a>
-              ))}
+                { label: 'Manual · The Black Book', target: 'manual' },
+                { label: 'Leads', target: 'leads' },
+                { label: 'Pipeline', target: 'pipeline' },
+                { label: 'Assets', target: 'assets' },
+                { label: 'Outreach', target: 'outreach' },
+                { label: 'Pilot', target: 'pilot' },
+                { label: 'Operators', target: 'operators' },
+              ].map(({ label, target }) => {
+                const item = navItemByTarget[target];
+                return (
+                  <a key={item.target} href={item.href} onClick={(event) => handleNavClick(event, item)}>
+                    {label}<span aria-hidden="true">→</span>
+                  </a>
+                );
+              })}
             </nav>
 
             <div className="stats-grid">
@@ -1456,7 +1467,7 @@ function App() {
                         if (manualTab < manualSections.length - 1) {
                           changeManualTab(manualTab + 1);
                         } else {
-                          handleNavClick(event, navItems[2]);
+                          handleNavClick(event, navItemByTarget.leads);
                         }
                       }}
                     >
