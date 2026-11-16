@@ -5575,7 +5575,7 @@ tbody tr:hover {
   overflow-wrap: anywhere;
   color: #effffb;
   font-size: clamp(2.6rem, 5.2vw, 4.7rem);
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: -0.055em;
   line-height: 1.04;
   text-shadow:
