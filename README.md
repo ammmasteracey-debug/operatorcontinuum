@@ -2,7 +2,7 @@
 
 Black Book = law; Continuum = desk that runs it.
 
-The Manual includes the field doctrine, approved sale process, resource routing, and an LD-1042 practice exercise. Load demo data to open the sample lead from the Field Training section.
+The Manual includes the field doctrine, approved sale process, resource routing, an LD-1042 practice exercise, and the Statecraft Curriculum I and II tracks. Curriculum I module progress is stored locally for operator self-tracking only.
 
 Use **Export manual PDF** in the Manual to print the complete eBook-style edition, including its cover, contents, and every section. Choose **Save as PDF** in the browser print dialog.
 

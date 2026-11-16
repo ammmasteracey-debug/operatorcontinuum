@@ -350,6 +350,7 @@ const manualSections = [
         heading: 'What we sell',
         paragraphs: [
           'The primary unit is Desk Access / Statecraft. The default price is $15,000 USD. It provides access to Group process, Statecraft Method, and desk surfaces under Group law.',
+          'Curriculum I lives in Black Book § Curriculum I; Method desk is the live train surface.',
           'This is education and process access under published terms. Teams and multi-seat arrangements are Admin only; a closer never invents a package. Later units use published prices, Continuum attribution, and payment before compensation.',
           'Point prospects to kurogamigroup.com and Method. You are not the product; the standard is.',
         ],
@@ -615,6 +616,14 @@ const manualSections = [
     ],
   },
   {
+    title: 'Statecraft Curriculum I',
+    kind: 'curriculum',
+  },
+  {
+    title: 'Statecraft Curriculum II',
+    kind: 'curriculum-field',
+  },
+  {
     title: 'Field Training',
     blocks: [
       {
@@ -686,6 +695,400 @@ const manualSections = [
     ],
   },
 ];
+
+const curriculumOverview = [
+  ['Name', 'Statecraft Academy'],
+  ['Flagship track', 'Money Process (Ac3y desk machine)'],
+  ['Length', '11 units (M0–M10) + Capstone'],
+  ['Mode', 'Self-paced inside live desk rhythm'],
+  ['Surfaces', 'Desk OS · Arcade · Veil · Forge'],
+  ['Outcome', 'Operator band + eligibility to seed agent clone'],
+  ['Transfer', 'Same spine → general Agentic Academy later'],
+];
+
+const curriculumPackageDefinition = 'Full Statecraft Money Process curriculum · Desk OS access (symbol strip / state machine) · Arcade path · Veil capacity framing · Forge operator profile track · Agent-mirror module · Capstone review standard · Not unlimited 1:1 · Not a profit guarantee';
+
+const curriculumProgression = [
+  'M0 Machine literacy',
+  'M1 Trend environment',
+  'M2 Stophunt',
+  'M3 Clock law',
+  'M4 Legs / entry signal',
+  'M5 Risk kernel',
+  'M6 Manage / shark fin exit',
+  'M7 News = vol only',
+  'M8 Capacity (Arcade + Veil)',
+  'M9 Rotation desk',
+  'M10 Agent mirror',
+  'Capstone State license',
+];
+
+const curriculumModules = [
+  {
+    id: 'm0',
+    catalogTitle: 'M0 Machine literacy',
+    title: 'Module 0 — Machine literacy',
+    focus: 'S0–S15 language · journal as state log · illegal ≠ immoral',
+    deliverables: 'State table from memory · 1 clean state-only day log',
+    gate: 'State ID quiz + zero-narrative log',
+    arcade: 'MA',
+    forgeSeed: 'Profile created (status: training)',
+    paragraphs: [
+      'This module installs one idea: you do not trade opinions; you occupy **states**. The desk is a finite machine (S0–S15). Every chart moment maps to a legal state or it is noise. Journaling becomes a state log — timestamp, symbol, state, event, next legal action — not a diary of hope and fear. Until you can name states cold, every “setup” you think you see is still subjective.',
+      'Application is immediate. Before size, before entries, you practice translating tape into machine language. Illegal actions are not moral failures; they are **out-of-transition** events. This is also the first agent lesson: an agent cannot “feel” a trade; it can only be in a state. Humans who skip this module train clones that inherit chaos.',
+    ],
+  },
+  {
+    id: 'm1',
+    catalogTitle: 'M1 — Scan → Trend confirmed',
+    title: 'Module 1 — Scan → Trend confirmed',
+    focus: 'H1 TDI MBL vs S50 · environment ≠ entry · multi-asset scan',
+    deliverables: '20 H1 trend marks · USD alignment notes · 0 entries',
+    gate: 'Trend log only, pass accuracy on review set',
+    arcade: '—',
+    forgeSeed: 'Process notes started',
+    paragraphs: [
+      'Trend is not a story about the asset. It is a **defined event** on H1: TDI MBL cross relative to S50 (bull or bear). Scan means the symbol is under watch with no permission to enter. Trend confirmed means the environment state has flipped; it does not mean “buy now.” Most retail loss comes from collapsing environment and execution into one emotional beat. Here they stay split.',
+      'You apply this across asset classes because the same infrastructure rotates through FX, metals, indices, crypto, and commodities. The work is spotting which class is in confirmed trend and which is still noise — and logging USD alignment without turning news into prophecy. Twenty clean trend marks with **zero entries** is the gate: restraint is part of the skill.',
+    ],
+  },
+  {
+    id: 'm2',
+    catalogTitle: 'M2 — Stophunt discipline',
+    title: 'Module 2 — Stophunt discipline',
+    focus: 'HOD/LOD hunt · `AWAIT_STOPS` → `STOPS_TAKEN` · no pre-hunt entries',
+    deliverables: '15 annotated hunts · red-team early-entry list',
+    gate: 'Sample week with zero pre-hunt entries',
+    arcade: 'TORII (window)',
+    forgeSeed: '—',
+    paragraphs: [
+      'Liquidity is taken before continuation. HOD/LOD breaches (especially around Asia / pre-NY) are treated as **events**, not candles to chase. `AWAIT_STOPS` is a real state: you may have trend and still have no right to leg entry. Entering before the hunt completes is the most common way disciplined-looking traders still bleed.',
+      'In practice you annotate hunts: what extreme ran, when, whether trend state was already live. The agent version of this rule is brutal and useful — no LEG1 arming until stops flag is true. Humans hate waiting; the machine does not. This module builds the patience the clone will be forced to keep.',
+    ],
+  },
+  {
+    id: 'm3',
+    catalogTitle: 'M3 — Clock as law',
+    title: 'Module 3 — Clock as law',
+    focus: 'NY primary · lunch 12:00–13:30 ET · new-risk cut 15:00 · overnight flag only if pre-declared',
+    deliverables: '1 week full session tags · written overnight policy',
+    gate: 'No off-policy timestamps',
+    arcade: '—',
+    veil: 'Log stress when clock is broken',
+    forgeSeed: 'Session policy on profile',
+    paragraphs: [
+      'Time is not preference. NY is the primary window; lunch (12:00–13:30 ET) changes behavior; **new risk cuts at 15:00 ET** unless an overnight plan was declared in advance. Session tags on the strip are part of state, not decoration. When the clock says blocked, the only professional action is no new entry.',
+      'This module fixes the lifestyle failure mode where life orbits the chart. The market fits a schedule; you do not dissolve into every tick. Capacity ties in here: clock-breaking is often stress behavior, which Veil will later grade. Operators who cannot obey the clock cannot supervise an agent that must obey it harder.',
+    ],
+  },
+  {
+    id: 'm4',
+    catalogTitle: 'M4 — Legs & entry signal',
+    title: 'Module 4 — Legs and entry signal',
+    focus: 'M15 13EMA LEG1/LEG2 · confirmation budget · `DEAD_SETUP`',
+    deliverables: '25 leg logs · dead vs live marks',
+    gate: '≥80% dead/live accuracy on review set',
+    arcade: 'KATA_PATH',
+    forgeSeed: 'Entry model locked on card draft',
+    paragraphs: [
+      'Execution lives on M15 after stops are taken. First leg: first close beyond 13EMA off the extreme in trend direction. Second leg: structure holds; second close beyond 13EMA without breaking the first leg’s extreme. Confirmation budget is finite (about three to four real attempts); beyond that the setup is dead. The geometry often reads outside bar → consolidation → outside bar — but geometry is secondary to **definition**.',
+      'Application is mechanical logging of LEG1/LEG2/DEAD. Subjective “it looks ready” is illegal. This is the highest-leverage module for agent training: two-leg confirmation is pure state transition. Mastery means you can watch a strip and know whether the machine may offer `ENTRY_SIGNAL` without talking yourself into it.',
+    ],
+  },
+  {
+    id: 'm5',
+    catalogTitle: 'M5 — Risk kernel',
+    title: 'Module 5 — Risk kernel',
+    focus: 'Two-miss sizing · R pre-declared · concurrent + correlation caps',
+    deliverables: 'Size sheet for 3 account levels · strip size discipline',
+    gate: 'No signal without pre-declared size',
+    arcade: '—',
+    forgeSeed: 'Max concurrent + risk notes',
+    paragraphs: [
+      'Size is policy, not courage. The book is built so **two full misses** do not destroy the method or force desperate lot changes. R is defined before the order; concurrent names and correlation groups are capped. The strip shows size next to state so you never enter from a blank risk field.',
+      'Weak hands are usually undefined risk, not weak character. When risk is pre-declared, scratch and stop become administrative. The agent inherits the same kernel: it cannot “press” because today feels special. Humans who complete this module stop negotiating with the next trade and start operating a budget.',
+    ],
+  },
+  {
+    id: 'm6',
+    catalogTitle: 'M6 — Manage & shark fin exit',
+    title: 'Module 6 — Manage and shark fin exit',
+    focus: 'Scratch vs stop · re-enter only on new legal confirm · H1 TDI band break after MBL',
+    deliverables: '15 full cycles · exit taxonomy codes',
+    gate: 'Every sample has exit reason code',
+    arcade: 'KINTSUGI (repair / close clean)',
+    forgeSeed: 'Exit model locked',
+    paragraphs: [
+      'Once in trade, management is narrow: against 13EMA you scratch or take the stop; you do not invent a third philosophy mid-flight. Exit preference on H1 is the **shark fin** — after MBL interaction, break of the outer TDI band in the direction of the move. Exit types are coded in the log so the book teaches you what actually ended winners and losers.',
+      'Most traders study entries and ignore endings; then they give back what they earned. This module studies endings on purpose. For the agent, exit_signal is just another state: no fear of “leaving money on the table,” only whether the definition printed. Humans learn to trust the same definition.',
+    ],
+  },
+  {
+    id: 'm7',
+    catalogTitle: 'M7 — News = vol regime',
+    title: 'Module 7 — News as volatility regime',
+    focus: 'USD calendar only · vol flag · never flips trend state',
+    deliverables: '1 tagged news week · ban on direction myths in log',
+    gate: 'Clean news logs',
+    arcade: '—',
+    forgeSeed: '—',
+    paragraphs: [
+      'USD events (ForexFactory-class) are fuel, not a compass. News may raise `vol_regime` and optionally block orders around tier-one releases; it does **not** flip `TREND_CONFIRMED`. The street narrative (“Fed said → direction”) is banned from the state log.',
+      'You practice a full week of tagging events beside price without writing directional myths. This keeps the process digestible for AI and keeps you out of TV logic. The desk stays inside the algorithm; headlines are weather, not the map.',
+    ],
+  },
+  {
+    id: 'm8',
+    catalogTitle: 'M8 — Capacity (Arcade + Veil)',
+    title: 'Module 8 — Capacity (Arcade + Veil)',
+    focus: 'Load bands · cabinets · capacity can force `BLOCKED`',
+    deliverables: 'Assigned cabinets cleared · Veil band + cooldown policy written',
+    gate: 'Arcade tier + Veil band on Forge stub',
+    arcade: 'Path progress required (core set)',
+    forgeSeed: 'Capacity section populated',
+    paragraphs: [
+      'Process skill without load tolerance is fragile. Arcade cabinets train attention, form, restraint, recovery; Veil band expresses how much concurrent heat and drawdown pressure you may carry. Capacity can force `BLOCKED` even when the chart is perfect. That is not self-sabotage; it is inventory control.',
+      'On Forge, capacity sits beside process on the same card. Humans run Arcade now; later agents train through the same school and inherit bands. Buyers of agents are not only buying a pattern — they are buying a **vessel rated for load**. Skipping this module produces clever operators who still blow books when stress spikes.',
+    ],
+  },
+  {
+    id: 'm9',
+    catalogTitle: 'M9 — Rotation desk',
+    title: 'Module 9 — Rotation desk',
+    focus: 'Same machine · multi-class strip · heat · what enters the algo next',
+    deliverables: '5-class watchlist day · adherence under concurrent names',
+    gate: 'Multi-symbol session under policy caps',
+    arcade: 'GO_VEIL / MUSHIN as optional advanced',
+    forgeSeed: 'Markets list finalized',
+    paragraphs: [
+      'The edge is not a single pair; it is the **loop across classes**. The same state machine runs while attention rotates to whatever is moving through the infrastructure in its timing. The strip becomes a small fleet: states, confirmations, heat, next legal action — per symbol, one language.',
+      'You operate a multi-name day without turning it into chaos: max concurrent, correlation, which name is truly in LEG2 versus still SCAN. This is desk behavior, not retail monogamy with one chart. It is also how a money agent becomes a book agent rather than a one-shot signal bot.',
+    ],
+  },
+  {
+    id: 'm10',
+    catalogTitle: 'M10 — Agent mirror',
+    title: 'Module 10 — Agent mirror',
+    focus: 'Propose / approve / reject on rules only · reason codes',
+    deliverables: '10 shadowed proposals · reject codes only when illegal',
+    gate: 'Human–agent agreement log complete',
+    arcade: '—',
+    forgeSeed: 'Harness section + mirror notes',
+    paragraphs: [
+      'You supervise proposals the way a desk head supervises a junior: **approve or reject on rules**, not on fear. The agent outputs state, action, size, reason codes. You reject only with codes like `STATE_ILLEGAL`, `CLOCK_BLOCK`, `CAPACITY_BLOCK`. If you reject because “it feels early” while the machine is legal, you are training inconsistency.',
+      'This module is the bridge to product. Graduates can run human-only, or seed a clone that runs the same transitions. Forge literacy — reading process, capacity, harness on a card — is required. You are no longer only a trader; you are an operator who can rate vessels.',
+    ],
+  },
+  {
+    id: 'capstone',
+    title: 'Capstone — State license',
+    focus: '20 sessions state-only · adherence % · capacity compliance · Forge card draft',
+    deliverables: 'Capstone pack + operator card draft (human → seeds agent)',
+    pass: 'Training band on Forge · eligible for clone path',
+    fail: 'Out-of-state actions → listed modules reset',
+  },
+];
+
+const curriculumStates = [
+  ['S0', 'IDLE'],
+  ['S1', 'SCAN'],
+  ['S2', 'TREND_CONFIRMED'],
+  ['S3', 'AWAIT_STOPS'],
+  ['S4', 'STOPS_TAKEN'],
+  ['S5', 'LEG1_ARMED'],
+  ['S6', 'LEG1_DONE'],
+  ['S7', 'LEG2_ARMED'],
+  ['S8', 'ENTRY_SIGNAL'],
+  ['S9', 'PENDING_ORDER'],
+  ['S10', 'IN_TRADE'],
+  ['S11', 'MANAGE'],
+  ['S12', 'EXIT_SIGNAL'],
+  ['S13', 'FLAT'],
+  ['S14', 'BLOCKED'],
+  ['S15', 'DEAD_SETUP'],
+];
+
+const curriculumStrategyAnchors = [
+  'Environment: H1 TDI MBL cross vs S50; continuation via 50EMA / MBL',
+  'Hunt: HOD/LOD before legs',
+  'Entry: M15 two-leg 13EMA after hunt',
+  'Exit: H1 shark fin (band break after MBL)',
+  'Clock: NY; 15:00 new-risk cut',
+  'News: USD vol only',
+];
+
+const curriculumCapacity = [
+  ['Arcade cabinets', 'Cognitive placement & drills'],
+  ['Veil band', 'Stress / load / recovery'],
+  ['Strip fields', 'veil_band, veil_stress, arcade_tier always visible'],
+  ['Rule', 'Capacity may block entry even when chart state is live'],
+];
+
+const curriculumAssessment = [
+  ['Process', 'Adherence % to legal transitions'],
+  ['Capacity', 'Arcade tier + Veil band compliance'],
+  ['Harness', 'Mirror logs · strip discipline · journal completeness'],
+  ['Track', 'Illustrative until audited sample window'],
+];
+
+const curriculumCredentialPath = [
+  'Capstone pass',
+  'Forge operator profile (training → operator band)',
+  'Optional: seed Ac3y-class agent card (clone of process)',
+  'List/rent path only after grade thresholds (marketplace policy)',
+  'Coin/brand = later participation layer (no yield promise in curriculum)',
+];
+
+const curriculumTransfer = [
+  ['Desk state machine', 'Domain state machine'],
+  ['Shark fin / legs', 'Domain confirmations'],
+  ['Veil + Arcade', 'Same capacity school'],
+  ['Forge card schema', 'Same card, different `class`'],
+];
+
+const curriculumOpsChecklist = [
+  'Module pages M0–M10 + Capstone (you add body copy)',
+  'Desk OS symbol strip live',
+  'State chip legend published',
+  'Arcade + Veil linked to profile',
+  'Forge card draft flow',
+  'Gate rubrics (pass/fail) per module',
+  'Disclaimer block on sales + in-app',
+  '$15k package boundary (what is / isn’t included)',
+];
+
+const curriculumSalesLock = 'Professional desk process as a state machine · capacity grading · path to agent clone · Forge operator track.\nNot financial advice. Not a profit guarantee. Not unlimited mentorship.';
+
+const fieldCurriculumProgramShape = [
+  ['Fast Start', 'First 48 hours', 'List of 10, tags, asks, first present path'],
+  ['Core Field', '~2 weeks self-paced + live reps', 'Full machine + compliance'],
+  ['Leadership', 'On first win or first serious Set', 'Same-day duplication'],
+  ['Agents', 'End of core', 'Sales agent literacy (not builder certification unless separate)'],
+];
+
+const fieldCurriculumModules = [
+  {
+    title: 'F0 — Orientation & law',
+    content: 'Group posture · Three Laws · Sell / never sell · Desks at a glance (enough to explain Access, not trade) · Continuum tour · Black Book as law',
+    assignment: 'Continuum login · Law gate (recite laws + never-sells)',
+  },
+  {
+    title: 'F1 — The machine',
+    content: 'Appointment → Present → Close · States vs stages · Fortune in the follow-up · Why third-party present exists',
+    assignment: 'Map 3 fictional leads to states',
+  },
+  {
+    title: 'F2 — Fast Start',
+    content: 'FS-0…FS-6 · List of 10 · KPIs · Same-day urgency without fake scarcity',
+    assignment: '10 names entered in Continuum',
+  },
+  {
+    title: 'F3 — Personality system',
+    content: 'C / E / F / H · Quiz · Ethics of adaptation',
+    assignment: 'Tag all 10 · quiz top 5',
+  },
+  {
+    title: 'F4 — Tracks & outreach',
+    content: 'Full copy library by type · Opener → ask appointment · No essay-pitch in DM',
+    assignment: '5 type-matched appointment asks sent · logged',
+  },
+  {
+    title: 'F5 — Opportunity Present',
+    content: 'Slideshow · Live script · Voiceover script · Mark Presented',
+    assignment: 'Watch voiceover once · deliver 1 present (prospect or peer role-play)',
+  },
+  {
+    title: 'F6 — Close & compliance',
+    content: 'Seat ask · Objection map · Clean no · Payment · Attribution · Escalations',
+    assignment: '3 objection role-plays · one written clean-no line',
+  },
+  {
+    title: 'F7 — Leadership',
+    content: 'Leadership Session one-pager · Their 10 · one live send under observation · No ranks / no passive team fantasy',
+    assignment: 'Complete leadership checklist once (leader or new operator side)',
+  },
+  {
+    title: 'F8 — Continuum daily ops',
+    content: 'Due today · Appointments calendar · Assets · Pilot comp rules (closed paid attributed only)',
+    assignment: '5 days zero ignored due-queue',
+  },
+  {
+    title: 'F9 — Sales / Ops agent',
+    content: 'Third agent in the stack · Inputs/outputs · State machine · Hard rules (no invented price, guarantees, equity, recruit-as-income) · Human remains accountable · Path: suggest copy → supervised send → later calendar/present',
+    assignment: 'Short written answer: when agent must escalate to human (3 triggers)',
+  },
+  {
+    title: 'F10 — Capstone',
+    content: 'One full cycle logged: ask → set → present → seat conversation → won/lost/holding · Continuum export or screenshots · Optional peer review',
+  },
+];
+
+const fieldCurriculumFastStart = [
+  ['0–1', 'F0 law gate · watch Present once'],
+  ['1–2', 'F2 list of 10 · F3 tags'],
+  ['2–6', 'F4 appointment asks'],
+  ['Same / next day', 'F5 present · F6 seat path'],
+  ['On first install', 'F7 leadership same day'],
+];
+
+const fieldCurriculumGates = [
+  ['Law', '3 laws + never-sell list'],
+  ['Fast Start', 'FS-0–FS-2 complete'],
+  ['Type', '10 tagged + 5 asks'],
+  ['Present', '1 delivered + logged'],
+  ['Close literacy', 'Objection + clean no'],
+  ['Leadership', 'Checklist once'],
+  ['Agent', '3 correct escalation triggers'],
+];
+
+const fieldCurriculumDeskTrack = [
+  'Trade / process',
+  'Desk OS, Method',
+  'Money agent path',
+];
+
+const fieldCurriculumSalesTrack = [
+  'Sales / ops',
+  'Continuum, Present',
+  'Sales agent path',
+];
+
+const fieldCurriculumResources = [
+  'Black Book',
+  'Continuum (Prospecting, Pilot, Assets)',
+  'Opportunity Slideshow',
+  'Voiceover Present',
+  'Leadership one-pager',
+  'Personality tracks',
+  'Sales agent spec v0',
+  'Group site (Doctrine, Access, Operators)',
+];
+
+const curriculumProgressStorageKey = 'operator-continuum-curriculum-i-progress';
+
+function readCurriculumProgress() {
+  try {
+    const savedProgress = window.localStorage.getItem(curriculumProgressStorageKey);
+    if (savedProgress === null) return { progress: {}, notice: '' };
+    const parsedProgress = JSON.parse(savedProgress);
+    const validModuleIds = new Set(curriculumModules.map(({ id }) => id));
+    if (
+      parsedProgress === null
+      || typeof parsedProgress !== 'object'
+      || Array.isArray(parsedProgress)
+      || Object.entries(parsedProgress).some(([id, value]) => !validModuleIds.has(id) || typeof value !== 'boolean')
+    ) {
+      throw new Error('Saved curriculum progress has an invalid shape.');
+    }
+    return { progress: parsedProgress, notice: '' };
+  } catch (error) {
+    console.error('Unable to load Curriculum I progress.', error);
+    return {
+      progress: {},
+      notice: 'Saved Curriculum I tracking could not be read; progress starts unchecked in this session.',
+    };
+  }
+}
 
 const assetGroups = [
   {
@@ -950,6 +1353,347 @@ function ManualBlock({ block, onCopyTrack, onOpenSample, hasSample }) {
       )}
       {block.note && <p className="manual-note">{block.note}</p>}
     </section>
+  );
+}
+
+function ManualSectionBody({
+  section,
+  onCopyTrack,
+  onOpenSample,
+  hasSample,
+  curriculumProgress,
+  onToggleCurriculumModule,
+  curriculumProgressNotice,
+}) {
+  if (section.kind === 'curriculum') {
+    return (
+      <div className="curriculum-shell">
+        <section className="curriculum-intro">
+          <div className="manual-section-kicker">TRAIN TRACK / GROUP LAW</div>
+          <h4>Statecraft Curriculum I</h4>
+          <p className="curriculum-subtitle">Train track under Group law</p>
+          <p>
+            Curriculum I is how operators learn the Statecraft process before and beside Desk Access. It is education and process training — not trade signals, not a return promise, not passive income.
+          </p>
+          <p className="curriculum-closer-rule">
+            Closers: do not sell Curriculum as a substitute for Desk Access unless Admin publishes a separate priced unit. Default commercial unit remains Desk Access ($15,000).
+          </p>
+          <a href="https://statecraft-academy.vercel.app/#method" target="_blank" rel="noopener noreferrer">
+            Open Method desk <span aria-hidden="true">↗</span>
+          </a>
+        </section>
+        <aside className="curriculum-field-rules" aria-label="Field rules">
+          <h4>Field rules</h4>
+          <ul>
+            <li>Curriculum supports the standard; it does not replace Desk Access pricing.</li>
+            <li>Do not promise profits from completing modules.</li>
+            <li>Do not past curriculum PDFs that contradict Black Book laws.</li>
+            <li>If prospect only wants “the course” with no seat path, clarify units with Admin — do not invent a price.</li>
+          </ul>
+        </aside>
+        <CurriculumContent
+          progress={curriculumProgress}
+          onToggleModule={onToggleCurriculumModule}
+          progressNotice={curriculumProgressNotice}
+        />
+        <footer className="curriculum-footer">
+          Statecraft Curriculum I · Kurogami Group · Process before outcome · Not investment advice
+        </footer>
+      </div>
+    );
+  }
+
+  if (section.kind === 'curriculum-field') {
+    return <FieldCurriculumContent />;
+  }
+
+  return section.blocks.map((block) => (
+    <ManualBlock
+      key={`${section.title}-${block.heading}`}
+      block={block}
+      onCopyTrack={onCopyTrack}
+      onOpenSample={onOpenSample}
+      hasSample={hasSample}
+    />
+  ));
+}
+
+function CurriculumText({ children }) {
+  return children.split(/(\*\*.+?\*\*|`[^`]+`)/g).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={`${index}-${part}`}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('`') && part.endsWith('`')) {
+      return <code key={`${index}-${part}`}>{part.slice(1, -1)}</code>;
+    }
+    return part;
+  });
+}
+
+function CurriculumDataTable({ headers, rows }) {
+  return (
+    <div className="manual-table-wrap curriculum-table-wrap">
+      <table>
+        <thead><tr>{headers.map((header) => <th key={header}>{header}</th>)}</tr></thead>
+        <tbody>
+          {rows.map((row, rowIndex) => (
+            <tr key={`${row[0]}-${rowIndex}`}>
+              {row.map((cell, cellIndex) => (
+                <td key={`${rowIndex}-${cellIndex}`}><CurriculumText>{cell}</CurriculumText></td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function CurriculumContent({ progress, onToggleModule, progressNotice }) {
+  return (
+    <div className="curriculum-content">
+      <section className="curriculum-reference-section">
+        <h4>Statecraft Academy — Complete Curriculum I</h4>
+        <p><strong>Flagship:</strong> Money Process Desk · Path to Agent Clone · Forge Operator Track</p>
+        <p><strong>Price anchor:</strong> $15k Desk Access (professional entry)</p>
+        <p><strong>Credential surface:</strong> Forge bands (process + capacity + harness)</p>
+        <p><strong>Principle:</strong> Legal states only. Capacity is graded. Agents inherit the same machine.</p>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Program overview</h4>
+        <CurriculumDataTable headers={['Item', 'Spec']} rows={curriculumOverview} />
+        <h5>What $15k includes (package definition)</h5>
+        <p><CurriculumText>{curriculumPackageDefinition}</CurriculumText></p>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Progression map</h4>
+        <ol className="curriculum-progression">
+          {curriculumProgression.map((step) => <li key={step}>{step}</li>)}
+        </ol>
+        <p className="curriculum-global-fail"><strong>Global fail rule:</strong> Action outside legal state = module reset (not debate).</p>
+      </section>
+
+      <section className="curriculum-reference-section curriculum-modules-section">
+        <div className="curriculum-module-heading">
+          <div>
+            <h4>Module catalog (complete)</h4>
+            <p>Operator self-track only — not a certificate claim.</p>
+          </div>
+          {progressNotice && <p className="curriculum-progress-notice" role="alert">{progressNotice}</p>}
+        </div>
+        <div className="curriculum-modules">
+          {curriculumModules.map((module) => (
+            <article className="curriculum-module" key={module.id}>
+              <div className="curriculum-module-bar">
+                <details className="curriculum-module-details">
+                  <summary>
+                    <span>{module.title}</span>
+                    {module.catalogTitle && <small>{module.catalogTitle}</small>}
+                  </summary>
+                  <div className="curriculum-module-body">
+                    <p><strong>Focus:</strong> <CurriculumText>{module.focus}</CurriculumText></p>
+                    <p><strong>Deliverables:</strong> <CurriculumText>{module.deliverables}</CurriculumText></p>
+                    {module.gate && <p><strong>Gate:</strong> <CurriculumText>{module.gate}</CurriculumText></p>}
+                    {module.pass && <p><strong>Pass:</strong> <CurriculumText>{module.pass}</CurriculumText></p>}
+                    {module.fail && <p><strong>Fail:</strong> <CurriculumText>{module.fail}</CurriculumText></p>}
+                    {module.arcade && <p><strong>Arcade:</strong> <CurriculumText>{module.arcade}</CurriculumText></p>}
+                    {module.veil && <p><strong>Veil:</strong> <CurriculumText>{module.veil}</CurriculumText></p>}
+                    {module.forgeSeed && <p><strong>Forge seed:</strong> <CurriculumText>{module.forgeSeed}</CurriculumText></p>}
+                    {module.paragraphs?.length > 0 && (
+                      <div className="curriculum-full-module">
+                        <h5>Full modules (each ≥ 2 paragraphs)</h5>
+                        {module.paragraphs.map((paragraph) => (
+                          <p key={paragraph}><CurriculumText>{paragraph}</CurriculumText></p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </details>
+                <label className="curriculum-completion">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(progress[module.id])}
+                    onChange={(event) => onToggleModule(module.id, event.target.checked)}
+                  />
+                  <span>Completed</span>
+                </label>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>State machine reference (curriculum spine)</h4>
+        <CurriculumDataTable headers={['ID', 'State']} rows={curriculumStates} />
+        <h5>Strategy anchors (taught as definitions, not folklore)</h5>
+        <ul className="curriculum-list">
+          {curriculumStrategyAnchors.map((anchor) => <li key={anchor}><CurriculumText>{anchor}</CurriculumText></li>)}
+        </ul>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Capacity curriculum (parallel, required)</h4>
+        <CurriculumDataTable headers={['Element', 'Role']} rows={curriculumCapacity} />
+        <h5>Core Arcade path (minimum for capstone eligibility)</h5>
+        <p>MA · KATA_PATH · TORII · (recommended: ENSŌ, KINTSUGI) · advanced optional</p>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Assessment model</h4>
+        <CurriculumDataTable headers={['Layer', 'Metric']} rows={curriculumAssessment} />
+        <p className="curriculum-strong-note">No pass on vibes. No pass on profit alone.</p>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Credential &amp; product path</h4>
+        <ol className="curriculum-progression">
+          {curriculumCredentialPath.map((step) => <li key={step}><CurriculumText>{step}</CurriculumText></li>)}
+        </ol>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Agentic Academy transfer (same product family)</h4>
+        <CurriculumDataTable headers={['Statecraft Money', 'General Agentic']} rows={curriculumTransfer} />
+        <p><strong>One-liner:</strong> Learn to run process as states; your agent runs the same states.</p>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Ops checklist (delivery)</h4>
+        <ul className="curriculum-ops-checklist">
+          {curriculumOpsChecklist.map((item) => <li key={item}><span aria-hidden="true">☐</span><CurriculumText>{item}</CurriculumText></li>)}
+        </ul>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Short sales lock (honest)</h4>
+        <p><strong>Statecraft Academy — $15k</strong></p>
+        <p className="curriculum-sales-lock"><CurriculumText>{curriculumSalesLock}</CurriculumText></p>
+      </section>
+
+      <section className="curriculum-reference-section curriculum-source-note">
+        <p><strong>Curriculum complete as structure.</strong></p>
+        <p>You drop paragraphs into M0–Capstone; tooling is strip + Forge card; pricing stays $15k until proof and demand say raise.</p>
+      </section>
+    </div>
+  );
+}
+
+function FieldCurriculumContent() {
+  return (
+    <div className="field-curriculum-shell">
+      <header className="field-curriculum-header">
+        <h4>CURRICULUM II — FIELD</h4>
+        <p className="field-curriculum-track-label">Kurogami Group · Sales / Ops Track</p>
+        <p>v1.0 · “Appointment → Present → Close”</p>
+        <p>For operators who interact with the sales track: prospecting, presents, seat conversations, Fast Start, leadership duplication, Continuum, and Sales/Ops agent literacy.</p>
+        <p className="field-curriculum-disclaimer">
+          Not investment advice. No guaranteed income. Comp only on closed, paid, attributed seats under written terms. Not multilevel marketing.
+        </p>
+      </header>
+
+      <section className="field-curriculum-section">
+        <h4>Who this is for</h4>
+        <ul className="curriculum-list">
+          <li>Pilot closers and field operators</li>
+          <li>Desk Access holders who will originate seats under Black Book</li>
+          <li>People who want elite process sales (solar-style spine) in fintech infrastructure—not signal farming</li>
+        </ul>
+        <h5>Who should take Curriculum I instead (or first)</h5>
+        <p>Anyone whose primary goal is trading skill. Point them to Desk curriculum; offer Field later if they want the sales track.</p>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Outcomes (Field only)</h4>
+        <ol className="field-curriculum-outcomes">
+          <li>Run Appointment → Present → Close without inventing product</li>
+          <li>Use Continuum: states, stages, appointments, assets, due-today</li>
+          <li>Segment C / E / F / H and use approved tracks only</li>
+          <li>Complete Fast Start FS-0→FS-6</li>
+          <li>Deliver Opportunity Present (live or voiceover) and seat-ask under published terms</li>
+          <li>Handle objections + clean no + Admin escalations</li>
+          <li>Run Leadership Session same day on first serious install</li>
+          <li>Explain Sales/Ops agent vs Process/Money vs Creative—and agent hard limits</li>
+        </ol>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Program shape</h4>
+        <CurriculumDataTable headers={['Phase', 'Time', 'Focus']} rows={fieldCurriculumProgramShape} />
+        <p><strong>Primary tools:</strong> Black Book · Operator Continuum · Opportunity Slideshow · Voiceover Present · Leadership one-pager</p>
+        <p><strong>Trading charts:</strong> out of scope except one optional “what Desk Access is not a substitute for” slide—no TDI/EMA homework in Field.</p>
+      </section>
+
+      <section className="field-curriculum-section field-curriculum-modules-section">
+        <h4>Module list (Curriculum II only)</h4>
+        <div className="field-curriculum-modules">
+          {fieldCurriculumModules.map((module) => (
+            <details className="field-curriculum-module" key={module.title}>
+              <summary>{module.title}</summary>
+              <div className="field-curriculum-module-body">
+                <p><CurriculumText>{module.content}</CurriculumText></p>
+                {module.assignment && <p><strong>Assign:</strong> <CurriculumText>{module.assignment}</CurriculumText></p>}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Fast Start card (Field curriculum front door)</h4>
+        <CurriculumDataTable headers={['Hours', 'Do']} rows={fieldCurriculumFastStart} />
+        <p>Curriculum I is not a blocker for this card.</p>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Gates (Field only)</h4>
+        <CurriculumDataTable headers={['Gate', 'Pass']} rows={fieldCurriculumGates} />
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Relationship to Curriculum I (Desk)</h4>
+        <div className="field-curriculum-law">
+          <strong>Kurogami Group Law</strong>
+          <span>Desk Access unit</span>
+        </div>
+        <div className="field-curriculum-tracks">
+          <article>
+            <h5>CURRICULUM I / DESK</h5>
+            <p>{fieldCurriculumDeskTrack[0]}</p>
+            <p>{fieldCurriculumDeskTrack[1]}</p>
+            <p>{fieldCurriculumDeskTrack[2]}</p>
+          </article>
+          <article>
+            <h5>CURRICULUM II / FIELD</h5>
+            <p>{fieldCurriculumSalesTrack[0]}</p>
+            <p>{fieldCurriculumSalesTrack[1]}</p>
+            <p>{fieldCurriculumSalesTrack[2]}</p>
+          </article>
+        </div>
+        <p className="field-curriculum-both-optional">Both optional</p>
+        <p className="field-curriculum-creative">Creative agent = build track<br />(art/process; separate or later)</p>
+        <h5>Public positioning</h5>
+        <ul className="curriculum-list">
+          <li>Desk curriculum → “learn to operate the process in markets”</li>
+          <li>Field curriculum → “learn to place Desk Access under standard”</li>
+          <li>Never market Field as “guaranteed income from recruiting”</li>
+        </ul>
+      </section>
+
+      <section className="field-curriculum-section">
+        <h4>Resource index (Field)</h4>
+        <ul className="curriculum-list">
+          {fieldCurriculumResources.map((resource) => <li key={resource}>{resource}</li>)}
+        </ul>
+      </section>
+
+      <section className="field-curriculum-section field-curriculum-one-liner">
+        <h4>One-liner for Field students</h4>
+        <p>This curriculum does not teach you to trade. It teaches you to set the appointment, run the present, close under law, segment your ten, and install the same machine in the next operator—tools and sales agents assisting, you accountable.</p>
+      </section>
+    </div>
   );
 }
 
@@ -1249,9 +1993,18 @@ function App() {
   const [tourStep, setTourStep] = useState(null);
   const [isTourCardHidden, setIsTourCardHidden] = useState(false);
   const [activeNav, setActiveNav] = useState(
-    () => navItems.find((item) => item.href === window.location.hash)?.label ?? 'Home',
+    () => ['#manual-curriculum-i', '#manual-curriculum-ii'].includes(window.location.hash)
+      ? 'Manual'
+      : navItems.find((item) => item.href === window.location.hash)?.label ?? 'Home',
   );
-  const [manualTab, setManualTab] = useState(0);
+  const [manualTab, setManualTab] = useState(() => {
+    if (window.location.hash === '#manual-curriculum-i') return manualSections.findIndex(({ kind }) => kind === 'curriculum');
+    if (window.location.hash === '#manual-curriculum-ii') return manualSections.findIndex(({ kind }) => kind === 'curriculum-field');
+    return 0;
+  });
+  const [initialCurriculumProgress] = useState(readCurriculumProgress);
+  const [curriculumProgress, setCurriculumProgress] = useState(initialCurriculumProgress.progress);
+  const [curriculumProgressNotice, setCurriculumProgressNotice] = useState(initialCurriculumProgress.notice);
   const [outreachTab, setOutreachTab] = useState('tracks');
   const [leadSearch, setLeadSearch] = useState('');
   const [leadStageFilter, setLeadStageFilter] = useState('All stages');
@@ -1282,6 +2035,16 @@ function App() {
       setDataNotice('Workspace changes could not be saved in this browser.');
     }
   }, [workspaceData]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(curriculumProgressStorageKey, JSON.stringify(curriculumProgress));
+      setCurriculumProgressNotice('');
+    } catch (error) {
+      console.error('Unable to save Curriculum I progress.', error);
+      setCurriculumProgressNotice('Curriculum I tracking could not be saved in this browser.');
+    }
+  }, [curriculumProgress]);
 
   useEffect(() => {
     const loadingTimer = window.setTimeout(() => setIsLoading(false), 1100);
@@ -1596,6 +2359,14 @@ function App() {
 
   const changeManualTab = (index) => {
     setManualTab(index);
+    setActiveNav('Manual');
+    const section = manualSections[index];
+    const sectionAnchor = section.kind === 'curriculum'
+      ? '#manual-curriculum-i'
+      : section.kind === 'curriculum-field'
+        ? '#manual-curriculum-ii'
+        : '#manual';
+    window.history.replaceState(null, '', sectionAnchor);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -2072,16 +2843,20 @@ function App() {
               <div className="manual-content">
                 <article className="manual-card" key={manualSections[manualTab].title}>
                   <div className="manual-section-kicker">SECTION {String(manualTab + 1).padStart(2, '0')}</div>
-                  <h3>{manualSections[manualTab].title}</h3>
-                  {manualSections[manualTab].blocks.map((block) => (
-                    <ManualBlock
-                      key={`${manualSections[manualTab].title}-${block.heading}`}
-                      block={block}
-                      onCopyTrack={copyApprovedText}
-                      onOpenSample={openSampleLead}
-                      hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
-                    />
-                  ))}
+                  <h3 id={manualSections[manualTab].kind === 'curriculum' ? 'manual-curriculum-i' : manualSections[manualTab].kind === 'curriculum-field' ? 'manual-curriculum-ii' : undefined}>
+                    {manualSections[manualTab].title}
+                  </h3>
+                  <ManualSectionBody
+                    section={manualSections[manualTab]}
+                    onCopyTrack={copyApprovedText}
+                    onOpenSample={openSampleLead}
+                    hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
+                    curriculumProgress={curriculumProgress}
+                    onToggleCurriculumModule={(moduleId, isCompleted) => {
+                      setCurriculumProgress((current) => ({ ...current, [moduleId]: isCompleted }));
+                    }}
+                    curriculumProgressNotice={curriculumProgressNotice}
+                  />
                   {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
                 </article>
                 <div className="manual-version">Black Book v1.0 · Changes only by Admin</div>
@@ -2155,15 +2930,17 @@ function App() {
               <section className="manual-export-section" key={section.title}>
                 <div className="manual-section-kicker">SECTION {String(index + 1).padStart(2, '0')} / BLACK BOOK v1.0</div>
                 <h2>{section.title}</h2>
-                {section.blocks.map((block) => (
-                  <ManualBlock
-                    key={`${section.title}-${block.heading}`}
-                    block={block}
-                    onCopyTrack={copyApprovedText}
-                    onOpenSample={openSampleLead}
-                    hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
-                  />
-                ))}
+                <ManualSectionBody
+                  section={section}
+                  onCopyTrack={copyApprovedText}
+                  onOpenSample={openSampleLead}
+                  hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
+                  curriculumProgress={curriculumProgress}
+                  onToggleCurriculumModule={(moduleId, isCompleted) => {
+                    setCurriculumProgress((current) => ({ ...current, [moduleId]: isCompleted }));
+                  }}
+                  curriculumProgressNotice={curriculumProgressNotice}
+                />
               </section>
             ))}
             <footer className="manual-export-footer">
