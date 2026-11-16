@@ -38,8 +38,8 @@ function MobileNavIcon({ target }) {
 const tourSteps = [
   {
     target: 'manual',
-    title: 'Start with the Manual',
-    description: 'Learn what the Group offers, what it never promises, how to handle objections, and when to hand a conversation to Admin.',
+    title: 'Start with The Black Book',
+    description: 'The Black Book is the law: learn the offer, qualification, approved talk tracks, and when to hand a conversation to Admin.',
   },
   {
     target: 'leads',
@@ -74,9 +74,9 @@ const tourSteps = [
 ];
 
 const demoMetricCards = [
-  { label: 'Pipeline', value: '128', detail: 'Prospects in motion' },
-  { label: 'Follow-ups', value: '34', detail: 'Due in the next 7 days' },
-  { label: 'Seat value', value: '$1.9M', detail: 'Weighted opportunity value' },
+  { label: 'Pipeline', value: '9', detail: 'Prospects in motion' },
+  { label: 'Follow-ups', value: '4', detail: 'Open reminders' },
+  { label: 'Seat value', value: '$135k', detail: 'Listed opportunity value' },
   { label: 'Pilot', value: '20%', detail: 'Rev-share baseline for Harry' },
 ];
 
@@ -89,123 +89,486 @@ const nextActions = [
 const pipelineStages = [
   { label: 'New' },
   { label: 'Contacted' },
-  { label: 'Site / doctrine shared' },
+  { label: 'Site/doctrine shared' },
   { label: 'Method shared' },
   { label: 'Seat conversation' },
-  { label: 'Closed — won' },
+  { label: 'Closed won' },
+  { label: 'Closed lost' },
+  { label: 'Nurture' },
 ];
 
 const demoLeads = [
   { name: 'Ari Sol', channel: 'IG', temp: 'Warm', value: '$15k', stage: 'New', owner: 'Harry' },
   { name: 'Leah Rowan', channel: 'Referral', temp: 'Cold', value: '$15k', stage: 'New', owner: 'Harry' },
   { name: 'Mina Park', channel: 'X', temp: 'Warm', value: '$15k', stage: 'Contacted', owner: 'Harry' },
-  { name: 'Dorian Vale', channel: 'Event', temp: 'Hot', value: '$15k', stage: 'Site / doctrine shared', owner: 'Harry' },
-  { name: 'Nico Sato', channel: 'Other', temp: 'Cold', value: '$15k', stage: 'Site / doctrine shared', owner: 'Harry' },
+  { name: 'Dorian Vale', channel: 'Event', temp: 'Hot', value: '$15k', stage: 'Site/doctrine shared', owner: 'Harry' },
+  { name: 'Nico Sato', channel: 'Other', temp: 'Cold', value: '$15k', stage: 'Site/doctrine shared', owner: 'Harry' },
   { name: 'Tess Moran', channel: 'IG', temp: 'Warm', value: '$15k', stage: 'Method shared', owner: 'Harry' },
   { name: 'Iris Quinn', channel: 'Referral', temp: 'Hot', value: '$15k', stage: 'Seat conversation', owner: 'Harry' },
-  { name: 'Sofia Laurent', channel: 'Warm intro', temp: 'Hot', value: '$15k', stage: 'Closed — won', owner: 'Harry' },
+  { name: 'Sofia Laurent', channel: 'Warm intro', temp: 'Hot', value: '$15k', stage: 'Closed won', owner: 'Harry' },
 ];
 
 const manualSections = [
   {
-    title: 'Who we are',
-    bullets: [
-      'Operators. Not spectators.',
-      'Independent desks bound by shared law.',
-      'Built for disciplined work across markets, systems, and tools.',
+    title: 'Foundation',
+    blocks: [
+      {
+        type: 'prose',
+        heading: 'Cover & posture',
+        paragraphs: [
+          'The Black Book is the Kurogami Group field manual for anyone who represents Desk Access. You offer access to process under published terms.',
+          'You do not sell hope, signals, or a ticket scheme. If the prospect wants a shortcut, you walk. Every meaningful touch is logged in Continuum; every close is paid and attributed; every word matches this book.',
+        ],
+      },
+      {
+        type: 'prose',
+        heading: 'Why the Group exists',
+        paragraphs: [
+          'Most of the market sells noise: tips, courses, pyramids, and “we’ll get you paid.” Kurogami Group exists so operators can work under a shared standard—desks, capacity, and review—without becoming spectators or product.',
+          'We grow by placing qualified seats, not by manufacturing urgency. Closer and prospecting-operator income comes only from closed, paid seats. The unit is the seat, not a solar system.',
+        ],
+      },
+      {
+        type: 'laws',
+        heading: 'The three laws',
+        items: [
+          { title: 'Process before outcome', text: 'We train and sell process. Outcomes are owned by the operator. Never promise results.' },
+          { title: 'Risk is named, bounded, and owned', text: 'Markets can lose money. Say it. Do not soft-pedal it to close.' },
+          { title: 'The standard outlives the outcome', text: 'A bad day does not rewrite the manual. A good day does not license invented offers.' },
+        ],
+        note: 'If a script, objection answer, or comp idea violates a law, it is out—even if it would close.',
+      },
+      {
+        type: 'list',
+        heading: 'Operator standards',
+        items: [
+          'Speak doctrine, not hype.',
+          'Log every meaningful touch in Continuum.',
+          'Never invent price, equity, or payout language.',
+          'Escalate legal, institutional, or non-standard terms to Admin.',
+          'Protect capacity: no pressure closes.',
+          'A clean no is a successful outcome. Violations can result in removal from prospecting or the pilot.',
+        ],
+      },
     ],
   },
   {
-    title: 'What we sell',
-    bullets: [
-      'Desk Access / Statecraft seat at $15k default.',
-      'Access to Method, Group standard, and desk surfaces.',
-      'Clear education and process — not managed returns.',
+    title: 'The Offer',
+    blocks: [
+      {
+        type: 'prose',
+        heading: 'What we sell',
+        paragraphs: [
+          'The primary unit is Desk Access / Statecraft. The default price is $15,000 USD. It provides access to Group process, Statecraft Method, and desk surfaces under Group law.',
+          'This is education and process access under published terms. Teams and multi-seat arrangements are Admin only; a closer never invents a package. Later units use published prices, Continuum attribution, and payment before compensation.',
+          'Point prospects to kurogamigroup.com and Method. You are not the product; the standard is.',
+        ],
+      },
+      {
+        type: 'list',
+        heading: 'What we never sell',
+        items: [
+          'Trade signals as a product.',
+          'Guaranteed profit, APY, or “we’ll get you paid.”',
+          'Passive income or ticket/pyramid economics.',
+          'Equity, co-founder status, or name-on-the-door for a seat fee.',
+          'Custom fantasy terms without Admin written approval.',
+          'Urgency based on fake scarcity or dark-pattern pressure.',
+          'If they only want tips or a payout story, they are not a seat. End clean.',
+        ],
+      },
+      {
+        type: 'split-lists',
+        heading: 'Ideal operator / walk-away profile',
+        columns: [
+          {
+            title: 'Seek',
+            items: [
+              'Can fund the seat without desperation.',
+              'Wants process, review, and standard.',
+              'Can engage Method and desks.',
+              'Accepts risk language without asking for guarantees.',
+            ],
+          },
+          {
+            title: 'Walk away',
+            items: [
+              'Only cares about signals or how fast they get paid.',
+              'Wants name/address for vague programs.',
+              'Cannot meet published price and pressures for exceptions.',
+              'Treats the Group like a casino tip line.',
+            ],
+          },
+        ],
+        note: 'Volume of wrong seats destroys the brand. One clean no protects the next ten rights.',
+      },
+      {
+        type: 'table',
+        heading: 'Desks 101',
+        columns: ['Desk', 'One line'],
+        rows: [
+          ['Statecraft Method', 'Train — how we work the process'],
+          ['Board', 'Govern — capacity and standard'],
+          ['Veil', 'Protect — risk and posture'],
+          ['Arcade', 'Practice — reps without theater'],
+          ['Forge', 'Build — systems and operators'],
+          ['Official Access', 'Enter — the seat'],
+        ],
+        note: 'You sell Access. Method is how serious people evaluate before they buy.',
+      },
     ],
   },
   {
-    title: 'What we never sell',
-    bullets: [
-      'Trade signals as a product.',
-      'Guaranteed profit or “we’ll get you paid.”',
-      'Pyramid / ticket / passive referral schemes.',
-      'Custom fantasy terms without Admin approval.',
+    title: 'Desks Deep-Dive',
+    blocks: [
+      {
+        type: 'desks',
+        heading: 'What am I joining?',
+        items: [
+          {
+            title: 'Statecraft Method (Train)',
+            job: 'Teach how the Group works the process: preparation, risk naming, execution posture, and review.',
+            prospect: 'This is where seriousness shows. If they will not engage Method, they are not a seat.',
+            line: '“Method is how we work. Access is entry under that standard.”',
+            not: 'A signal feed or daily-picks product.',
+          },
+          {
+            title: 'Board (Govern)',
+            job: 'Set capacity, priorities, and the standard when outcomes swing.',
+            prospect: 'Shows the Group is not always on or always sizing up. Governance is part of being an operator here.',
+            line: '“Board is how we keep process above impulse.”',
+            not: 'A performance leaderboard for hype.',
+          },
+          {
+            title: 'Veil (Protect)',
+            job: 'Set risk posture, exposure discipline, and what the Group refuses.',
+            prospect: 'Makes the law tangible: risk is named and bounded.',
+            line: '“Veil is protect. We don’t romance drawdowns.”',
+            not: 'Insurance or a guarantee wrapper.',
+          },
+          {
+            title: 'Arcade (Practice)',
+            job: 'Provide reps in a controlled frame: practice without turning the Group into theater.',
+            prospect: 'Skill is built by repetition under rules, not by consuming content.',
+            line: '“Arcade is practice. Still process-first.”',
+            not: 'Gamified dopamine or fake P&L contests as the sell.',
+          },
+          {
+            title: 'Forge (Build)',
+            job: 'Build systems, tools, and operator infrastructure the Group uses and extends.',
+            prospect: 'Signals build culture, not course culture.',
+            line: '“Forge is where systems get built. Seats fund operators who build and run process.”',
+            not: 'A promise of equity or a co-founder chair for buying Access.',
+          },
+          {
+            title: 'Official Access (Enter)',
+            job: 'Provide the commercial door: Desk Access under published terms.',
+            prospect: 'A clear unit, clear price, and clear non-promises.',
+            line: '“Access is the seat. Fifteen thousand default. Process access—not a return promise.”',
+            not: 'A funnel into undefined upsells or ticket tiers invented in the field.',
+          },
+        ],
+        note: 'Field rule: Do not pitch six products. Pitch one seat. Use desks to answer “what am I joining?”—then return to price and terms.',
+      },
     ],
   },
   {
-    title: 'Ideal operator profile',
-    bullets: [
-      'Capacity to engage process.',
-      'Can fund the seat without desperation.',
-      'Wants standard and review, not hype.',
-      'Red flags: urgency to deposit name/address for vague payouts; only cares about tips; refuses doctrine.',
+    title: 'The Sale',
+    blocks: [
+      {
+        type: 'table',
+        heading: 'Continuum stages',
+        columns: ['Stage', 'Meaning', 'Exit criteria'],
+        rows: [
+          ['New', 'Lead captured', 'Owner assigned'],
+          ['Contacted', 'First real touch', 'Response or logged attempt'],
+          ['Site/doctrine shared', 'Group URL and posture sent', 'Confirmed open or discussed'],
+          ['Method shared', 'Statecraft Method pointed', 'They engage or decline'],
+          ['Seat conversation', 'Price, terms, what they get and do not get', 'Clear yes path or no'],
+          ['Closed won', 'Paid under terms', 'Payment confirmed and Continuum note'],
+          ['Closed lost', 'Explicit no or disqualified', 'Reason tagged'],
+          ['Nurture', 'Timing wrong, not wrong fit', 'Next action dated'],
+        ],
+        note: 'Do not skip to price before doctrine or Method unless Admin says otherwise. Do not leave seats in limbo: won, lost, or nurture with a date.',
+      },
+      {
+        type: 'list',
+        heading: 'Qualification before a seat conversation',
+        items: [
+          'They understand this is process access, not signals.',
+          'They can meet $15,000 without a hardship close.',
+          'They have opened or agreed to open the Group site / Method.',
+          'They do not demand guaranteed returns.',
+          'You have logged the path in Continuum.',
+        ],
+        note: 'If any point fails, stay in Method/doctrine or make a clean no. Do not hope-close.',
+      },
+      {
+        type: 'tracks',
+        heading: 'Talk tracks',
+        items: [
+          {
+            title: 'Warm first touch',
+            text: 'I run process under Kurogami Group—operators, not spectators. Site is kurogamigroup.com. If you want how we actually work, start at Method. Happy to walk Desk Access only if that lands.',
+          },
+          {
+            title: 'Light outbound',
+            text: 'Most of this space sells noise. We sell seats under a standard—process before outcome. If that means something to you, the Group site is the door. No pitch deck spam.',
+          },
+          {
+            title: 'After they view the site',
+            text: 'You saw the posture. Next step for serious people is Method, then Access if it fits. What are you optimizing for—process or tips?',
+          },
+          {
+            title: 'If they ask for tips / signals',
+            text: 'We don’t sell signals. If that’s the need, we’re not the fit. Clean either way.',
+          },
+          {
+            title: 'Seat frame',
+            text: 'Desk Access is fifteen thousand. It’s process and desk access under Group terms—not a return promise. Risk stays yours. If you want in under that, we do terms and payment; if not, no friction.',
+          },
+          {
+            title: 'Close ask',
+            text: 'If you want the seat under published terms, we confirm payment path and onboard. If you need time, we date a next step or close the file. What do you want to do?',
+          },
+          {
+            title: 'Clean no',
+            text: 'Understood. Door stays the site if that ever changes. Respect either way.',
+          },
+        ],
+      },
+      {
+        type: 'table',
+        heading: 'Objection map',
+        columns: ['They say', 'You do'],
+        rows: [
+          ['“Too expensive”', 'Restate the unit: process seat, not a course ladder. No discount theater. Admin only on exceptions.'],
+          ['“Send proof / returns”', 'Point at Method and doctrine. No performance guarantees. Process is not outcome.'],
+          ['“Is this a signal group?”', 'No. If they need signals, walk.'],
+          ['“Can I start smaller?”', 'Published unit is the seat. Do not invent a micro-tier to close.'],
+          ['“How fast do I get paid?”', 'There is no passive income promise. Operator work is separate from internal closer compensation.'],
+          ['“Give me equity / partner”', 'A seat is not equity. Partner conversations are Admin only, never in-field.'],
+          ['“Send it so I can think”', 'Send the site and Method. No custom fantasy PDF. Date a Continuum next action.'],
+        ],
+        note: 'Argument is not the job. Clarity is the job.',
+      },
+      {
+        type: 'list',
+        heading: 'Close, payment, and handoff',
+        items: [
+          'Confirm they accept process access and no return promise.',
+          'Confirm $15,000 or an Admin-written exception.',
+          'Use the payment path published by Admin. No personal side deals.',
+          'Log Closed won, payment note, and attribution in Continuum.',
+          'Hand off to the onboarding list: welcome, Method, and desk access.',
+          'Do not freelance post-sale promises.',
+        ],
+        note: 'Lost: record the reason and stage. Nurture: set one next date, not an endless chase.',
+      },
     ],
   },
   {
-    title: 'Conversation arc',
-    bullets: [
-      'Open: short, doctrine-native.',
-      'Point at Group site.',
-      'If serious → Method.',
-      'Seat conversation → Access + price + what they get / don’t get.',
-      'Close or clean no — no begging.',
+    title: 'Comp & Conduct',
+    blocks: [
+      {
+        type: 'prose',
+        heading: 'Compensation & Harry pilot',
+        paragraphs: [
+          'Compensation is earned only on closed, paid, attributed seats you originated. No pay on almost or an unpaid verbal yes.',
+          'Harry’s pilot role is closer under this Black Book. Share is 15–25% of the first seat fee on closed, paid, attributed seats; the default working number is 20% until Admin sets the exact percentage in writing. Scope is Desk Access only unless Admin assigns otherwise.',
+          'The pilot runs 30–45 days, then receives a review for close quality, doctrine adherence, and Continuum hygiene. There is no salary promise, default equity, or draw against future closes unless Admin writes it.',
+        ],
+      },
+      {
+        type: 'list',
+        heading: 'Optional referrals',
+        items: [
+          'An optional thank-you may apply to a closed, paid seat from a referred name logged in Continuum.',
+          'Cap and split rules must be set by Admin in writing. No informal “I’ll take care of you.”',
+          'This is not a downline and not residual compensation on future closes unless separately written.',
+          'Referrals are never the main motion; direct qualified seats are.',
+        ],
+      },
+      {
+        type: 'split-lists',
+        heading: 'Conduct & language',
+        columns: [
+          {
+            title: 'Banned in-field',
+            items: [
+              'Guaranteed profit, “we’ll get you paid,” or APY.',
+              'Trust-me capital or identity collection for vague programs.',
+              'Invented discounts, equity, or titles.',
+              'Pressure after a clean no.',
+              'Selling Continuum or the Black Book as a get-rich system.',
+            ],
+          },
+          {
+            title: 'Required',
+            items: [
+              'Log every meaningful touch in Continuum.',
+              'Use doctrine language under pressure.',
+              'Escalate when unsure.',
+              'Keep terms published and attribution clear.',
+            ],
+          },
+        ],
+      },
+      {
+        type: 'list',
+        heading: 'Mandatory Admin escalations',
+        items: [
+          'Any price below the published seat.',
+          'Multi-seat, team, or institutional conversations.',
+          'Legal structure, advisory, or “are you a broker?” questions.',
+          'Equity, partnership, or token promises.',
+          'Anything that may be an investment contract.',
+        ],
+        note: 'Wrong sentence in the field costs more than a lost seat.',
+      },
     ],
   },
   {
-    title: 'Talk tracks',
-    bullets: [
-      'First touch (warm)',
-      'First touch (cold / light outbound)',
-      'After they view site',
-      'Price objection',
-      '“Is this a signal group?”',
-      '“Can I start smaller?”',
-      '“Send proof / returns”',
-      'Close ask',
-      'Clean no / nurture',
-    ],
-  },
-  {
-    title: 'Objection map',
-    bullets: [
-      'Price → value is process + seat, not a course upsell ladder.',
-      'Proof → point at Method, doctrine, live desks; no performance guarantees.',
-      'Trust → process and written terms, not personality.',
-    ],
-  },
-  {
-    title: 'Handoff rules',
-    bullets: [
-      'Escalate to Admin: institutional size, legal structure questions, any price change, anything that smells like investment contract.',
-      'Closer never invents offers.',
-    ],
-  },
-  {
-    title: 'Compliance lines',
-    bullets: [
-      'Not investment advice.',
-      'Past process ≠ future results.',
-      'Operator owns risk.',
-      'No pressure close; capacity first.',
-    ],
-  },
-  {
-    title: 'Pilot closer rules (Harry)',
-    bullets: [
-      'Rev share only on closed, paid seats they originated (range 15–25%; Admin sets exact %).',
-      '30–45 day pilot then review.',
-      'Every touch logged in Continuum.',
-      'Scripts from manual only.',
+    title: 'Compliance',
+    blocks: [
+      {
+        type: 'prose',
+        heading: 'What access means',
+        paragraphs: [
+          'Operator Continuum is the operating desk that runs the Black Book. The Black Book is the law inside /manual. This is education and process access only under published terms.',
+          'Kurogami Group is not providing investment advice or acting as a broker-dealer through this offer. No profit, return, or payment outcome is guaranteed. Past process does not guarantee future results.',
+          'Markets can lose money. The operator owns market risk. Name it plainly, keep it bounded, and never soften it to close.',
+        ],
+      },
+      {
+        type: 'list',
+        heading: 'Field check',
+        items: [
+          'Do not promise an outcome or imply a return.',
+          'Do not collect capital or identity details for a vague program.',
+          'Use only published prices, terms, and payment paths.',
+          'Stop and hand legal, advisory, institutional, or non-standard questions to Admin.',
+          'A clean no is better than a misrepresented yes.',
+        ],
+      },
     ],
   },
 ];
 
 const assetCards = [
-  { title: 'Group home', description: 'Kurogami Group overview and doctrine', url: 'https://www.kurogamigroup.com' },
-  { title: 'Doctrine', description: 'Process before outcome and risk ownership', url: 'https://www.kurogamigroup.com' },
-  { title: 'Statecraft Method', description: 'Seat and desk discipline framework', url: 'https://www.kurogamigroup.com' },
-  { title: 'Official Access', description: 'Desk Access request and seat onboarding', url: 'https://www.kurogamigroup.com' },
+  {
+    title: 'Group home',
+    description: 'First serious touch; the Group’s public home.',
+    url: 'https://www.kurogamigroup.com',
+    copy: 'Kurogami Group — operators, not spectators. Process before outcome. https://www.kurogamigroup.com — Not investment advice.',
+  },
+  {
+    title: 'Doctrine / standard',
+    description: 'The doctrine lives on the Group site.',
+    url: 'https://www.kurogamigroup.com',
+    copy: 'Process before outcome. Risk is named, bounded, and owned. The standard outlives the outcome. https://www.kurogamigroup.com — Not investment advice.',
+  },
+  {
+    title: 'Statecraft Method',
+    description: 'Method — open from Group site.',
+    url: 'https://www.kurogamigroup.com',
+    copy: 'Next step for serious operators is Method, then Access if it fits.',
+  },
+  {
+    title: 'Official Access',
+    description: 'Access / enter path on the Group site.',
+    url: 'https://www.kurogamigroup.com',
+    copy: 'Desk Access is the seat. Fifteen thousand default. Process access — not a return promise.',
+  },
+  {
+    title: 'Desks overview',
+    description: 'Desks index on the Group site.',
+    url: 'https://www.kurogamigroup.com',
+    copy: 'One seat; desks explain the system. https://www.kurogamigroup.com — Not investment advice.',
+  },
 ];
+
+const defaultPilotAcknowledgement = {
+  acknowledged: false,
+  name: '',
+  date: '',
+  adminName: '',
+  adminDate: '',
+  adminNote: 'Admin sets exact % in writing',
+};
+
+function ManualBlock({ block, onCopyTrack }) {
+  return (
+    <section className={`manual-block manual-block-${block.type}`}>
+      {block.heading && <h4>{block.heading}</h4>}
+      {block.type === 'prose' && block.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      {block.type === 'list' && (
+        <ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>
+      )}
+      {block.type === 'laws' && (
+        <div className="manual-laws">
+          {block.items.map((item) => (
+            <article key={item.title}>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      )}
+      {block.type === 'split-lists' && (
+        <div className="manual-split-lists">
+          {block.columns.map((column) => (
+            <div key={column.title}>
+              <h5>{column.title}</h5>
+              <ul>{column.items.map((item) => <li key={item}>{item}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      )}
+      {block.type === 'table' && (
+        <div className="manual-table-wrap">
+          <table>
+            <thead><tr>{block.columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
+            <tbody>
+              {block.rows.map((row) => (
+                <tr key={row[0]}>{row.map((cell, index) => <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {block.type === 'desks' && (
+        <div className="manual-desks">
+          {block.items.map((desk) => (
+            <article key={desk.title}>
+              <h5>{desk.title}</h5>
+              <p><strong>Job:</strong> {desk.job}</p>
+              <p><strong>For the prospect:</strong> {desk.prospect}</p>
+              <p><strong>Closer line:</strong> {desk.line}</p>
+              <p><strong>Not:</strong> {desk.not}</p>
+            </article>
+          ))}
+        </div>
+      )}
+      {block.type === 'tracks' && (
+        <div className="manual-tracks">
+          {block.items.map((track) => (
+            <article key={track.title}>
+              <div className="manual-track-heading">
+                <h5>{track.title}</h5>
+                <button type="button" className="copy-button" onClick={() => onCopyTrack(track.text, track.title)}>
+                  Copy track
+                </button>
+              </div>
+              <blockquote>{track.text}</blockquote>
+            </article>
+          ))}
+        </div>
+      )}
+      {block.note && <p className="manual-note">{block.note}</p>}
+    </section>
+  );
+}
 
 const pilotRows = [
   { closer: 'Harry', touches: 52, conversations: 19, methodShares: 13, seatConversations: 8, won: 4, revenue: '$60k', rate: '31%' },
@@ -213,18 +576,56 @@ const pilotRows = [
   { closer: 'Ike', touches: 24, conversations: 9, methodShares: 7, seatConversations: 4, won: 1, revenue: '$15k', rate: '12%' },
 ];
 
-const demoWorkspaceData = {
-  mode: 'demo',
-  leads: demoLeads,
-  nextActions,
-  pilotRows,
-};
+function createDemoWorkspaceData() {
+  const due = new Date();
+  due.setUTCDate(due.getUTCDate() + 2);
+  const dueDate = due.toISOString().slice(0, 10);
+  const reyesLead = {
+    id: 'LD-1042',
+    name: 'M. Reyes (@mreyes)',
+    handle: '@mreyes',
+    channel: 'Instagram DM',
+    temp: 'Warm',
+    value: '$15k',
+    seatValue: 15000,
+    stage: 'Method shared',
+    owner: 'Harry',
+    createdAt: '2026-11-14',
+    updatedAt: '2026-11-15',
+    attribution: 'HARRY-PILOT',
+    revShareEligible: true,
+    objectionTags: [],
+    nextAction: 'Confirm Method engagement; if serious, seat conversation',
+    due: dueDate,
+    notes: 'Inbound asked what Kurogami is. Sent Group home. Clarified not signals. Pointed Method. Waiting on Method before price.',
+    activity: [
+      { timestamp: '2026-11-14 21:02', owner: 'Harry', type: 'dm', detail: 'Inbound: “what is this”' },
+      { timestamp: '2026-11-14 21:10', owner: 'Harry', type: 'asset_sent', detail: 'Group home' },
+      { timestamp: '2026-11-14 22:40', owner: 'Harry', type: 'note', detail: 'They replied; not signals; sent posture' },
+      { timestamp: '2026-11-15 11:15', owner: 'Harry', type: 'stage', detail: 'Contacted → Site/doctrine shared' },
+      { timestamp: '2026-11-15 11:18', owner: 'Harry', type: 'asset_sent', detail: 'Method' },
+      { timestamp: '2026-11-15 11:20', owner: 'Harry', type: 'stage', detail: '→ Method shared' },
+      { timestamp: '2026-11-15 11:21', owner: 'Harry', type: 'next_action', detail: 'Seat conversation only after Method touch' },
+    ],
+  };
+  return {
+    mode: 'demo',
+    leads: [reyesLead, ...demoLeads],
+    nextActions: [
+      ...nextActions,
+      { name: reyesLead.name, due: dueDate, status: reyesLead.nextAction, owner: reyesLead.owner },
+    ],
+    pilotRows,
+    pilotAcknowledgement: defaultPilotAcknowledgement,
+  };
+}
 
 const freshWorkspaceData = {
   mode: 'fresh',
   leads: [],
   nextActions: [],
   pilotRows: [],
+  pilotAcknowledgement: defaultPilotAcknowledgement,
 };
 
 const workspaceDataStorageKey = 'operator-continuum-workspace-data';
@@ -244,7 +645,26 @@ function readWorkspaceData() {
       throw new Error('Saved workspace data has an invalid shape.');
     }
 
-    return { data: parsedData, warning: null };
+    const acknowledgement = parsedData.pilotAcknowledgement;
+    if (
+      acknowledgement !== undefined
+      && (
+        acknowledgement === null
+        || typeof acknowledgement !== 'object'
+        || typeof acknowledgement.acknowledged !== 'boolean'
+        || ['name', 'date', 'adminName', 'adminDate', 'adminNote'].some((field) => typeof acknowledgement[field] !== 'string')
+      )
+    ) {
+      throw new Error('Saved pilot acknowledgement has an invalid shape.');
+    }
+
+    const pilotAcknowledgement = { ...defaultPilotAcknowledgement, ...acknowledgement };
+    return {
+      data: parsedData.mode === 'demo'
+        ? { ...createDemoWorkspaceData(), pilotAcknowledgement }
+        : { ...parsedData, pilotAcknowledgement },
+      warning: null,
+    };
   } catch (error) {
     console.error('Unable to read saved workspace data.', error);
     return {
@@ -254,8 +674,15 @@ function readWorkspaceData() {
   }
 }
 
+function formatDueDate(value) {
+  const date = new Date(`${value}T00:00:00`);
+  return Number.isNaN(date.getTime())
+    ? value
+    : new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+}
+
 const operatorRules = [
-  'Same manual, same stages, same assets.',
+  'Same Black Book, same stages, same approved assets.',
   'Leads attributed to the operator.',
   'Same ban on inventing offers.',
   'Admin can revoke prospecting instantly.',
@@ -277,6 +704,7 @@ function App() {
   const [leadSearch, setLeadSearch] = useState('');
   const [leadStageFilter, setLeadStageFilter] = useState('All stages');
   const [selectedLeadName, setSelectedLeadName] = useState(null);
+  const [clipboardFeedback, setClipboardFeedback] = useState('');
   const [isQuickMenuOpen, setIsQuickMenuOpen] = useState(false);
   const [quickAction, setQuickAction] = useState(null);
   const [quickFormError, setQuickFormError] = useState('');
@@ -392,7 +820,10 @@ function App() {
   };
 
   const loadDemoData = () => {
-    setWorkspaceData(demoWorkspaceData);
+    setWorkspaceData({
+      ...createDemoWorkspaceData(),
+      pilotAcknowledgement: workspaceData.pilotAcknowledgement ?? defaultPilotAcknowledgement,
+    });
     setSelectedLeadName(null);
     setLeadSearch('');
     setLeadStageFilter('All stages');
@@ -403,6 +834,27 @@ function App() {
     setLeadDraft({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
     setFollowUpDraft({ name: '', due: 'Today', status: 'Follow-up' });
     setInstagramCaption('');
+  };
+
+  const copyApprovedText = async (text, label) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setClipboardFeedback(`${label} copied.`);
+    } catch (error) {
+      console.error(`Unable to copy ${label.toLowerCase()}.`, error);
+      setClipboardFeedback('Clipboard access failed. Select and copy the displayed text manually.');
+    }
+  };
+
+  const updatePilotAcknowledgement = (field, value) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      pilotAcknowledgement: {
+        ...defaultPilotAcknowledgement,
+        ...current.pilotAcknowledgement,
+        [field]: value,
+      },
+    }));
   };
 
   const openQuickAction = (action) => {
@@ -528,20 +980,21 @@ function App() {
           aria-labelledby="launch-title"
         >
           <div className="launch-hud launch-hud-top">
-            <span>KG / FLIGHT SYSTEMS</span>
-            <span>SECTOR 001 · GROUP SPACE</span>
+            <span>KUROGAMI GROUP / OPERATOR CONTINUUM</span>
+            <span>FIELD MANUAL / BLACK BOOK v1.0</span>
           </div>
           <div className="launch-orbit launch-orbit-outer" />
           <div className="launch-orbit launch-orbit-inner" />
           <div className="launch-crosshair" />
           <div className="launch-content">
             <div className="launch-mark">黒</div>
-            <div className="launch-eyebrow">KUROGAMI GROUP · OPERATOR CONTINUUM</div>
-            <h1 id="launch-title">Your desk is ready.</h1>
-            <p className="launch-description">A clear view. A steady hand. Process before outcome.</p>
+            <div className="launch-eyebrow">THE BLACK BOOK / KUROGAMI GROUP FIELD MANUAL v1.0</div>
+            <h1 id="launch-title">THE BLACK BOOK</h1>
+            <p className="launch-book-subtitle">Process before outcome.</p>
+            <p className="launch-description">The law for the operator. Continuum is the desk that runs it.</p>
             <div className="launch-system-status" aria-live="polite">
               <span className={isLoading ? 'status-pulse' : ''} />
-              {isLoading ? 'Calibrating navigation systems' : 'All systems nominal · Ready for departure'}
+              {isLoading ? 'Loading field manual · Initializing operator desk' : 'Black Book v1.0 loaded · Operator desk online'}
             </div>
             {isLoading ? (
               <div className="launch-progress" aria-label="Loading workspace">
@@ -549,12 +1002,12 @@ function App() {
               </div>
             ) : (
               <button className="launch-button" type="button" onClick={startWorkspace}>
-                Start Continuum <span>→</span>
+                Enter Continuum <span>→</span>
               </button>
             )}
           </div>
           <div className="launch-hud launch-hud-bottom">
-            <span>STANDARD / ACTIVE</span>
+            <span>DOCTRINE / PROCESS BEFORE OUTCOME</span>
             <span>RISK / NAMED · BOUNDED · OWNED</span>
           </div>
         </div>
@@ -718,7 +1171,7 @@ function App() {
             <div className="hero-head">
               <div>
                 <h1>Operator Continuum</h1>
-                <p>The Group’s prospecting and seat-conversion rail — process before outcome.</p>
+                <p>The Group’s prospecting and seat-conversion rail — Process before outcome.</p>
                 <p className="hero-doctrine">Doctrine: Process before outcome · Risk is named, bounded, and owned · The standard outlives the outcome.</p>
               </div>
               <a
@@ -729,6 +1182,18 @@ function App() {
                 + View pipeline
               </a>
             </div>
+            <nav className="home-shortcuts" aria-label="Primary workspace links">
+              {[
+                { label: 'Manual · The Black Book', item: navItems[1] },
+                { label: 'Pipeline', item: navItems[3] },
+                { label: 'Assets', item: navItems[4] },
+                { label: 'Pilot', item: navItems[5] },
+              ].map(({ label, item }) => (
+                <a key={item.label} href={item.href} onClick={(event) => handleNavClick(event, item)}>
+                  {label}<span aria-hidden="true">→</span>
+                </a>
+              ))}
+            </nav>
 
             <div className="stats-grid">
               {visibleMetricCards.map((card) => (
@@ -777,8 +1242,12 @@ function App() {
             </div>
           <section className={`manual-panel ${isTourTarget('manual') ? 'tour-target' : ''}`} id="manual">
             <div className="panel-header">
-              <span className="section-kicker">Group Sales Manual</span>
-              <span className="range-label">Training / section {String(manualTab + 1).padStart(2, '0')} of {String(manualSections.length).padStart(2, '0')}</span>
+              <span className="section-kicker">THE BLACK BOOK</span>
+              <span className="range-label">Black Book v1.0 / section {String(manualTab + 1).padStart(2, '0')} of {String(manualSections.length).padStart(2, '0')}</span>
+            </div>
+            <div className="manual-title-block">
+              <h2>THE BLACK BOOK</h2>
+              <p>Kurogami Group Field Manual v1.0</p>
             </div>
             <div className="manual-layout">
               <nav className="manual-nav" aria-label="Manual sections">
@@ -799,12 +1268,16 @@ function App() {
                 <article className="manual-card" key={manualSections[manualTab].title}>
                   <div className="manual-section-kicker">SECTION {String(manualTab + 1).padStart(2, '0')}</div>
                   <h3>{manualSections[manualTab].title}</h3>
-                  <ul>
-                    {manualSections[manualTab].bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
+                  {manualSections[manualTab].blocks.map((block) => (
+                    <ManualBlock
+                      key={`${manualSections[manualTab].title}-${block.heading}`}
+                      block={block}
+                      onCopyTrack={copyApprovedText}
+                    />
+                  ))}
+                  {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
                 </article>
+                <div className="manual-version">Black Book v1.0 · Changes only by Admin</div>
                 <div className="manual-pager">
                   <span className="manual-up-next">
                     {manualTab < manualSections.length - 1
@@ -913,7 +1386,34 @@ function App() {
                       <div><dt>Owner</dt><dd>{selectedLead.owner}</dd></div>
                       <div><dt>Temperature</dt><dd>{selectedLead.temp}</dd></div>
                       <div><dt>Seat value</dt><dd>{selectedLead.value}</dd></div>
+                      {selectedLead.id && <div><dt>Lead ID</dt><dd>{selectedLead.id}</dd></div>}
+                      {selectedLead.createdAt && <div><dt>Created</dt><dd>{selectedLead.createdAt}</dd></div>}
+                      {selectedLead.updatedAt && <div><dt>Updated</dt><dd>{selectedLead.updatedAt}</dd></div>}
+                      {selectedLead.attribution && <div><dt>Attribution</dt><dd>{selectedLead.attribution}</dd></div>}
+                      {selectedLead.revShareEligible !== undefined && (
+                        <div><dt>Rev-share eligible</dt><dd>{selectedLead.revShareEligible ? 'Yes' : 'No'}</dd></div>
+                      )}
+                      {selectedLead.objectionTags && (
+                        <div><dt>Objection tags</dt><dd>{selectedLead.objectionTags.length ? selectedLead.objectionTags.join(', ') : 'None'}</dd></div>
+                      )}
+                      {selectedLead.nextAction && <div><dt>Next action</dt><dd>{selectedLead.nextAction}</dd></div>}
+                      {selectedLead.due && <div><dt>Due</dt><dd>{formatDueDate(selectedLead.due)}</dd></div>}
                     </dl>
+                    {selectedLead.notes && <div className="lead-detail-notes"><strong>Notes</strong><p>{selectedLead.notes}</p></div>}
+                    {selectedLead.activity && (
+                      <div className="lead-activity">
+                        <h3>Activity log</h3>
+                        <ol>
+                          {selectedLead.activity.map((activity) => (
+                            <li key={`${activity.timestamp}-${activity.type}`}>
+                              <time>{activity.timestamp}</time>
+                              <strong>{activity.owner} · {activity.type}</strong>
+                              <span>{activity.detail}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    )}
                     <button className="lead-detail-close" type="button" onClick={() => setSelectedLeadName(null)}>
                       Close record
                     </button>
@@ -977,17 +1477,26 @@ function App() {
           <section className={`assets-panel ${isTourTarget('assets') ? 'tour-target' : ''}`} id="assets">
             <div className="panel-header">
               <span className="section-kicker">Assets</span>
-              <span className="range-label">Pre-approved copy</span>
+              <span className="range-label">Approved Group links / Copy for clipboard</span>
             </div>
+            <p className="assets-notice">Use Group materials to introduce the doctrine and seat. Continuum is an internal operations desk, not a prospect-facing sales toy.</p>
             <div className="asset-grid">
               {assetCards.map((asset) => (
                 <article key={asset.title} className="asset-card">
                   <div className="asset-label">{asset.title}</div>
                   <p>{asset.description}</p>
-                  <a href={asset.url} target="_blank" rel="noreferrer">View asset</a>
+                  <a className="asset-primary-link" href={asset.url} target="_blank" rel="noreferrer">{asset.url}</a>
+                  <blockquote className="asset-copy-text">{asset.copy}</blockquote>
+                  <div className="asset-actions">
+                    <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
+                      Copy message
+                    </button>
+                    <a href={asset.url} target="_blank" rel="noreferrer">Open link ↗</a>
+                  </div>
                 </article>
               ))}
             </div>
+            {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
           </section>
           </div>
 
@@ -997,10 +1506,80 @@ function App() {
             </div>
           <section className={`pilot-panel ${isTourTarget('pilot') ? 'tour-target' : ''}`} id="pilot">
             <div className="panel-header">
-              <span className="section-kicker">Pilot scoreboard</span>
-              <span className="range-label">7d / 30d / full pilot</span>
+              <span className="section-kicker">Harry pilot / one-pager</span>
+              <span className="range-label">Agreement / review / acknowledgement</span>
             </div>
-            {workspaceData.pilotRows.length > 0 ? <div className="table-wrap">
+            <div className="pilot-agreement">
+              <div className="pilot-agreement-intro">
+                <span className="pilot-kicker">PILOT CLOSER · HARRY</span>
+                <h2>Desk Access under The Black Book</h2>
+                <p>Role: closer under the Black Book. Sell process and Desk Access only under published terms.</p>
+              </div>
+              <div className="pilot-agreement-grid">
+                <article>
+                  <h3>Scope & compensation</h3>
+                  <p>Desk Access only unless Admin assigns otherwise. Compensation is 20% by default of the first seat fee on closed, paid, attributed seats originated by the closer.</p>
+                  <label className="pilot-admin-note">
+                    Admin note
+                    <input
+                      value={workspaceData.pilotAcknowledgement.adminNote}
+                      onChange={(event) => updatePilotAcknowledgement('adminNote', event.target.value)}
+                    />
+                  </label>
+                  <p className="pilot-terms-note">No salary promise, equity, draw, or payment on an unpaid verbal yes.</p>
+                </article>
+                <article>
+                  <h3>Pilot window</h3>
+                  <p>30–45 days, followed by a review of close quality, doctrine adherence, and Continuum hygiene.</p>
+                  <h3>Continuum duties</h3>
+                  <ul className="pilot-duty-list">
+                    <li>Log every meaningful touch and keep attribution accurate.</li>
+                    <li>Use approved stages, assets, and talk tracks.</li>
+                    <li>Record next actions, payment confirmation, and handoff.</li>
+                    <li>Escalate exceptions and stop when unsure.</li>
+                  </ul>
+                </article>
+              </div>
+              <div className="pilot-conduct">
+                <h3>Conduct & independent status</h3>
+                <p>Do not promise returns, signals, equity, discounts, or a payout. Keep a clean no clean; no pressure after refusal. Admin may revoke prospecting access at any time.</p>
+                <p>This pilot does not promise salary, employment status, benefits, or equity. Compensation applies only as set in writing by Admin on eligible closed, paid, attributed seats.</p>
+              </div>
+              <form className="pilot-acknowledgement" onSubmit={(event) => event.preventDefault()}>
+                <h3>Acknowledgement</h3>
+                <label className="pilot-ack-check">
+                  <input
+                    type="checkbox"
+                    checked={workspaceData.pilotAcknowledgement.acknowledged}
+                    onChange={(event) => updatePilotAcknowledgement('acknowledged', event.target.checked)}
+                  />
+                  <span>I have read The Black Book v1.0 and will sell process and Desk Access only.</span>
+                </label>
+                <div className="pilot-signature-grid">
+                  <label>Closer name
+                    <input value={workspaceData.pilotAcknowledgement.name} onChange={(event) => updatePilotAcknowledgement('name', event.target.value)} />
+                  </label>
+                  <label>Closer date
+                    <input type="date" value={workspaceData.pilotAcknowledgement.date} onChange={(event) => updatePilotAcknowledgement('date', event.target.value)} />
+                  </label>
+                  <label>Admin countersign name
+                    <input value={workspaceData.pilotAcknowledgement.adminName} onChange={(event) => updatePilotAcknowledgement('adminName', event.target.value)} />
+                  </label>
+                  <label>Admin countersign date
+                    <input type="date" value={workspaceData.pilotAcknowledgement.adminDate} onChange={(event) => updatePilotAcknowledgement('adminDate', event.target.value)} />
+                  </label>
+                </div>
+                <p className="pilot-ack-status" role="status">
+                  {workspaceData.pilotAcknowledgement.acknowledged ? 'Acknowledgement recorded in this browser.' : 'Acknowledgement not yet recorded.'}
+                </p>
+              </form>
+            </div>
+            <div className="pilot-scoreboard">
+              <div className="pilot-scoreboard-heading">
+                <h3>Display-only scoreboard</h3>
+                <span className="range-label">7d / 30d / full pilot</span>
+              </div>
+              {workspaceData.pilotRows.length > 0 ? <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
@@ -1032,6 +1611,7 @@ function App() {
             </div> : (
               <div className="workspace-empty-state">No pilot records yet. Load demo data to preview the scoreboard.</div>
             )}
+            </div>
           </section>
           </div>
 
@@ -1065,7 +1645,7 @@ function App() {
           </div>
 
           <footer className="app-footer">
-            Kurogami Group · Operator Continuum · Process before outcome · Education and process access only · Not investment advice
+            Kurogami Group · The Black Book · Process before outcome · Not investment advice
           </footer>
           </div>
         </main>
@@ -1174,8 +1754,9 @@ function App() {
             <div className="guide-eyebrow">OPERATOR CONTINUUM / ORIENTATION</div>
             <h1 id="welcome-title">Enter the workspace.</h1>
             <p id="welcome-description">
-              Begin with the Group Sales Manual. It sets the standard for how we speak, qualify, and hand off every prospect.
+              Begin with The Black Book. It sets the law for how we speak, qualify, and hand off every prospect.
             </p>
+            <p className="guide-manual-line">Black Book = law; Continuum = desk that runs it</p>
             <div className="welcome-steps">
               <span><b>01</b> Learn the standard</span>
               <span><b>02</b> Walk the workspace</span>
