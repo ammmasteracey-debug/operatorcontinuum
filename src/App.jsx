@@ -222,9 +222,12 @@ const operatorRules = [
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isGuideOpen, setIsGuideOpen] = useState(true);
+  const [isStartScreenOpen, setIsStartScreenOpen] = useState(true);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [tourStep, setTourStep] = useState(null);
+  const [isTourCardHidden, setIsTourCardHidden] = useState(false);
   const [activeNav, setActiveNav] = useState('Home');
+  const [manualTab, setManualTab] = useState(0);
 
   useEffect(() => {
     const loadingTimer = window.setTimeout(() => setIsLoading(false), 1100);
@@ -232,11 +235,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isGuideOpen ? 'hidden' : '';
+    document.body.style.overflow = isGuideOpen || isStartScreenOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isGuideOpen]);
+  }, [isGuideOpen, isStartScreenOpen]);
 
   useEffect(() => {
     if (tourStep === null) return;
@@ -248,7 +251,13 @@ function App() {
 
   const beginOrientation = () => {
     setIsGuideOpen(false);
+    setIsTourCardHidden(false);
     setTourStep(0);
+  };
+
+  const startWorkspace = () => {
+    setIsStartScreenOpen(false);
+    setIsGuideOpen(true);
   };
 
   const goToTourStep = (step) => {
@@ -257,6 +266,7 @@ function App() {
       return;
     }
 
+    setIsTourCardHidden(false);
     setTourStep(step);
   };
 
@@ -272,12 +282,43 @@ function App() {
 
   return (
     <div className="workspace-frame">
-      {isLoading && (
-        <div className="loading-screen" role="status" aria-live="polite">
-          <div className="loader-mark">黒</div>
-          <div className="loader-brand">KUROGAMI · OPERATOR CONTINUUM</div>
-          <div className="loader-track"><span /></div>
-          <div className="loader-status">Establishing the continuum</div>
+      {isStartScreenOpen && (
+        <div
+          className={`launch-screen ${isLoading ? 'booting' : 'ready'}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="launch-title"
+        >
+          <div className="launch-hud launch-hud-top">
+            <span>KG / FLIGHT SYSTEMS</span>
+            <span>SECTOR 001 · GROUP SPACE</span>
+          </div>
+          <div className="launch-orbit launch-orbit-outer" />
+          <div className="launch-orbit launch-orbit-inner" />
+          <div className="launch-crosshair" />
+          <div className="launch-content">
+            <div className="launch-mark">黒</div>
+            <div className="launch-eyebrow">KUROGAMI GROUP · OPERATOR CONTINUUM</div>
+            <h1 id="launch-title">Your desk is ready.</h1>
+            <p className="launch-description">A clear view. A steady hand. Process before outcome.</p>
+            <div className="launch-system-status" aria-live="polite">
+              <span className={isLoading ? 'status-pulse' : ''} />
+              {isLoading ? 'Calibrating navigation systems' : 'All systems nominal · Ready for departure'}
+            </div>
+            {isLoading ? (
+              <div className="launch-progress" aria-label="Loading workspace">
+                <span />
+              </div>
+            ) : (
+              <button className="launch-button" type="button" onClick={startWorkspace}>
+                Start Continuum <span>→</span>
+              </button>
+            )}
+          </div>
+          <div className="launch-hud launch-hud-bottom">
+            <span>STANDARD / ACTIVE</span>
+            <span>RISK / NAMED · BOUNDED · OWNED</span>
+          </div>
         </div>
       )}
 
@@ -334,6 +375,7 @@ function App() {
                 type="button"
                 onClick={() => {
                   setTourStep(null);
+                  setIsTourCardHidden(false);
                   setIsGuideOpen(true);
                 }}
               >
@@ -405,27 +447,66 @@ function App() {
           <section className={`manual-panel ${isTourTarget('manual') ? 'tour-target' : ''}`} id="manual">
             <div className="panel-header">
               <span className="section-kicker">Group Sales Manual</span>
-              <span className="range-label">Training / start here</span>
+              <span className="range-label">Training / section {String(manualTab + 1).padStart(2, '0')} of {String(manualSections.length).padStart(2, '0')}</span>
             </div>
             <div className="manual-layout">
               <nav className="manual-nav" aria-label="Manual sections">
-                {manualSections.map((section) => (
-                  <a key={section.title} href={`#${section.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+                {manualSections.map((section, index) => (
+                  <button
+                    key={section.title}
+                    className={`manual-tab ${manualTab === index ? 'active' : ''}`}
+                    type="button"
+                    aria-current={manualTab === index ? 'step' : undefined}
+                    onClick={() => setManualTab(index)}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span>
                     {section.title}
-                  </a>
+                  </button>
                 ))}
               </nav>
               <div className="manual-content">
-                {manualSections.map((section) => (
-                  <article key={section.title} className="manual-card" id={section.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
-                    <h3>{section.title}</h3>
-                    <ul>
-                      {section.bullets.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
+                <article className="manual-card" key={manualSections[manualTab].title}>
+                  <div className="manual-section-kicker">SECTION {String(manualTab + 1).padStart(2, '0')}</div>
+                  <h3>{manualSections[manualTab].title}</h3>
+                  <ul>
+                    {manualSections[manualTab].bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                </article>
+                <div className="manual-pager">
+                  <span className="manual-up-next">
+                    {manualTab < manualSections.length - 1
+                      ? `Up next / ${manualSections[manualTab + 1].title}`
+                      : 'Training complete / Continue to pipeline'}
+                  </span>
+                  <div className="manual-pager-actions">
+                    <button
+                      className="manual-previous"
+                      type="button"
+                      disabled={manualTab === 0}
+                      onClick={() => setManualTab((current) => Math.max(0, current - 1))}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      className="manual-next"
+                      type="button"
+                      onClick={(event) => {
+                        if (manualTab < manualSections.length - 1) {
+                          setManualTab((current) => current + 1);
+                        } else {
+                          handleNavClick(event, navItems[3]);
+                        }
+                      }}
+                    >
+                      {manualTab < manualSections.length - 1
+                        ? `Continue to ${manualSections[manualTab + 1].title}`
+                        : 'Open pipeline'}
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -551,6 +632,14 @@ function App() {
             aria-labelledby="welcome-title"
             aria-describedby="welcome-description"
           >
+            <button
+              className="guide-close"
+              type="button"
+              onClick={() => setIsGuideOpen(false)}
+              aria-label="Close orientation guide"
+            >
+              ×
+            </button>
             <div className="guide-symbol">黒</div>
             <div className="guide-eyebrow">OPERATOR CONTINUUM / ORIENTATION</div>
             <h1 id="welcome-title">Enter the workspace.</h1>
@@ -562,19 +651,32 @@ function App() {
               <span><b>02</b> Walk the workspace</span>
               <span><b>03</b> Put process before outcome</span>
             </div>
-            <button className="welcome-button" type="button" onClick={beginOrientation}>
-              Begin manual training <span>→</span>
-            </button>
+            <div className="welcome-actions">
+              <button className="welcome-button" type="button" onClick={beginOrientation}>
+                Begin manual training <span>→</span>
+              </button>
+              <button className="welcome-explore" type="button" onClick={() => setIsGuideOpen(false)}>
+                Explore workspace
+              </button>
+            </div>
             <div className="guide-footnote">Education and process access only · Not investment advice</div>
           </section>
         </div>
       )}
 
-      {tourStep !== null && (
+      {tourStep !== null && !isTourCardHidden && (
         <aside className="tour-card" aria-live="polite" aria-label="Workspace guided tour">
           <div className="tour-card-top">
             <span className="guide-eyebrow">WORKSPACE WALKTHROUGH</span>
             <span className="tour-count">{String(tourStep + 1).padStart(2, '0')} / {String(tourSteps.length).padStart(2, '0')}</span>
+            <button
+              className="tour-hide"
+              type="button"
+              onClick={() => setIsTourCardHidden(true)}
+              aria-label="Hide walkthrough panel"
+            >
+              ×
+            </button>
           </div>
           <div className="tour-progress"><span style={{ width: `${((tourStep + 1) / tourSteps.length) * 100}%` }} /></div>
           <h2>{tourSteps[tourStep].title}</h2>
@@ -600,6 +702,11 @@ function App() {
             </div>
           </div>
         </aside>
+      )}
+      {tourStep !== null && isTourCardHidden && (
+        <button className="tour-reopen" type="button" onClick={() => setIsTourCardHidden(false)}>
+          Show walkthrough · {tourStep + 1}/{tourSteps.length}
+        </button>
       )}
     </div>
   );
