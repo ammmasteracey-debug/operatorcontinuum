@@ -39,12 +39,12 @@ const tourSteps = [
   {
     target: 'manual',
     title: 'Start with The Black Book',
-    description: 'The Black Book is the law: learn the offer, qualification, approved talk tracks, and when to hand a conversation to Admin.',
+    description: 'The Black Book is the law: work through doctrine, offer, sale, comp, compliance, and the LD-1042 field exercise.',
   },
   {
     target: 'leads',
     title: 'Review individual leads',
-    description: 'Search prospects, filter by stage, and open a lead record before moving to the pipeline board.',
+    description: 'Open the LD-1042 demo record to practice reading attribution, activity, notes, next action, and stage before moving to the pipeline board.',
   },
   {
     target: 'pipeline',
@@ -453,6 +453,70 @@ const manualSections = [
       },
     ],
   },
+  {
+    title: 'Field Training',
+    blocks: [
+      {
+        type: 'training',
+        heading: 'Practice with LD-1042',
+        intro: 'Load demo data, then open M. Reyes (LD-1042) from the lead registry. The prospect is warm, attributed to HARRY-PILOT, and at Method shared. The prospect asked whether this is signals; that boundary was clarified, Method was shared, and price has not yet been discussed.',
+        objective: 'Practice the next correct action—not the fastest close. Confirm Method engagement, re-check qualification, and keep the record truthful.',
+        steps: [
+          'Review the complete activity log before contacting the prospect.',
+          'Confirm whether they engaged with Method. Do not advance to price based only on the asset being sent.',
+          'If Method is engaged and all five qualification checks pass, begin a seat conversation using the approved seat frame.',
+          'If they want signals or guaranteed outcomes, make a clean no and record the reason as Closed lost.',
+          'If they fit but timing is wrong, use Nurture and record one dated next action.',
+          'Escalate price exceptions, team seats, legal questions, or partnership requests to Admin before speaking for the Group.',
+        ],
+        cta: 'Open LD-1042 in Leads',
+        note: 'Training paths are examples, not permission to promise outcomes, skip qualification, or change published terms.',
+      },
+      {
+        type: 'table',
+        heading: 'Continuum record standard',
+        columns: ['Field', 'Record standard'],
+        rows: [
+          ['Lead ID / identity', 'Unique record ID, name, and handle where available.'],
+          ['Channel / owner', 'Actual source and accountable operator.'],
+          ['Attribution / eligibility', 'Use the assigned attribution code; eligibility is not compensation until the seat is closed, paid, and attributed.'],
+          ['Temperature / stage', 'Use the approved value and exact pipeline stage; update only when the stage evidence exists.'],
+          ['Seat value / objection tags', 'Use the published seat value; tag only objections that were actually raised.'],
+          ['Next action / due', 'One specific next step with a date; nurture is never an indefinite chase.'],
+          ['Notes / activity', 'Write concise factual notes and chronological touches, assets, stage changes, and next actions.'],
+          ['Created / updated', 'Preserve the record’s actual creation date and update it when the record changes.'],
+        ],
+      },
+      {
+        type: 'table',
+        heading: 'Resource routing & audience',
+        columns: ['Resource', 'When / audience', 'Boundary'],
+        rows: [
+          ['Group home — https://www.kurogamigroup.com', 'First serious touch; prospect-facing.', 'Use approved message in Assets.'],
+          ['Doctrine / standard — Group site', 'After interest; before Method if posture needs clarification.', 'Doctrine lives on the Group site.'],
+          ['Statecraft Method — open from Group site', 'Before a seat conversation.', 'Do not describe it as signals or returns.'],
+          ['Official Access — Group site', 'Seat conversation.', 'Use published terms and price only.'],
+          ['Desks overview — Group site', 'When asked what the seat includes.', 'Explain the system; pitch one seat, not six products.'],
+          ['The Black Book — Continuum /manual', 'Closers and operators only.', 'Internal manual; do not send as a prospect PDF unless Admin approves.'],
+          ['Investor / opportunity one-pager', 'Admin-directed conversations only.', 'Use only a specific URL published by Admin; none is configured here.'],
+          ['Continuum — operatorcontinuum.vercel.app', 'Internal operations; closers log here.', 'Not a prospect-facing sales toy.'],
+        ],
+        note: 'Do not send random decks, personal P&L as a promise, or third-party proof that implies guaranteed returns.',
+      },
+      {
+        type: 'list',
+        heading: 'Training completion check',
+        items: [
+          'Can explain the three laws without adding a performance claim.',
+          'Can state the Desk Access default price and identify which terms require Admin.',
+          'Can name the required stage evidence and choose lost or nurture without leaving a record in limbo.',
+          'Can distinguish prospect-facing Group materials from internal-only resources.',
+          'Can log a touch, attribution, objection, and dated next action in Continuum.',
+        ],
+        note: 'The field standard: sell process and Desk Access only. A clean no protects the standard.',
+      },
+    ],
+  },
 ];
 
 const assetCards = [
@@ -497,7 +561,7 @@ const defaultPilotAcknowledgement = {
   adminNote: 'Admin sets exact % in writing',
 };
 
-function ManualBlock({ block, onCopyTrack }) {
+function ManualBlock({ block, onCopyTrack, onOpenSample, hasSample }) {
   return (
     <section className={`manual-block manual-block-${block.type}`}>
       {block.heading && <h4>{block.heading}</h4>}
@@ -563,6 +627,16 @@ function ManualBlock({ block, onCopyTrack }) {
               <blockquote>{track.text}</blockquote>
             </article>
           ))}
+        </div>
+      )}
+      {block.type === 'training' && (
+        <div className="manual-training-case">
+          <p>{block.intro}</p>
+          <p><strong>Objective:</strong> {block.objective}</p>
+          <ol>{block.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+          <button className="manual-training-link" type="button" disabled={!hasSample} onClick={onOpenSample}>
+            {hasSample ? block.cta : 'Load demo data to open LD-1042'}<span aria-hidden="true">→</span>
+          </button>
         </div>
       )}
       {block.note && <p className="manual-note">{block.note}</p>}
@@ -855,6 +929,16 @@ function App() {
         [field]: value,
       },
     }));
+  };
+
+  const openSampleLead = () => {
+    const sampleLead = workspaceData.leads.find((lead) => lead.id === 'LD-1042');
+    if (!sampleLead) return;
+    setSelectedLeadName(sampleLead.name);
+    setTourStep(null);
+    setActiveNav('Leads');
+    window.history.replaceState(null, '', '#leads');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const openQuickAction = (action) => {
@@ -1273,6 +1357,8 @@ function App() {
                       key={`${manualSections[manualTab].title}-${block.heading}`}
                       block={block}
                       onCopyTrack={copyApprovedText}
+                      onOpenSample={openSampleLead}
+                      hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
                     />
                   ))}
                   {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}

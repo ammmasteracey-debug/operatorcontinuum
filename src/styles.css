@@ -3245,6 +3245,66 @@ tbody tr:hover {
   letter-spacing: 0.03em;
 }
 
+.manual-training-case {
+  display: grid;
+  gap: 12px;
+}
+
+.manual-training-case > p {
+  margin: 0 !important;
+}
+
+.manual-training-case > p strong {
+  color: #d3b86e;
+}
+
+.manual-training-case ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.manual-training-case li {
+  padding-left: 3px;
+}
+
+.manual-training-case li::marker {
+  color: var(--gold);
+  font-family: var(--mono);
+}
+
+.manual-training-link {
+  width: fit-content;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin-top: 5px;
+  padding: 0 14px;
+  border: 1px solid rgba(105, 226, 200, 0.5);
+  border-radius: 10px;
+  color: #04120f;
+  background: #79ddc4;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.manual-training-link:hover:not(:disabled),
+.manual-training-link:focus-visible:not(:disabled) {
+  background: #a4f0dc;
+  box-shadow: 0 0 18px rgba(105, 226, 200, 0.22);
+}
+
+.manual-training-link:disabled {
+  cursor: not-allowed;
+  border-color: rgba(180, 203, 185, 0.18);
+  color: var(--muted);
+  background: rgba(180, 203, 185, 0.08);
+}
+
 .app-footer {
   line-height: 1.8;
 }
@@ -3357,6 +3417,10 @@ tbody tr:hover {
     background: #fff !important;
     box-shadow: none;
     break-inside: avoid;
+  }
+
+  .manual-training-link {
+    display: none;
   }
 
   .manual-table-wrap {
