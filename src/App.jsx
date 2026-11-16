@@ -20,6 +20,21 @@ const navLabelByTarget = {
   operators: 'Operators',
 };
 
+const mobileNavIconPaths = {
+  home: 'M3 10.5 12 3l9 7.5M5 9v12h14V9M9 21v-7h6v7',
+  manual: 'M6 3.5h12v17l-6-3-6 3zM9 8h6M9 11h6',
+  leads: 'M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M16 11h6',
+  pipeline: 'M4 4h4v16H4zM10 4h4v10h-4zM16 4h4v13h-4z',
+};
+
+function MobileNavIcon({ target }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d={mobileNavIconPaths[target]} />
+    </svg>
+  );
+}
+
 const tourSteps = [
   {
     target: 'manual',
@@ -270,6 +285,7 @@ function App() {
   const [instagramCaption, setInstagramCaption] = useState('');
   const [instagramFeedback, setInstagramFeedback] = useState('');
   const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+  const [isMobileMoreOpen, setIsMobileMoreOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -301,18 +317,20 @@ function App() {
   }, [tourStep]);
 
   useEffect(() => {
-    if (!isQuickMenuOpen && !quickAction && !isNotificationCenterOpen) return undefined;
+    if (!isQuickMenuOpen && !quickAction && !isNotificationCenterOpen && !isMobileMoreOpen) return undefined;
 
     const closeTransientUi = (event) => {
       if (event.key !== 'Escape') return;
       setIsQuickMenuOpen(false);
       setQuickAction(null);
       setIsNotificationCenterOpen(false);
+      setIsMobileMoreOpen(false);
+      setIsMobileMoreOpen(false);
     };
 
     window.addEventListener('keydown', closeTransientUi);
     return () => window.removeEventListener('keydown', closeTransientUi);
-  }, [isQuickMenuOpen, quickAction, isNotificationCenterOpen]);
+  }, [isQuickMenuOpen, quickAction, isNotificationCenterOpen, isMobileMoreOpen]);
 
   const beginOrientation = () => {
     setIsGuideOpen(false);
@@ -338,6 +356,10 @@ function App() {
   const handleNavClick = (event, item) => {
     event.preventDefault();
     setTourStep(null);
+    setIsMobileMoreOpen(false);
+    setIsQuickMenuOpen(false);
+    setIsNotificationCenterOpen(false);
+    setIsMobileMoreOpen(false);
     setActiveNav(item.label);
     window.history.replaceState(null, '', item.href);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -347,6 +369,8 @@ function App() {
     setSelectedLeadName(name);
     setTourStep(null);
     setIsNotificationCenterOpen(false);
+    setIsMobileMoreOpen(false);
+    setIsQuickMenuOpen(false);
     setActiveNav('Leads');
     window.history.replaceState(null, '', '#leads');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -385,6 +409,7 @@ function App() {
     setQuickAction(action);
     setQuickFormError('');
     setIsQuickMenuOpen(false);
+    setIsMobileMoreOpen(false);
     if (action === 'follow-up') {
       setFollowUpDraft((current) => ({
         ...current,
@@ -561,6 +586,45 @@ function App() {
                 </a>
               ))}
             </nav>
+            {!isStartScreenOpen && (
+              <div className="sidebar-quick-actions">
+                <div className="quick-action-menu" id="desktop-quick-action-menu" hidden={!isQuickMenuOpen}>
+                  <div className="quick-menu-heading">Quick actions</div>
+                  <button type="button" onClick={() => openQuickAction('lead')}>
+                    <span className="quick-action-symbol">＋</span>
+                    <span><strong>Add prospect</strong><small>Save a new lead to the book</small></span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={workspaceData.leads.length === 0}
+                    title={workspaceData.leads.length === 0 ? 'Add a prospect before logging a follow-up' : undefined}
+                    onClick={() => openQuickAction('follow-up')}
+                  >
+                    <span className="quick-action-symbol">↗</span>
+                    <span><strong>Log follow-up</strong><small>Set a reminder for a prospect</small></span>
+                  </button>
+                  <button type="button" onClick={() => openQuickAction('instagram')}>
+                    <span className="quick-action-symbol">◎</span>
+                    <span><strong>Prepare Instagram post</strong><small>Draft a caption and open Instagram</small></span>
+                  </button>
+                </div>
+                <button
+                  className={`quick-action-trigger ${isQuickMenuOpen ? 'open' : ''}`}
+                  type="button"
+                  aria-label={isQuickMenuOpen ? 'Close quick actions' : 'Open quick actions'}
+                  aria-expanded={isQuickMenuOpen}
+                  aria-controls="desktop-quick-action-menu"
+                  onClick={() => {
+                    setIsQuickMenuOpen((isOpen) => !isOpen);
+                    setIsNotificationCenterOpen(false);
+                    setIsMobileMoreOpen(false);
+                  }}
+                >
+                  <span>{isQuickMenuOpen ? '×' : '+'}</span>
+                  <small>{isQuickMenuOpen ? 'Close quick actions' : 'Quick actions'}</small>
+                </button>
+              </div>
+            )}
           </div>
           <div className="profile-panel">
             <div className="avatar-mini">HA</div>
@@ -620,6 +684,7 @@ function App() {
                   onClick={() => {
                     setIsNotificationCenterOpen((isOpen) => !isOpen);
                     setIsQuickMenuOpen(false);
+                    setIsMobileMoreOpen(false);
                   }}
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -989,6 +1054,88 @@ function App() {
         </main>
       </div>
 
+      {!isStartScreenOpen && (
+        <div className="mobile-bottom-navigation">
+          <nav className="mobile-more-menu" id="mobile-more-menu" aria-label="More workspace tabs" hidden={!isMobileMoreOpen}>
+            {navItems.slice(4).map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className={activeNav === item.label ? 'active' : ''}
+                aria-current={activeNav === item.label ? 'page' : undefined}
+                onClick={(event) => handleNavClick(event, item)}
+              >
+                <span>{item.index}</span>{item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="quick-action-menu mobile-quick-action-menu" id="mobile-quick-action-menu" hidden={!isQuickMenuOpen}>
+            <div className="quick-menu-heading">Quick actions</div>
+            <button type="button" onClick={() => openQuickAction('lead')}>
+              <span className="quick-action-symbol">＋</span>
+              <span><strong>Add prospect</strong><small>Save a new lead to the book</small></span>
+            </button>
+            <button
+              type="button"
+              disabled={workspaceData.leads.length === 0}
+              title={workspaceData.leads.length === 0 ? 'Add a prospect before logging a follow-up' : undefined}
+              onClick={() => openQuickAction('follow-up')}
+            >
+              <span className="quick-action-symbol">↗</span>
+              <span><strong>Log follow-up</strong><small>Set a reminder for a prospect</small></span>
+            </button>
+            <button type="button" onClick={() => openQuickAction('instagram')}>
+              <span className="quick-action-symbol">◎</span>
+              <span><strong>Prepare Instagram post</strong><small>Draft a caption and open Instagram</small></span>
+            </button>
+          </div>
+          <nav className="mobile-bottom-nav" aria-label="Mobile workspace navigation">
+            {navItems.slice(0, 4).map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className={`mobile-nav-item ${activeNav === item.label ? 'active' : ''}`}
+                aria-current={activeNav === item.label ? 'page' : undefined}
+                onClick={(event) => handleNavClick(event, item)}
+              >
+                <span className="mobile-nav-mark"><MobileNavIcon target={item.target} /></span>
+                <span className="mobile-nav-label">{item.label}</span>
+              </a>
+            ))}
+            <button
+              className={`mobile-nav-quick ${isQuickMenuOpen ? 'active' : ''}`}
+              type="button"
+              aria-label={isQuickMenuOpen ? 'Close quick actions' : 'Open quick actions'}
+              aria-expanded={isQuickMenuOpen}
+              aria-controls="mobile-quick-action-menu"
+              onClick={() => {
+                setIsQuickMenuOpen((isOpen) => !isOpen);
+                setIsMobileMoreOpen(false);
+                setIsNotificationCenterOpen(false);
+              }}
+            >
+              <span aria-hidden="true">+</span>
+              <span className="mobile-nav-label">Quick</span>
+            </button>
+            <button
+              className={`mobile-nav-more ${isMobileMoreOpen || navItems.slice(4).some((item) => activeNav === item.label) ? 'active' : ''}`}
+              type="button"
+              aria-label="More workspace tabs"
+              aria-expanded={isMobileMoreOpen}
+              aria-controls="mobile-more-menu"
+              onClick={() => {
+                setIsMobileMoreOpen((isOpen) => !isOpen);
+                setIsQuickMenuOpen(false);
+                setIsNotificationCenterOpen(false);
+              }}
+            >
+              <span aria-hidden="true">···</span>
+              <span className="mobile-nav-label">More</span>
+            </button>
+          </nav>
+        </div>
+      )}
+
       {isGuideOpen && (
         <div className="guide-backdrop">
           <section
@@ -1110,45 +1257,6 @@ function App() {
             <div className="notification-empty">You’re all caught up. New follow-ups will appear here.</div>
           )}
         </aside>
-      )}
-
-      {!isStartScreenOpen && (
-        <div className={`quick-action-dock ${tourStep !== null ? (isTourCardHidden ? 'tour-hidden' : 'tour-visible') : ''}`}>
-          <div className="quick-action-menu" id="quick-action-menu" hidden={!isQuickMenuOpen}>
-            <div className="quick-menu-heading">Quick actions</div>
-            <button type="button" onClick={() => openQuickAction('lead')}>
-              <span className="quick-action-symbol">＋</span>
-              <span><strong>Add prospect</strong><small>Save a new lead to the book</small></span>
-            </button>
-            <button
-              type="button"
-              disabled={workspaceData.leads.length === 0}
-              title={workspaceData.leads.length === 0 ? 'Add a prospect before logging a follow-up' : undefined}
-              onClick={() => openQuickAction('follow-up')}
-            >
-              <span className="quick-action-symbol">↗</span>
-              <span><strong>Log follow-up</strong><small>Set a reminder for a prospect</small></span>
-            </button>
-            <button type="button" onClick={() => openQuickAction('instagram')}>
-              <span className="quick-action-symbol">◎</span>
-              <span><strong>Prepare Instagram post</strong><small>Draft a caption and open Instagram</small></span>
-            </button>
-          </div>
-          <button
-            className={`quick-action-trigger ${isQuickMenuOpen ? 'open' : ''}`}
-            type="button"
-            aria-label={isQuickMenuOpen ? 'Close quick actions' : 'Open quick actions'}
-            aria-expanded={isQuickMenuOpen}
-            aria-controls="quick-action-menu"
-            onClick={() => {
-              setIsQuickMenuOpen((isOpen) => !isOpen);
-              setIsNotificationCenterOpen(false);
-            }}
-          >
-            <span>{isQuickMenuOpen ? '×' : '+'}</span>
-            <small>{isQuickMenuOpen ? 'Close' : 'Quick action'}</small>
-          </button>
-        </div>
       )}
 
       {quickAction && (
