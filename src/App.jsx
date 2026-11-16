@@ -530,14 +530,21 @@ const manualSections = [
         heading: 'Resource routing & audience',
         columns: ['Resource', 'When / audience', 'Boundary'],
         rows: [
-          ['Group home — https://www.kurogamigroup.com', 'First serious touch; prospect-facing.', 'Use approved message in Assets.'],
-          ['Doctrine / standard — Group site', 'After interest; before Method if posture needs clarification.', 'Doctrine lives on the Group site.'],
-          ['Statecraft Method — open from Group site', 'Before a seat conversation.', 'Do not describe it as signals or returns.'],
-          ['Official Access — Group site', 'Seat conversation.', 'Use published terms and price only.'],
-          ['Desks overview — Group site', 'When asked what the seat includes.', 'Explain the system; pitch one seat, not six products.'],
+          ['Group home — https://www.kurogamigroup.com/', 'First serious touch.', 'Prospect-facing; use the approved message in Assets.'],
+          ['Doctrine — https://www.kurogamigroup.com/doctrine', 'After interest; before Method if they need posture.', 'Use doctrine to explain posture, not as a proof or returns claim.'],
+          ['Desks overview — https://www.kurogamigroup.com/desks', '“What am I joining?” / system map.', 'Explain the system; pitch one seat, not six products.'],
+          ['Whitepaper — https://www.kurogamigroup.com/whitepaper', 'Deeper architecture context only.', 'Not a close tool.'],
+          ['Roadmap — https://www.kurogamigroup.com/roadmap', 'Timeline questions only.', 'Do not imply a guaranteed delivery or outcome.'],
+          ['Official Access (site) — https://www.kurogamigroup.com/access', 'Seat conversation / buyer path on the main site.', 'Use published terms and price only.'],
+          ['Statecraft Method — https://statecraft-academy.vercel.app/#method', 'Before a seat conversation; required seriousness filter.', 'Do not describe it as signals or returns.'],
+          ['Board — https://statecraft-control-surface.vercel.app/desk', 'Only if they ask how capacity / governance works.', 'Do not present governance as a performance guarantee.'],
+          ['Veil — https://veilcapacity-brown.vercel.app/', 'Risk / exposure questions.', 'Risk is named and bounded; no guarantee wrapper.'],
+          ['Arcade — https://kurogami-arcade.vercel.app/', 'Practice / reps questions.', 'Practice under rules; not a P&L contest.'],
+          ['Forge — https://kurogami-forge-index.vercel.app/', 'Build / systems questions.', 'Do not imply equity or a co-founder role.'],
+          ['Access desk (app) — https://statecraft-academy.vercel.app/', 'After Method; seat entry surface.', 'Process access—not signals or guaranteed returns.'],
           ['The Black Book — Continuum /manual', 'Closers and operators only.', 'Internal manual; do not send as a prospect PDF unless Admin approves.'],
           ['Investor / opportunity one-pager', 'Admin-directed conversations only.', 'Use only a specific URL published by Admin; none is configured here.'],
-          ['Continuum — operatorcontinuum.vercel.app', 'Internal operations; closers log here.', 'Not a prospect-facing sales toy.'],
+          ['Operator Continuum (ops) — https://operatorcontinuum.vercel.app/', 'Closers / pilots only.', 'Internal field desk; do not send as a prospect sales link unless Admin approves.'],
         ],
         note: 'Do not send random decks, personal P&L as a promise, or third-party proof that implies guaranteed returns.',
       },
@@ -557,38 +564,112 @@ const manualSections = [
   },
 ];
 
-const assetCards = [
+const assetGroups = [
   {
-    title: 'Group home',
-    description: 'First serious touch; the Group’s public home.',
-    url: 'https://www.kurogamigroup.com',
-    copy: 'Kurogami Group — operators, not spectators. Process before outcome. https://www.kurogamigroup.com — Not investment advice.',
+    title: 'Main site',
+    range: '01–06',
+    assets: [
+      {
+        title: 'Group home',
+        whenToSend: 'First serious touch',
+        url: 'https://www.kurogamigroup.com/',
+        copy: 'Kurogami Group — operators, not spectators. Process before outcome.\nhttps://www.kurogamigroup.com/\nNot investment advice.',
+        primary: true,
+      },
+      {
+        title: 'Doctrine',
+        whenToSend: 'After interest; before Method if they need posture',
+        url: 'https://www.kurogamigroup.com/doctrine',
+        copy: 'Group doctrine — process before outcome. Risk is named.\nhttps://www.kurogamigroup.com/doctrine\nNot investment advice.',
+        primary: true,
+      },
+      {
+        title: 'Desks overview',
+        whenToSend: '“What am I joining?” / system map',
+        url: 'https://www.kurogamigroup.com/desks',
+        copy: 'The desks — Method, Board, Veil, Arcade, Forge, Access.\nhttps://www.kurogamigroup.com/desks\nOne seat. Process first.',
+      },
+      {
+        title: 'Whitepaper',
+        whenToSend: 'Deeper architecture context only (not a close tool)',
+        url: 'https://www.kurogamigroup.com/whitepaper',
+        copy: 'Kurogami Group whitepaper.\nhttps://www.kurogamigroup.com/whitepaper\nNot investment advice.',
+      },
+      {
+        title: 'Roadmap',
+        whenToSend: 'Timeline questions only',
+        url: 'https://www.kurogamigroup.com/roadmap',
+        copy: 'Group roadmap.\nhttps://www.kurogamigroup.com/roadmap',
+      },
+      {
+        title: 'Official Access (site)',
+        whenToSend: 'Seat conversation / buyer path on main site',
+        url: 'https://www.kurogamigroup.com/access',
+        copy: 'Desk Access — process seat under published terms. Default unit $15,000.\nhttps://www.kurogamigroup.com/access\nNot a return promise. Not investment advice.',
+        primary: true,
+      },
+    ],
   },
   {
-    title: 'Doctrine / standard',
-    description: 'The doctrine lives on the Group site.',
-    url: 'https://www.kurogamigroup.com',
-    copy: 'Process before outcome. Risk is named, bounded, and owned. The standard outlives the outcome. https://www.kurogamigroup.com — Not investment advice.',
+    title: 'Desks',
+    range: '07–12',
+    assets: [
+      {
+        title: 'Statecraft Method',
+        whenToSend: 'Before seat conversation; required seriousness filter',
+        url: 'https://statecraft-academy.vercel.app/#method',
+        copy: 'Statecraft Method — how we train process.\nhttps://statecraft-academy.vercel.app/#method\nIf this doesn’t land, we don’t talk price.',
+        primary: true,
+      },
+      {
+        title: 'Board',
+        whenToSend: 'Only if they ask how capacity/governance works',
+        url: 'https://statecraft-control-surface.vercel.app/desk',
+        copy: 'Board — govern capacity and standard.\nhttps://statecraft-control-surface.vercel.app/desk',
+      },
+      {
+        title: 'Veil',
+        whenToSend: 'Risk / exposure questions',
+        url: 'https://veilcapacity-brown.vercel.app/',
+        copy: 'Veil — protect. Risk is named and bounded.\nhttps://veilcapacity-brown.vercel.app/',
+      },
+      {
+        title: 'Arcade',
+        whenToSend: 'Practice / reps questions',
+        url: 'https://kurogami-arcade.vercel.app/',
+        copy: 'Arcade — practice under rules.\nhttps://kurogami-arcade.vercel.app/',
+      },
+      {
+        title: 'Forge',
+        whenToSend: 'Build / systems questions',
+        url: 'https://kurogami-forge-index.vercel.app/',
+        copy: 'Forge — build systems and operator infrastructure.\nhttps://kurogami-forge-index.vercel.app/',
+      },
+      {
+        title: 'Access desk (app)',
+        whenToSend: 'After Method; seat entry surface',
+        url: 'https://statecraft-academy.vercel.app/',
+        copy: 'Official Access desk.\nhttps://statecraft-academy.vercel.app/\nDesk Access is process access — not signals, not guaranteed returns.',
+        primary: true,
+      },
+    ],
   },
   {
-    title: 'Statecraft Method',
-    description: 'Method — open from Group site.',
-    url: 'https://www.kurogamigroup.com',
-    copy: 'Next step for serious operators is Method, then Access if it fits.',
-  },
-  {
-    title: 'Official Access',
-    description: 'Access / enter path on the Group site.',
-    url: 'https://www.kurogamigroup.com',
-    copy: 'Desk Access is the seat. Fifteen thousand default. Process access — not a return promise.',
-  },
-  {
-    title: 'Desks overview',
-    description: 'Desks index on the Group site.',
-    url: 'https://www.kurogamigroup.com',
-    copy: 'One seat; desks explain the system. https://www.kurogamigroup.com — Not investment advice.',
+    title: 'Internal',
+    range: '13',
+    assets: [
+      {
+        title: 'Operator Continuum (ops)',
+        whenToSend: 'Closers/pilots only — not a prospect toy',
+        url: 'https://operatorcontinuum.vercel.app/',
+        copy: '[INTERNAL] Operator Continuum — field desk. Black Book lives here.\nDo not send to cold prospects as a sales link unless Admin approves.',
+        internal: true,
+      },
+    ],
   },
 ];
+
+const assetCards = assetGroups.flatMap((group) => group.assets);
 
 const defaultPilotAcknowledgement = {
   acknowledged: false,
@@ -1689,25 +1770,41 @@ function App() {
           <section className={`assets-panel ${isTourTarget('assets') ? 'tour-target' : ''}`} id="assets">
             <div className="panel-header">
               <span className="section-kicker">Assets</span>
-              <span className="range-label">Approved Group links / Copy for clipboard</span>
+              <span className="range-label">Canonical live links / Copy for clipboard</span>
             </div>
             <p className="assets-notice">Use Group materials to introduce the doctrine and seat. Continuum is an internal operations desk, not a prospect-facing sales toy.</p>
-            <div className="asset-grid">
-              {assetCards.map((asset) => (
-                <article key={asset.title} className="asset-card">
-                  <div className="asset-label">{asset.title}</div>
-                  <p>{asset.description}</p>
-                  <a className="asset-primary-link" href={asset.url} target="_blank" rel="noreferrer">{asset.url}</a>
-                  <blockquote className="asset-copy-text">{asset.copy}</blockquote>
-                  <div className="asset-actions">
-                    <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
-                      Copy message
-                    </button>
-                    <a href={asset.url} target="_blank" rel="noreferrer">Open link ↗</a>
+            <p className="asset-primary-stack"><strong>Primary send order:</strong> Group home → Doctrine → Statecraft Method → Official Access (site) → Access desk (app).</p>
+            <div className="asset-groups">
+              {assetGroups.map((group) => (
+                <section key={group.title} className="asset-group">
+                  <div className="asset-group-heading">
+                    <h3>{group.title}</h3>
+                    <span>{group.range}</span>
                   </div>
-                </article>
+                  <div className="asset-grid">
+                    {group.assets.map((asset) => (
+                      <article key={asset.title} className={`asset-card ${asset.internal ? 'asset-card-internal' : ''}`}>
+                        <div className="asset-card-heading">
+                          <div className="asset-label">{asset.title}</div>
+                          {asset.primary && <span className="asset-badge">Primary</span>}
+                          {asset.internal && <span className="asset-badge asset-badge-internal">Internal</span>}
+                        </div>
+                        <p><strong>When to send:</strong> {asset.whenToSend}</p>
+                        <a className="asset-primary-link" href={asset.url} target="_blank" rel="noopener noreferrer">{asset.url}</a>
+                        <blockquote className="asset-copy-text">{asset.copy}</blockquote>
+                        <div className="asset-actions">
+                          <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
+                            Copy message
+                          </button>
+                          <a href={asset.url} target="_blank" rel="noopener noreferrer">Open link ↗</a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
+            <p className="assets-footer-note">Links verified to kurogamigroup.com + live desk apps. Admin updates Continuum if routes change.</p>
             {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
           </section>
           </div>
@@ -1791,15 +1888,19 @@ function App() {
                 <div className="asset-grid outreach-card-grid" id="outreach-assets-panel" role="tabpanel" aria-labelledby="outreach-assets-tab">
                   {assetCards.map((asset) => (
                     <article key={asset.title} className="asset-card outreach-card">
-                      <div className="asset-label">{asset.title}</div>
-                      <p>{asset.description}</p>
-                      <a className="asset-primary-link" href={asset.url} target="_blank" rel="noreferrer">{asset.url}</a>
+                      <div className="asset-card-heading">
+                        <div className="asset-label">{asset.title}</div>
+                        {asset.primary && <span className="asset-badge">Primary</span>}
+                        {asset.internal && <span className="asset-badge asset-badge-internal">Internal</span>}
+                      </div>
+                      <p><strong>When to send:</strong> {asset.whenToSend}</p>
+                      <a className="asset-primary-link" href={asset.url} target="_blank" rel="noopener noreferrer">{asset.url}</a>
                       <blockquote className="asset-copy-text">{asset.copy}</blockquote>
                       <div className="asset-actions">
                         <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
                           Copy message
                         </button>
-                        <a href={asset.url} target="_blank" rel="noreferrer">Open link ↗</a>
+                        <a href={asset.url} target="_blank" rel="noopener noreferrer">Open link ↗</a>
                       </div>
                     </article>
                   ))}
