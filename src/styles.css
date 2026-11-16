@@ -1995,26 +1995,6 @@ button:focus-visible {
   overflow: visible;
 }
 
-.nav-item[href="#manual"] {
-  border-color: rgba(91, 205, 182, 0.22);
-  background: linear-gradient(100deg, rgba(48, 150, 131, 0.12), rgba(48, 150, 131, 0.025));
-  color: #a9d8cd;
-}
-
-.nav-item[href="#manual"]:hover,
-.nav-item[href="#manual"]:focus-visible,
-.nav-item[href="#manual"].active {
-  border-color: rgba(105, 226, 200, 0.58);
-  border-left-color: #76e4cf;
-  background: linear-gradient(100deg, rgba(54, 177, 154, 0.25), rgba(54, 177, 154, 0.06));
-  color: #d7fff4;
-  box-shadow: inset 12px 0 24px -24px #76e4cf, 0 0 20px rgba(63, 192, 164, 0.1);
-}
-
-.nav-item[href="#manual"] .nav-index {
-  color: #70d7c1;
-}
-
 :root {
   --surface: rgba(7, 14, 11, 0.84);
   --surface-raised: rgba(13, 23, 18, 0.94);
@@ -2685,4 +2665,51 @@ tbody tr:hover {
   position: static;
   align-self: start;
   overflow: visible;
+}
+
+:root {
+  --selection-gradient: linear-gradient(100deg, rgba(54, 177, 154, 0.28), rgba(54, 177, 154, 0.07));
+  --selection-hover: linear-gradient(100deg, rgba(54, 177, 154, 0.17), rgba(54, 177, 154, 0.045));
+  --selection-border: rgba(105, 226, 200, 0.58);
+  --selection-text: #d7fff4;
+  --selection-glow: inset 12px 0 24px -24px #76e4cf, 0 0 20px rgba(63, 192, 164, 0.1);
+}
+
+.nav-item.active,
+.manual-tab.active {
+  border-color: var(--selection-border);
+  background: var(--selection-gradient);
+  color: var(--selection-text);
+  box-shadow: var(--selection-glow);
+  animation: none;
+}
+
+.nav-item.active {
+  border-left-color: #76e4cf;
+}
+
+.nav-item.active .nav-index,
+.manual-tab.active > span {
+  color: #70d7c1;
+}
+
+.nav-item:hover:not(.active),
+.nav-item:focus-visible:not(.active),
+.manual-tab:hover:not(.active),
+.manual-tab:focus-visible:not(.active) {
+  border-color: rgba(105, 226, 200, 0.34);
+  background: var(--selection-hover);
+  color: var(--selection-text);
+}
+
+.tour-reopen,
+.tour-reopen:hover,
+.tour-reopen:focus-visible {
+  border-color: var(--selection-border);
+  background: var(--selection-gradient);
+  background-image: none;
+  color: var(--selection-text);
+  box-shadow: var(--selection-glow);
+  filter: none;
+  animation: none;
 }
