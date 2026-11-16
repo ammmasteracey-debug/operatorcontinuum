@@ -941,6 +941,11 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const changeManualTab = (index) => {
+    setManualTab(index);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const openQuickAction = (action) => {
     setQuickAction(action);
     setQuickFormError('');
@@ -1341,7 +1346,7 @@ function App() {
                     className={`manual-tab ${manualTab === index ? 'active' : ''}`}
                     type="button"
                     aria-current={manualTab === index ? 'step' : undefined}
-                    onClick={() => setManualTab(index)}
+                    onClick={() => changeManualTab(index)}
                   >
                     <span>{String(index + 1).padStart(2, '0')}</span>
                     {section.title}
@@ -1375,7 +1380,7 @@ function App() {
                       className="manual-previous"
                       type="button"
                       disabled={manualTab === 0}
-                      onClick={() => setManualTab((current) => Math.max(0, current - 1))}
+                      onClick={() => changeManualTab(Math.max(0, manualTab - 1))}
                     >
                       Previous
                     </button>
@@ -1384,7 +1389,7 @@ function App() {
                       type="button"
                       onClick={(event) => {
                         if (manualTab < manualSections.length - 1) {
-                          setManualTab((current) => current + 1);
+                          changeManualTab(manualTab + 1);
                         } else {
                           handleNavClick(event, navItems[2]);
                         }
