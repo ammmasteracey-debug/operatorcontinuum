@@ -1783,7 +1783,7 @@ button:focus-visible {
   height: 100%;
   background: var(--gold);
   transform-origin: left;
-  animation: loader-progress 1s ease-out both;
+  animation: loader-progress 2s ease-out both;
 }
 
 .launch-button {
@@ -6720,6 +6720,12 @@ tbody tr:hover {
   gap: 12px;
 }
 
+.background-music-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .background-music-toggle {
   min-height: 34px;
   padding: 0 10px;
@@ -6740,8 +6746,27 @@ tbody tr:hover {
   background: rgba(197, 164, 90, 0.13);
 }
 
-.launch-music-toggle {
-  display: flex;
+.background-music-start {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(105, 226, 200, 0.38);
+  border-radius: 4px;
+  background: rgba(105, 226, 200, 0.08);
+  color: #a4eadb;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.background-music-start:hover,
+.background-music-start:focus-visible {
+  border-color: rgba(105, 226, 200, 0.7);
+  background: rgba(105, 226, 200, 0.16);
+}
+
+.launch-music-controls {
+  justify-content: center;
   margin: 15px auto 0;
 }
 
@@ -6781,5 +6806,17 @@ tbody tr:hover {
     min-height: 32px;
     padding: 0 8px;
     font-size: 7px;
+  }
+
+  .background-music-start {
+    min-height: 32px;
+    padding: 0 8px;
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 460px) {
+  .site-header-tools .system-status {
+    display: none;
   }
 }

@@ -2135,17 +2135,24 @@ function readBackgroundMusicPreference() {
   }
 }
 
-function BackgroundMusicToggle({ enabled, onToggle, className = '' }) {
+function BackgroundMusicToggle({ enabled, playing, onToggle, onStart, className = '' }) {
   return (
-    <button
-      className={`background-music-toggle ${className}`}
-      type="button"
-      aria-pressed={enabled}
-      aria-label={enabled ? 'Turn background music off' : 'Turn background music on'}
-      onClick={onToggle}
-    >
-      Music: {enabled ? 'On' : 'Off'}
-    </button>
+    <div className={`background-music-controls ${className}`}>
+      <button
+        className="background-music-toggle"
+        type="button"
+        aria-pressed={enabled}
+        aria-label={enabled ? 'Turn background music off' : 'Turn background music on'}
+        onClick={onToggle}
+      >
+        Music: {enabled ? 'On' : 'Off'}
+      </button>
+      {enabled && !playing && (
+        <button className="background-music-start" type="button" onClick={onStart}>
+          Play
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -2158,6 +2165,7 @@ function App() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [initialBackgroundMusicPreference] = useState(readBackgroundMusicPreference);
   const [isBackgroundMusicEnabled, setIsBackgroundMusicEnabled] = useState(initialBackgroundMusicPreference.enabled);
+  const [isBackgroundMusicPlaying, setIsBackgroundMusicPlaying] = useState(false);
   const [backgroundMusicPreferenceNotice, setBackgroundMusicPreferenceNotice] = useState(initialBackgroundMusicPreference.notice);
   const [backgroundMusicPlaybackNotice, setBackgroundMusicPlaybackNotice] = useState('');
   const backgroundMusicRef = useRef(null);
@@ -2206,16 +2214,21 @@ function App() {
       const playback = audio.play();
       if (playback) {
         playback.then(
-          () => setBackgroundMusicPlaybackNotice(''),
+          () => {
+            setIsBackgroundMusicPlaying(true);
+            setBackgroundMusicPlaybackNotice('');
+          },
           (error) => {
             console.error('Unable to start background music.', error);
-            setBackgroundMusicPlaybackNotice('Background music is on but playback did not start. Use the music toggle to retry.');
+            setIsBackgroundMusicPlaying(false);
+            setBackgroundMusicPlaybackNotice('Background music is on but playback did not start. Use Play to retry.');
           },
         );
       }
     } catch (error) {
       console.error('Unable to start background music.', error);
-      setBackgroundMusicPlaybackNotice('Background music is on but playback did not start. Use the music toggle to retry.');
+      setIsBackgroundMusicPlaying(false);
+      setBackgroundMusicPlaybackNotice('Background music is on but playback did not start. Use Play to retry.');
     }
   };
 
@@ -2226,6 +2239,7 @@ function App() {
       startBackgroundMusic();
     } else {
       backgroundMusicRef.current?.pause();
+      setIsBackgroundMusicPlaying(false);
       setBackgroundMusicPlaybackNotice('');
     }
   };
@@ -2264,7 +2278,7 @@ function App() {
   }, [curriculumProgress]);
 
   useEffect(() => {
-    const loadingTimer = window.setTimeout(() => setIsLoading(false), 1100);
+    const loadingTimer = window.setTimeout(() => setIsLoading(false), 2000);
     return () => window.clearTimeout(loadingTimer);
   }, []);
 
@@ -2744,9 +2758,14 @@ function App() {
         aria-hidden="true"
         onError={(event) => {
           console.error('Unable to load background music.', event.currentTarget.error);
+          setIsBackgroundMusicPlaying(false);
           setBackgroundMusicPlaybackNotice('Background music could not be loaded from public/assets.');
         }}
-        onPlay={() => setBackgroundMusicPlaybackNotice('')}
+        onPlay={() => {
+          setIsBackgroundMusicPlaying(true);
+          setBackgroundMusicPlaybackNotice('');
+        }}
+        onPause={() => setIsBackgroundMusicPlaying(false)}
       />
       {isStartScreenOpen && (
         <div
@@ -2754,6 +2773,10 @@ function App() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="launch-title"
+          onPointerDown={(event) => {
+            if (event.target.closest?.('button')) return;
+            if (isBackgroundMusicEnabled) startBackgroundMusic();
+          }}
         >
           <div className="launch-hud launch-hud-top">
             <span>KUROGAMI GROUP / OPERATOR CONTINUUM</span>
@@ -2777,9 +2800,11 @@ function App() {
               {isLoading ? 'Loading field manual · Initializing operator desk' : 'Black Book v1.0 loaded · Operator desk online'}
             </div>
             <BackgroundMusicToggle
-              className="launch-music-toggle"
+              className="launch-music-controls"
               enabled={isBackgroundMusicEnabled}
+              playing={isBackgroundMusicPlaying}
               onToggle={toggleBackgroundMusic}
+              onStart={startBackgroundMusic}
             />
             {backgroundMusicNotice && <p className="background-music-notice" role="status">{backgroundMusicNotice}</p>}
             {isLoading ? (
@@ -2805,7 +2830,12 @@ function App() {
           <span className="site-brand-copy"><strong>KUROGAMI GROUP</strong><small>OPERATOR CONTINUUM</small></span>
         </div>
         <div className="site-header-tools">
-          <BackgroundMusicToggle enabled={isBackgroundMusicEnabled} onToggle={toggleBackgroundMusic} />
+          <BackgroundMusicToggle
+            enabled={isBackgroundMusicEnabled}
+            playing={isBackgroundMusicPlaying}
+            onToggle={toggleBackgroundMusic}
+            onStart={startBackgroundMusic}
+          />
           <div className="system-status"><span /> GROUP OPERATIONS / ACTIVE</div>
         </div>
       </header>

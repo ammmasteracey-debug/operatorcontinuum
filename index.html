@@ -8,9 +8,66 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html,
+      body,
+      #root {
+        min-height: 100%;
+        margin: 0;
+        background: #030807;
+      }
+
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        gap: 18px;
+        color: #c5a45a;
+        font: 9px 'SFMono-Regular', Consolas, monospace;
+        letter-spacing: 0.16em;
+        text-align: center;
+      }
+
+      #initial-loader strong {
+        color: #e8e9e3;
+        font: 700 clamp(14px, 3vw, 20px) Inter, 'Helvetica Neue', Arial, sans-serif;
+        letter-spacing: 0.14em;
+      }
+
+      #initial-loader small {
+        color: #9da69f;
+        font-size: 8px;
+      }
+
+      #initial-loader span:last-child {
+        width: min(220px, 70vw);
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #c5a45a, transparent);
+        animation: initial-loader-pulse 900ms ease-in-out infinite alternate;
+      }
+
+      @keyframes initial-loader-pulse {
+        to { opacity: 0.3; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #initial-loader span:last-child {
+          animation: none;
+        }
+      }
+    </style>
     <script type="module" src="/src/main.jsx"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="initial-loader" role="status" aria-live="polite">
+        <span>KUROGAMI GROUP / OPERATOR CONTINUUM</span>
+        <strong>INITIALIZING FIELD MANUAL</strong>
+        <small>PROCESS BEFORE OUTCOME</small>
+        <span aria-hidden="true"></span>
+      </div>
+    </div>
   </body>
 </html>
