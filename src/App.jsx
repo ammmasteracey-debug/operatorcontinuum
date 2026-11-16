@@ -58,7 +58,7 @@ const tourSteps = [
   },
 ];
 
-const metricCards = [
+const demoMetricCards = [
   { label: 'Pipeline', value: '128', detail: 'Prospects in motion' },
   { label: 'Follow-ups', value: '34', detail: 'Due in the next 7 days' },
   { label: 'Seat value', value: '$1.9M', detail: 'Weighted opportunity value' },
@@ -72,49 +72,24 @@ const nextActions = [
 ];
 
 const pipelineStages = [
-  {
-    label: 'New',
-    leads: [
-      { name: 'Ari Sol', channel: 'IG', temp: 'Warm', value: '$15k' },
-      { name: 'Leah Rowan', channel: 'Referral', temp: 'Cold', value: '$15k' },
-    ],
-  },
-  {
-    label: 'Contacted',
-    leads: [
-      { name: 'Mina Park', channel: 'X', temp: 'Warm', value: '$15k' },
-    ],
-  },
-  {
-    label: 'Site / doctrine shared',
-    leads: [
-      { name: 'Dorian Vale', channel: 'Event', temp: 'Hot', value: '$15k' },
-      { name: 'Nico Sato', channel: 'Other', temp: 'Cold', value: '$15k' },
-    ],
-  },
-  {
-    label: 'Method shared',
-    leads: [
-      { name: 'Tess Moran', channel: 'IG', temp: 'Warm', value: '$15k' },
-    ],
-  },
-  {
-    label: 'Seat conversation',
-    leads: [
-      { name: 'Iris Quinn', channel: 'Referral', temp: 'Hot', value: '$15k' },
-    ],
-  },
-  {
-    label: 'Closed — won',
-    leads: [
-      { name: 'Sofia Laurent', channel: 'Warm intro', temp: 'Hot', value: '$15k' },
-    ],
-  },
+  { label: 'New' },
+  { label: 'Contacted' },
+  { label: 'Site / doctrine shared' },
+  { label: 'Method shared' },
+  { label: 'Seat conversation' },
+  { label: 'Closed — won' },
 ];
 
-const leadRecords = pipelineStages.flatMap((stage) =>
-  stage.leads.map((lead) => ({ ...lead, stage: stage.label, owner: 'Harry' })),
-);
+const demoLeads = [
+  { name: 'Ari Sol', channel: 'IG', temp: 'Warm', value: '$15k', stage: 'New', owner: 'Harry' },
+  { name: 'Leah Rowan', channel: 'Referral', temp: 'Cold', value: '$15k', stage: 'New', owner: 'Harry' },
+  { name: 'Mina Park', channel: 'X', temp: 'Warm', value: '$15k', stage: 'Contacted', owner: 'Harry' },
+  { name: 'Dorian Vale', channel: 'Event', temp: 'Hot', value: '$15k', stage: 'Site / doctrine shared', owner: 'Harry' },
+  { name: 'Nico Sato', channel: 'Other', temp: 'Cold', value: '$15k', stage: 'Site / doctrine shared', owner: 'Harry' },
+  { name: 'Tess Moran', channel: 'IG', temp: 'Warm', value: '$15k', stage: 'Method shared', owner: 'Harry' },
+  { name: 'Iris Quinn', channel: 'Referral', temp: 'Hot', value: '$15k', stage: 'Seat conversation', owner: 'Harry' },
+  { name: 'Sofia Laurent', channel: 'Warm intro', temp: 'Hot', value: '$15k', stage: 'Closed — won', owner: 'Harry' },
+];
 
 const manualSections = [
   {
@@ -223,6 +198,47 @@ const pilotRows = [
   { closer: 'Ike', touches: 24, conversations: 9, methodShares: 7, seatConversations: 4, won: 1, revenue: '$15k', rate: '12%' },
 ];
 
+const demoWorkspaceData = {
+  mode: 'demo',
+  leads: demoLeads,
+  nextActions,
+  pilotRows,
+};
+
+const freshWorkspaceData = {
+  mode: 'fresh',
+  leads: [],
+  nextActions: [],
+  pilotRows: [],
+};
+
+const workspaceDataStorageKey = 'operator-continuum-workspace-data';
+
+function readWorkspaceData() {
+  try {
+    const savedData = window.localStorage.getItem(workspaceDataStorageKey);
+    if (savedData === null) return { data: freshWorkspaceData, warning: null };
+
+    const parsedData = JSON.parse(savedData);
+    if (
+      (parsedData.mode !== 'demo' && parsedData.mode !== 'fresh')
+      || !Array.isArray(parsedData.leads)
+      || !Array.isArray(parsedData.nextActions)
+      || !Array.isArray(parsedData.pilotRows)
+    ) {
+      throw new Error('Saved workspace data has an invalid shape.');
+    }
+
+    return { data: parsedData, warning: null };
+  } catch (error) {
+    console.error('Unable to read saved workspace data.', error);
+    return {
+      data: freshWorkspaceData,
+      warning: 'Saved data could not be read. A fresh book is open instead.',
+    };
+  }
+}
+
 const operatorRules = [
   'Same manual, same stages, same assets.',
   'Leads attributed to the operator.',
@@ -231,6 +247,9 @@ const operatorRules = [
 ];
 
 function App() {
+  const [initialWorkspaceData] = useState(readWorkspaceData);
+  const [workspaceData, setWorkspaceData] = useState(initialWorkspaceData.data);
+  const [dataNotice, setDataNotice] = useState(initialWorkspaceData.warning);
   const [isLoading, setIsLoading] = useState(true);
   const [isStartScreenOpen, setIsStartScreenOpen] = useState(true);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
@@ -243,6 +262,15 @@ function App() {
   const [leadSearch, setLeadSearch] = useState('');
   const [leadStageFilter, setLeadStageFilter] = useState('All stages');
   const [selectedLeadName, setSelectedLeadName] = useState(null);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(workspaceDataStorageKey, JSON.stringify(workspaceData));
+    } catch (error) {
+      console.error('Unable to save workspace data.', error);
+      setDataNotice('Workspace changes could not be saved in this browser.');
+    }
+  }, [workspaceData]);
 
   useEffect(() => {
     const loadingTimer = window.setTimeout(() => setIsLoading(false), 1100);
@@ -301,12 +329,37 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const filteredLeadRecords = leadRecords.filter((lead) => {
+  const resetWorkspaceData = () => {
+    if (!window.confirm('Reset leads, next actions, and pilot records for this browser? This cannot be undone.')) return;
+    setWorkspaceData(freshWorkspaceData);
+    setSelectedLeadName(null);
+    setLeadSearch('');
+    setLeadStageFilter('All stages');
+    setDataNotice(null);
+  };
+
+  const loadDemoData = () => {
+    setWorkspaceData(demoWorkspaceData);
+    setSelectedLeadName(null);
+    setLeadSearch('');
+    setLeadStageFilter('All stages');
+    setDataNotice(null);
+  };
+
+  const filteredLeadRecords = workspaceData.leads.filter((lead) => {
     const matchesQuery = `${lead.name} ${lead.channel} ${lead.stage}`.toLowerCase().includes(leadSearch.toLowerCase());
     const matchesStage = leadStageFilter === 'All stages' || lead.stage === leadStageFilter;
     return matchesQuery && matchesStage;
   });
-  const selectedLead = leadRecords.find((lead) => lead.name === selectedLeadName);
+  const selectedLead = workspaceData.leads.find((lead) => lead.name === selectedLeadName);
+  const visibleMetricCards = workspaceData.mode === 'demo'
+    ? demoMetricCards
+    : [
+      { label: 'Pipeline', value: '0', detail: 'Prospects in motion' },
+      { label: 'Follow-ups', value: '0', detail: 'Due in the next 7 days' },
+      { label: 'Seat value', value: '$0', detail: 'Weighted opportunity value' },
+      { label: 'Pilot', value: '—', detail: 'No pilot records yet' },
+    ];
 
   const isTourTarget = (target) => tourStep !== null && tourSteps[tourStep].target === target;
 
@@ -400,6 +453,27 @@ function App() {
           <header className="main-header">
             <div className="bread">KUROGAMI / OPERATOR CONTINUUM / {activeNav.toUpperCase()}</div>
             <div className="header-tools">
+              <div className="dataset-controls" role="group" aria-label="Workspace data controls">
+                <span className={`dataset-status ${workspaceData.mode}`}>
+                  {workspaceData.mode === 'demo' ? 'Demo data' : 'Fresh book'}
+                </span>
+                <button
+                  className="dataset-button reset-data-button"
+                  type="button"
+                  disabled={workspaceData.mode === 'fresh'}
+                  onClick={resetWorkspaceData}
+                >
+                  Reset data
+                </button>
+                <button
+                  className="dataset-button load-demo-button"
+                  type="button"
+                  disabled={workspaceData.mode === 'demo'}
+                  onClick={loadDemoData}
+                >
+                  Load demo data
+                </button>
+              </div>
               <span className="date-label">Admin view · Harry pilot</span>
               <button
                 className="guide-button"
@@ -414,6 +488,7 @@ function App() {
               </button>
             </div>
           </header>
+          {dataNotice && <div className="data-notice" role="alert">{dataNotice}</div>}
 
           <div className="page-view" hidden={activeNav !== 'Home'}>
             <div className="banner-warning">
@@ -440,7 +515,7 @@ function App() {
             </div>
 
             <div className="stats-grid">
-              {metricCards.map((card) => (
+              {visibleMetricCards.map((card) => (
                 <article key={card.label} className="stat-card">
                   <span className="stat-label">{card.label}</span>
                   <span className="stat-value">{card.value}</span>
@@ -457,7 +532,7 @@ function App() {
             </div>
 
             <div className="action-list">
-              {nextActions.map((action) => (
+              {workspaceData.nextActions.map((action) => (
                 <button
                   key={action.name}
                   className="action-row"
@@ -473,6 +548,9 @@ function App() {
                   <div className="action-due">{action.due}</div>
                 </button>
               ))}
+              {workspaceData.nextActions.length === 0 && (
+                <div className="workspace-empty-state">Your next actions will appear here when the book has data.</div>
+              )}
             </div>
           </section>
           </div>
@@ -591,7 +669,17 @@ function App() {
                       <span className="lead-value">{lead.value}</span>
                     </button>
                   )) : (
-                    <div className="lead-empty-state">No leads match those filters.</div>
+                    <div className="lead-empty-state">
+                      <strong>{workspaceData.leads.length === 0 ? 'Your book is fresh.' : 'No leads match those filters.'}</strong>
+                      {workspaceData.leads.length === 0 && (
+                        <>
+                          <span>Load the demo dataset to explore a populated workspace.</span>
+                          <button className="empty-state-button" type="button" onClick={loadDemoData}>
+                            Load demo data
+                          </button>
+                        </>
+                      )}
+                    </div>
                   )}
                 </div>
                 {selectedLead ? (
@@ -634,7 +722,7 @@ function App() {
                 <div key={stage.label} className="stage-column">
                   <div className="stage-header">{stage.label}</div>
                   <div className="stage-list">
-                    {stage.leads.map((lead) => (
+                    {workspaceData.leads.filter((lead) => lead.stage === stage.label).map((lead) => (
                       <button key={lead.name} className="lead-card" type="button" onClick={() => openLead(lead.name)}>
                         <div className="lead-head">
                           <span>{lead.name}</span>
@@ -646,6 +734,9 @@ function App() {
                         </div>
                       </button>
                     ))}
+                    {!workspaceData.leads.some((lead) => lead.stage === stage.label) && (
+                      <div className="stage-empty-state">No prospects</div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -683,7 +774,7 @@ function App() {
               <span className="section-kicker">Pilot scoreboard</span>
               <span className="range-label">7d / 30d / full pilot</span>
             </div>
-            <div className="table-wrap">
+            {workspaceData.pilotRows.length > 0 ? <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
@@ -698,7 +789,7 @@ function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  {pilotRows.map((row) => (
+                  {workspaceData.pilotRows.map((row) => (
                     <tr key={row.closer}>
                       <td>{row.closer}</td>
                       <td>{row.touches}</td>
@@ -712,7 +803,9 @@ function App() {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </div> : (
+              <div className="workspace-empty-state">No pilot records yet. Load demo data to preview the scoreboard.</div>
+            )}
           </section>
           </div>
 
