@@ -4536,3 +4536,310 @@ tbody tr:hover {
     gap: 8px;
   }
 }
+
+.manual-export-document {
+  display: none;
+}
+
+.manual-header-tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.manual-export-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 13px;
+  border: 1px solid rgba(105, 226, 200, 0.48);
+  border-radius: 10px;
+  background: #36b19a;
+  color: #04120f;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.manual-export-button:hover,
+.manual-export-button:focus-visible {
+  border-color: #9af0dc;
+  background: #50c9ad;
+}
+
+@media (max-width: 680px) {
+  .manual-header-tools {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+}
+
+@page {
+  size: letter;
+  margin: 0.68in;
+}
+
+@media print {
+  .page-view:not(.manual-page-view) {
+    display: none !important;
+  }
+
+  .manual-page-view {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  .manual-page-view > :not(.manual-export-document) {
+    display: none !important;
+  }
+
+  .manual-export-document {
+    display: block !important;
+    color: #18201b !important;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    background: #fff !important;
+  }
+
+  .manual-export-cover {
+    min-height: 9.2in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    page-break-after: always;
+    break-after: page;
+    color: #16231d;
+  }
+
+  .manual-export-mark {
+    width: 0.62in;
+    height: 0.62in;
+    display: grid;
+    place-items: center;
+    margin-bottom: 0.55in;
+    border: 1px solid #a68b4d;
+    color: #806b37;
+    font-family: serif;
+    font-size: 25pt;
+  }
+
+  .manual-export-eyebrow,
+  .manual-export-cover-meta,
+  .manual-export-document .manual-section-kicker {
+    color: #65756a !important;
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .manual-export-cover h1 {
+    margin: 0.28in 0 0;
+    color: #101914;
+    font-family: Arial, sans-serif;
+    font-size: 38pt;
+    font-weight: 500;
+    letter-spacing: 0.045em;
+    line-height: 1.05;
+  }
+
+  .manual-export-cover h2 {
+    margin: 0.2in 0 0;
+    color: #42534a;
+    font-family: Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: 400;
+  }
+
+  .manual-export-rule {
+    width: 1.2in;
+    height: 2px;
+    margin: 0.38in 0 0.18in;
+    background: #a68b4d;
+  }
+
+  .manual-export-cover > p {
+    color: #806b37;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    letter-spacing: 0.08em;
+  }
+
+  .manual-export-cover-meta {
+    display: grid;
+    gap: 8px;
+    margin-top: 1.1in;
+    padding-top: 14px;
+    border-top: 1px solid #c9d0ca;
+    color: #68756c !important;
+    font-size: 7pt;
+    letter-spacing: 0.08em;
+  }
+
+  .manual-export-contents {
+    min-height: 9.2in;
+    page-break-after: always;
+    break-after: page;
+    color: #18201b;
+  }
+
+  .manual-export-contents h2 {
+    margin: 0.2in 0 0.35in;
+    font-family: Arial, sans-serif;
+    font-size: 26pt;
+    font-weight: 500;
+  }
+
+  .manual-export-contents ol {
+    display: grid;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .manual-export-contents li {
+    display: grid;
+    grid-template-columns: 0.45in 1fr;
+    gap: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #e0e4e0;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+  }
+
+  .manual-export-contents li span {
+    color: #8d7740;
+    font-family: monospace;
+    font-size: 9pt;
+  }
+
+  .manual-export-contents li strong {
+    font-weight: 500;
+  }
+
+  .manual-export-contents > p {
+    margin-top: 0.45in;
+    color: #596960;
+    font-style: italic;
+  }
+
+  .manual-export-section {
+    page-break-before: always;
+    break-before: page;
+    color: #18201b;
+  }
+
+  .manual-export-section h2 {
+    margin: 8px 0 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #a68b4d;
+    color: #111a15;
+    font-family: Arial, sans-serif;
+    font-size: 25pt;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .manual-export-document .manual-block {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #d6ddd7;
+    break-inside: auto;
+  }
+
+  .manual-export-document .manual-block h4 {
+    margin: 0 0 9px;
+    color: #202a23 !important;
+    font-family: Arial, sans-serif;
+    font-size: 13pt;
+    break-after: avoid;
+  }
+
+  .manual-export-document .manual-block p,
+  .manual-export-document .manual-block li {
+    color: #28332c !important;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .manual-export-document .manual-laws article,
+  .manual-export-document .manual-desks article,
+  .manual-export-document .manual-split-lists > div,
+  .manual-export-document .manual-tracks article {
+    border-color: #cbd2cc;
+    border-radius: 0;
+    background: #fff !important;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .manual-export-document .manual-laws strong,
+  .manual-export-document .manual-desks p strong,
+  .manual-export-document .manual-note {
+    color: #725e31 !important;
+  }
+
+  .manual-export-document .manual-table-wrap {
+    overflow: visible;
+    border-color: #cbd2cc;
+    border-radius: 0;
+  }
+
+  .manual-export-document .manual-table-wrap table {
+    min-width: 0;
+    width: 100%;
+    background: #fff !important;
+  }
+
+  .manual-export-document .manual-table-wrap tr {
+    break-inside: avoid;
+  }
+
+  .manual-export-document .manual-table-wrap th,
+  .manual-export-document .manual-table-wrap td {
+    padding: 7px 6px;
+    border-color: #d7ddd8;
+    color: #28332c !important;
+    font-size: 9pt;
+    line-height: 1.45;
+    white-space: normal;
+  }
+
+  .manual-export-document .manual-table-wrap th {
+    background: #f0f3f0;
+    color: #725e31 !important;
+  }
+
+  .manual-export-document .manual-tracks blockquote {
+    color: #28332c;
+    font-size: 10pt;
+  }
+
+  .manual-export-document .manual-training-case > p strong {
+    color: #725e31;
+  }
+
+  .manual-export-document .manual-export-footer {
+    margin-top: 0.4in;
+    padding-top: 10px;
+    border-top: 1px solid #cbd2cc;
+    color: #596960;
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    page-break-before: avoid;
+  }
+
+  .manual-export-document .copy-button,
+  .manual-export-document .manual-training-link {
+    display: none !important;
+  }
+}

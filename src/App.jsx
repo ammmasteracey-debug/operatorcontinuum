@@ -946,6 +946,13 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const exportManualPdf = () => {
+    const previousTitle = document.title;
+    document.title = 'The Black Book v1.0 - Kurogami Group';
+    window.print();
+    document.title = previousTitle;
+  };
+
   const openQuickAction = (action) => {
     setQuickAction(action);
     setQuickFormError('');
@@ -1325,14 +1332,25 @@ function App() {
           </section>
           </div>
 
-          <div className="page-view" hidden={activeNav !== 'Manual'}>
+          <div className={`page-view ${activeNav === 'Manual' ? 'manual-page-view' : ''}`} hidden={activeNav !== 'Manual'}>
             <div className="banner-warning">
               Sell process and Desk Access only. No returns language.
             </div>
           <section className={`manual-panel ${isTourTarget('manual') ? 'tour-target' : ''}`} id="manual">
             <div className="panel-header">
               <span className="section-kicker">THE BLACK BOOK</span>
-              <span className="range-label">Black Book v1.0 / section {String(manualTab + 1).padStart(2, '0')} of {String(manualSections.length).padStart(2, '0')}</span>
+              <div className="manual-header-tools">
+                <span className="range-label">Black Book v1.0 / section {String(manualTab + 1).padStart(2, '0')} of {String(manualSections.length).padStart(2, '0')}</span>
+                <button
+                  className="manual-export-button"
+                  type="button"
+                  title="Choose Save as PDF in the print dialog"
+                  aria-label="Export all Black Book sections to PDF"
+                  onClick={exportManualPdf}
+                >
+                  Export manual PDF <span aria-hidden="true">↓</span>
+                </button>
+              </div>
             </div>
             <div className="manual-title-block">
               <h2>THE BLACK BOOK</h2>
@@ -1405,6 +1423,51 @@ function App() {
               </div>
             </div>
           </section>
+          <article className="manual-export-document">
+            <section className="manual-export-cover">
+              <span className="manual-export-mark">黒</span>
+              <div className="manual-export-eyebrow">KUROGAMI GROUP · OPERATOR CONTINUUM</div>
+              <h1>THE BLACK BOOK</h1>
+              <h2>Kurogami Group Field Manual v1.0</h2>
+              <div className="manual-export-rule" />
+              <p>Process before outcome.</p>
+              <div className="manual-export-cover-meta">
+                <span>FIELD MANUAL FOR OPERATORS &amp; CLOSERS</span>
+                <span>Education and process access only · Not investment advice</span>
+              </div>
+            </section>
+            <section className="manual-export-contents">
+              <div className="manual-section-kicker">FIELD MANUAL / INDEX</div>
+              <h2>Contents</h2>
+              <ol>
+                {manualSections.map((section, index) => (
+                  <li key={section.title}>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{section.title}</strong>
+                  </li>
+                ))}
+              </ol>
+              <p>Process before outcome · Risk is named, bounded, and owned · The standard outlives the outcome.</p>
+            </section>
+            {manualSections.map((section, index) => (
+              <section className="manual-export-section" key={section.title}>
+                <div className="manual-section-kicker">SECTION {String(index + 1).padStart(2, '0')} / BLACK BOOK v1.0</div>
+                <h2>{section.title}</h2>
+                {section.blocks.map((block) => (
+                  <ManualBlock
+                    key={`${section.title}-${block.heading}`}
+                    block={block}
+                    onCopyTrack={copyApprovedText}
+                    onOpenSample={openSampleLead}
+                    hasSample={workspaceData.leads.some((lead) => lead.id === 'LD-1042')}
+                  />
+                ))}
+              </section>
+            ))}
+            <footer className="manual-export-footer">
+              Kurogami Group · The Black Book · Process before outcome · Not investment advice
+            </footer>
+          </article>
           </div>
 
           <div className="page-view" hidden={activeNav !== 'Leads'}>
