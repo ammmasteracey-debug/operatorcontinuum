@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const navItems = [
   { index: '01', label: 'Home', href: '#home', target: 'home' },
   { index: '02', label: 'Manual', href: '#manual', target: 'manual' },
-  { index: '03', label: 'Leads', href: '#pipeline', target: 'pipeline' },
+  { index: '03', label: 'Leads', href: '#leads', target: 'leads' },
   { index: '04', label: 'Pipeline', href: '#pipeline', target: 'pipeline' },
   { index: '05', label: 'Assets', href: '#assets', target: 'assets' },
   { index: '06', label: 'Pilot', href: '#pilot', target: 'pilot' },
@@ -13,6 +13,7 @@ const navItems = [
 const navLabelByTarget = {
   home: 'Home',
   manual: 'Manual',
+  leads: 'Leads',
   pipeline: 'Pipeline',
   assets: 'Assets',
   pilot: 'Pilot',
@@ -26,9 +27,14 @@ const tourSteps = [
     description: 'Learn what the Group offers, what it never promises, how to handle objections, and when to hand a conversation to Admin.',
   },
   {
+    target: 'leads',
+    title: 'Review individual leads',
+    description: 'Search prospects, filter by stage, and open a lead record before moving to the pipeline board.',
+  },
+  {
     target: 'pipeline',
     title: 'Work the pipeline',
-    description: 'Track each prospect through the fixed stages. Leads are organized here by stage, with source, temperature, and seat value.',
+    description: 'Review prospects by their fixed stage and open any card to return to its lead record.',
   },
   {
     target: 'assets',
@@ -105,6 +111,10 @@ const pipelineStages = [
     ],
   },
 ];
+
+const leadRecords = pipelineStages.flatMap((stage) =>
+  stage.leads.map((lead) => ({ ...lead, stage: stage.label, owner: 'Harry' })),
+);
 
 const manualSections = [
   {
@@ -226,8 +236,13 @@ function App() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [tourStep, setTourStep] = useState(null);
   const [isTourCardHidden, setIsTourCardHidden] = useState(false);
-  const [activeNav, setActiveNav] = useState('Home');
+  const [activeNav, setActiveNav] = useState(
+    () => navItems.find((item) => item.href === window.location.hash)?.label ?? 'Home',
+  );
   const [manualTab, setManualTab] = useState(0);
+  const [leadSearch, setLeadSearch] = useState('');
+  const [leadStageFilter, setLeadStageFilter] = useState('All stages');
+  const [selectedLeadName, setSelectedLeadName] = useState(null);
 
   useEffect(() => {
     const loadingTimer = window.setTimeout(() => setIsLoading(false), 1100);
@@ -246,7 +261,7 @@ function App() {
 
     const step = tourSteps[tourStep];
     setActiveNav(navLabelByTarget[step.target]);
-    document.getElementById(step.target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [tourStep]);
 
   const beginOrientation = () => {
@@ -274,9 +289,24 @@ function App() {
     event.preventDefault();
     setTourStep(null);
     setActiveNav(item.label);
-    document.getElementById(item.target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.history.replaceState(null, '', item.href);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const openLead = (name) => {
+    setSelectedLeadName(name);
+    setTourStep(null);
+    setActiveNav('Leads');
+    window.history.replaceState(null, '', '#leads');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const filteredLeadRecords = leadRecords.filter((lead) => {
+    const matchesQuery = `${lead.name} ${lead.channel} ${lead.stage}`.toLowerCase().includes(leadSearch.toLowerCase());
+    const matchesStage = leadStageFilter === 'All stages' || lead.stage === leadStageFilter;
+    return matchesQuery && matchesStage;
+  });
+  const selectedLead = leadRecords.find((lead) => lead.name === selectedLeadName);
 
   const isTourTarget = (target) => tourStep !== null && tourSteps[tourStep].target === target;
 
@@ -348,6 +378,7 @@ function App() {
                   href={item.href}
                   onClick={(event) => handleNavClick(event, item)}
                   className={`nav-item ${activeNav === item.label ? 'active' : ''}`}
+                  aria-current={activeNav === item.label ? 'page' : undefined}
                 >
                   <span className="nav-index">{item.index}</span>
                   <span>{item.label}</span>
@@ -367,7 +398,7 @@ function App() {
         <main className="main-panel">
           <div className="content-shell">
           <header className="main-header">
-            <div className="bread">KUROGAMI / OPERATOR CONTINUUM</div>
+            <div className="bread">KUROGAMI / OPERATOR CONTINUUM / {activeNav.toUpperCase()}</div>
             <div className="header-tools">
               <span className="date-label">Admin view · Harry pilot</span>
               <button
@@ -384,9 +415,10 @@ function App() {
             </div>
           </header>
 
-          <div className="banner-warning">
-            Sell process and Desk Access only. No returns language.
-          </div>
+          <div className="page-view" hidden={activeNav !== 'Home'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
 
           <section className={`dashboard-intro ${isTourTarget('home') ? 'tour-target' : ''}`} id="home">
             <div className="hero-topline">
@@ -421,7 +453,7 @@ function App() {
           <section className="signal-panel">
             <div className="panel-header">
               <span className="section-kicker">Today’s next actions</span>
-              <span className="range-label">Select an action to review the pipeline</span>
+              <span className="range-label">Select an action to review a lead</span>
             </div>
 
             <div className="action-list">
@@ -430,8 +462,8 @@ function App() {
                   key={action.name}
                   className="action-row"
                   type="button"
-                  onClick={(event) => handleNavClick(event, navItems[3])}
-                  aria-label={`Open pipeline to review ${action.name}, ${action.status}`}
+                  onClick={() => openLead(action.name)}
+                  aria-label={`Open lead record for ${action.name}, ${action.status}`}
                 >
                   <div>
                     <div className="action-name">{action.name}</div>
@@ -443,7 +475,12 @@ function App() {
               ))}
             </div>
           </section>
+          </div>
 
+          <div className="page-view" hidden={activeNav !== 'Manual'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
           <section className={`manual-panel ${isTourTarget('manual') ? 'tour-target' : ''}`} id="manual">
             <div className="panel-header">
               <span className="section-kicker">Group Sales Manual</span>
@@ -478,7 +515,7 @@ function App() {
                   <span className="manual-up-next">
                     {manualTab < manualSections.length - 1
                       ? `Up next / ${manualSections[manualTab + 1].title}`
-                      : 'Training complete / Continue to pipeline'}
+                      : 'Training complete / Continue to lead registry'}
                   </span>
                   <div className="manual-pager-actions">
                     <button
@@ -496,13 +533,13 @@ function App() {
                         if (manualTab < manualSections.length - 1) {
                           setManualTab((current) => current + 1);
                         } else {
-                          handleNavClick(event, navItems[3]);
+                          handleNavClick(event, navItems[2]);
                         }
                       }}
                     >
                       {manualTab < manualSections.length - 1
                         ? `Continue to ${manualSections[manualTab + 1].title}`
-                        : 'Open pipeline'}
+                        : 'Open lead registry'}
                       <span>→</span>
                     </button>
                   </div>
@@ -510,7 +547,83 @@ function App() {
               </div>
             </div>
           </section>
+          </div>
 
+          <div className="page-view" hidden={activeNav !== 'Leads'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
+            <section className={`leads-panel ${isTourTarget('leads') ? 'tour-target' : ''}`} id="leads">
+              <div className="panel-header">
+                <span className="section-kicker">Lead registry</span>
+                <span className="range-label">{filteredLeadRecords.length} records / select a lead for details</span>
+              </div>
+              <div className="leads-toolbar">
+                <label className="lead-search">
+                  <span>Search leads</span>
+                  <input
+                    type="search"
+                    value={leadSearch}
+                    onChange={(event) => setLeadSearch(event.target.value)}
+                    placeholder="Name, channel, or stage"
+                  />
+                </label>
+                <label className="lead-stage-filter">
+                  <span>Stage</span>
+                  <select value={leadStageFilter} onChange={(event) => setLeadStageFilter(event.target.value)}>
+                    <option>All stages</option>
+                    {pipelineStages.map((stage) => <option key={stage.label}>{stage.label}</option>)}
+                  </select>
+                </label>
+              </div>
+              <div className="leads-workspace">
+                <div className="lead-registry">
+                  {filteredLeadRecords.length > 0 ? filteredLeadRecords.map((lead) => (
+                    <button
+                      key={lead.name}
+                      className={`lead-registry-row ${selectedLeadName === lead.name ? 'active' : ''}`}
+                      type="button"
+                      onClick={() => setSelectedLeadName(lead.name)}
+                    >
+                      <span className="lead-registry-name">{lead.name}</span>
+                      <span className="lead-registry-stage">{lead.stage}</span>
+                      <span className="lead-registry-source">{lead.channel} · {lead.temp}</span>
+                      <span className="lead-value">{lead.value}</span>
+                    </button>
+                  )) : (
+                    <div className="lead-empty-state">No leads match those filters.</div>
+                  )}
+                </div>
+                {selectedLead ? (
+                  <aside className="lead-detail-card" aria-live="polite">
+                    <div className="lead-detail-kicker">LEAD RECORD / ACTIVE</div>
+                    <h2>{selectedLead.name}</h2>
+                    <div className="lead-detail-stage">{selectedLead.stage}</div>
+                    <dl className="lead-detail-fields">
+                      <div><dt>Channel</dt><dd>{selectedLead.channel}</dd></div>
+                      <div><dt>Owner</dt><dd>{selectedLead.owner}</dd></div>
+                      <div><dt>Temperature</dt><dd>{selectedLead.temp}</dd></div>
+                      <div><dt>Seat value</dt><dd>{selectedLead.value}</dd></div>
+                    </dl>
+                    <button className="lead-detail-close" type="button" onClick={() => setSelectedLeadName(null)}>
+                      Close record
+                    </button>
+                  </aside>
+                ) : (
+                  <div className="lead-detail-empty">
+                    <span className="empty-crosshair">+</span>
+                    <strong>Select a lead</strong>
+                    <span>Lead details appear here.</span>
+                  </div>
+                )}
+              </div>
+            </section>
+          </div>
+
+          <div className="page-view" hidden={activeNav !== 'Pipeline'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
           <section className={`pipeline-panel ${isTourTarget('pipeline') ? 'tour-target' : ''}`} id="pipeline">
             <div className="panel-header">
               <span className="section-kicker">Pipeline</span>
@@ -522,7 +635,7 @@ function App() {
                   <div className="stage-header">{stage.label}</div>
                   <div className="stage-list">
                     {stage.leads.map((lead) => (
-                      <div key={lead.name} className="lead-card">
+                      <button key={lead.name} className="lead-card" type="button" onClick={() => openLead(lead.name)}>
                         <div className="lead-head">
                           <span>{lead.name}</span>
                           <span className="lead-value">{lead.value}</span>
@@ -531,14 +644,19 @@ function App() {
                           <span>{lead.channel}</span>
                           <span>{lead.temp}</span>
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
           </section>
+          </div>
 
+          <div className="page-view" hidden={activeNav !== 'Assets'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
           <section className={`assets-panel ${isTourTarget('assets') ? 'tour-target' : ''}`} id="assets">
             <div className="panel-header">
               <span className="section-kicker">Assets</span>
@@ -554,7 +672,12 @@ function App() {
               ))}
             </div>
           </section>
+          </div>
 
+          <div className="page-view" hidden={activeNav !== 'Pilot'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
           <section className={`pilot-panel ${isTourTarget('pilot') ? 'tour-target' : ''}`} id="pilot">
             <div className="panel-header">
               <span className="section-kicker">Pilot scoreboard</span>
@@ -591,7 +714,12 @@ function App() {
               </table>
             </div>
           </section>
+          </div>
 
+          <div className="page-view" hidden={activeNav !== 'Operators'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
           <section className={`operators-panel ${isTourTarget('operators') ? 'tour-target' : ''}`} id="operators">
             <div className="panel-header">
               <span className="section-kicker">Operator prospecting mode</span>
@@ -615,6 +743,7 @@ function App() {
               </div>
             </div>
           </section>
+          </div>
 
           <footer className="app-footer">
             Kurogami Group · Operator Continuum · Process before outcome · Education and process access only · Not investment advice
