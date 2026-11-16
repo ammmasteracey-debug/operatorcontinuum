@@ -1391,8 +1391,17 @@ function App() {
               </div>
             </div>
             <div className="manual-title-block">
-              <h2>THE BLACK BOOK</h2>
+              <div className="manual-title-readout">
+                <span>FIELD MANUAL / 001</span>
+                <span><i /> DOCTRINE / ACTIVE</span>
+              </div>
+              <h2 className="black-book-glitch">
+                THE BLACK BOOK
+                <span className="black-book-glitch-layer glitch-cyan" aria-hidden="true">THE BLACK BOOK</span>
+                <span className="black-book-glitch-layer glitch-gold" aria-hidden="true">THE BLACK BOOK</span>
+              </h2>
               <p>Kurogami Group Field Manual v1.0</p>
+              <div className="manual-title-scanline" aria-hidden="true" />
             </div>
             <div className="manual-layout">
               <nav className="manual-nav" aria-label="Manual sections">
