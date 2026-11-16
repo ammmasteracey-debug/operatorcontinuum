@@ -221,7 +221,7 @@ function readWorkspaceData() {
 
     const parsedData = JSON.parse(savedData);
     if (
-      (parsedData.mode !== 'demo' && parsedData.mode !== 'fresh')
+      (!['demo', 'fresh', 'custom'].includes(parsedData.mode))
       || !Array.isArray(parsedData.leads)
       || !Array.isArray(parsedData.nextActions)
       || !Array.isArray(parsedData.pilotRows)
@@ -262,6 +262,14 @@ function App() {
   const [leadSearch, setLeadSearch] = useState('');
   const [leadStageFilter, setLeadStageFilter] = useState('All stages');
   const [selectedLeadName, setSelectedLeadName] = useState(null);
+  const [isQuickMenuOpen, setIsQuickMenuOpen] = useState(false);
+  const [quickAction, setQuickAction] = useState(null);
+  const [quickFormError, setQuickFormError] = useState('');
+  const [leadDraft, setLeadDraft] = useState({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
+  const [followUpDraft, setFollowUpDraft] = useState({ name: '', due: 'Today', status: 'Follow-up' });
+  const [instagramCaption, setInstagramCaption] = useState('');
+  const [instagramFeedback, setInstagramFeedback] = useState('');
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -278,11 +286,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isGuideOpen || isStartScreenOpen ? 'hidden' : '';
+    document.body.style.overflow = isGuideOpen || isStartScreenOpen || quickAction !== null ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isGuideOpen, isStartScreenOpen]);
+  }, [isGuideOpen, isStartScreenOpen, quickAction]);
 
   useEffect(() => {
     if (tourStep === null) return;
@@ -291,6 +299,20 @@ function App() {
     setActiveNav(navLabelByTarget[step.target]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [tourStep]);
+
+  useEffect(() => {
+    if (!isQuickMenuOpen && !quickAction && !isNotificationCenterOpen) return undefined;
+
+    const closeTransientUi = (event) => {
+      if (event.key !== 'Escape') return;
+      setIsQuickMenuOpen(false);
+      setQuickAction(null);
+      setIsNotificationCenterOpen(false);
+    };
+
+    window.addEventListener('keydown', closeTransientUi);
+    return () => window.removeEventListener('keydown', closeTransientUi);
+  }, [isQuickMenuOpen, quickAction, isNotificationCenterOpen]);
 
   const beginOrientation = () => {
     setIsGuideOpen(false);
@@ -324,6 +346,7 @@ function App() {
   const openLead = (name) => {
     setSelectedLeadName(name);
     setTourStep(null);
+    setIsNotificationCenterOpen(false);
     setActiveNav('Leads');
     window.history.replaceState(null, '', '#leads');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -336,6 +359,12 @@ function App() {
     setLeadSearch('');
     setLeadStageFilter('All stages');
     setDataNotice(null);
+    setIsQuickMenuOpen(false);
+    setQuickAction(null);
+    setIsNotificationCenterOpen(false);
+    setLeadDraft({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
+    setFollowUpDraft({ name: '', due: 'Today', status: 'Follow-up' });
+    setInstagramCaption('');
   };
 
   const loadDemoData = () => {
@@ -344,6 +373,97 @@ function App() {
     setLeadSearch('');
     setLeadStageFilter('All stages');
     setDataNotice(null);
+    setIsQuickMenuOpen(false);
+    setQuickAction(null);
+    setIsNotificationCenterOpen(false);
+    setLeadDraft({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
+    setFollowUpDraft({ name: '', due: 'Today', status: 'Follow-up' });
+    setInstagramCaption('');
+  };
+
+  const openQuickAction = (action) => {
+    setQuickAction(action);
+    setQuickFormError('');
+    setIsQuickMenuOpen(false);
+    if (action === 'follow-up') {
+      setFollowUpDraft((current) => ({
+        ...current,
+        name: workspaceData.leads.some((lead) => lead.name === current.name)
+          ? current.name
+          : workspaceData.leads[0]?.name || '',
+      }));
+    }
+  };
+
+  const closeQuickAction = () => {
+    setQuickAction(null);
+    setQuickFormError('');
+    setInstagramFeedback('');
+  };
+
+  const saveLead = (event) => {
+    event.preventDefault();
+    const name = leadDraft.name.trim();
+    if (!name) {
+      setQuickFormError('Enter a prospect name.');
+      return;
+    }
+    if (workspaceData.leads.some((lead) => lead.name.toLowerCase() === name.toLowerCase())) {
+      setQuickFormError('A prospect with that name is already in the book.');
+      return;
+    }
+
+    const newLead = {
+      ...leadDraft,
+      name,
+      stage: 'New',
+      owner: 'Harry',
+    };
+    setWorkspaceData((current) => ({
+      ...current,
+      mode: 'custom',
+      leads: [newLead, ...current.leads],
+    }));
+    setLeadDraft({ name: '', channel: 'IG', temp: 'Warm', value: '$15k' });
+    closeQuickAction();
+    openLead(name);
+  };
+
+  const saveFollowUp = (event) => {
+    event.preventDefault();
+    if (!followUpDraft.name) {
+      setQuickFormError('Add a prospect before scheduling a follow-up.');
+      return;
+    }
+
+    setWorkspaceData((current) => ({
+      ...current,
+      mode: 'custom',
+      nextActions: [
+        ...current.nextActions,
+        { name: followUpDraft.name, due: followUpDraft.due, status: followUpDraft.status.trim() || 'Follow-up', owner: 'Harry' },
+      ],
+    }));
+    setQuickAction(null);
+    setIsNotificationCenterOpen(true);
+  };
+
+  const completeFollowUp = (index) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      mode: 'custom',
+      nextActions: current.nextActions.filter((_, actionIndex) => actionIndex !== index),
+    }));
+  };
+
+  const copyInstagramCaption = async () => {
+    try {
+      await navigator.clipboard.writeText(instagramCaption);
+      setInstagramFeedback('Caption copied. Open Instagram and paste it into your post.');
+    } catch (error) {
+      console.error('Unable to copy the Instagram caption.', error);
+      setInstagramFeedback('Could not access the clipboard. Select and copy the caption manually.');
+    }
   };
 
   const filteredLeadRecords = workspaceData.leads.filter((lead) => {
@@ -355,10 +475,13 @@ function App() {
   const visibleMetricCards = workspaceData.mode === 'demo'
     ? demoMetricCards
     : [
-      { label: 'Pipeline', value: '0', detail: 'Prospects in motion' },
-      { label: 'Follow-ups', value: '0', detail: 'Due in the next 7 days' },
-      { label: 'Seat value', value: '$0', detail: 'Weighted opportunity value' },
-      { label: 'Pilot', value: '—', detail: 'No pilot records yet' },
+      { label: 'Pipeline', value: String(workspaceData.leads.length), detail: 'Prospects in motion' },
+      { label: 'Follow-ups', value: String(workspaceData.nextActions.length), detail: 'Open reminders' },
+      { label: 'Seat value', value: `$${workspaceData.leads.reduce((total, lead) => {
+        const amount = Number.parseFloat(lead.value.replace(/[^0-9.]/g, '')) || 0;
+        return total + amount * (lead.value.toLowerCase().includes('k') ? 1000 : 1);
+      }, 0).toLocaleString()}`, detail: 'Listed opportunity value' },
+      { label: 'Pilot', value: String(workspaceData.pilotRows.length), detail: 'Pilot records' },
     ];
 
   const isTourTarget = (target) => tourStep !== null && tourSteps[tourStep].target === target;
@@ -455,7 +578,7 @@ function App() {
             <div className="header-tools">
               <div className="dataset-controls" role="group" aria-label="Workspace data controls">
                 <span className={`dataset-status ${workspaceData.mode}`}>
-                  {workspaceData.mode === 'demo' ? 'Demo data' : 'Fresh book'}
+                  {workspaceData.mode === 'demo' ? 'Demo data' : workspaceData.mode === 'custom' ? 'Live book' : 'Fresh book'}
                 </span>
                 <button
                   className="dataset-button reset-data-button"
@@ -475,17 +598,38 @@ function App() {
                 </button>
               </div>
               <span className="date-label">Admin view · Harry pilot</span>
-              <button
-                className="guide-button"
-                type="button"
-                onClick={() => {
-                  setTourStep(null);
-                  setIsTourCardHidden(false);
-                  setIsGuideOpen(true);
-                }}
-              >
-                Guide
-              </button>
+              <div className="header-action-buttons">
+                <button
+                  className="guide-button"
+                  type="button"
+                  onClick={() => {
+                    setTourStep(null);
+                    setIsTourCardHidden(false);
+                    setIsGuideOpen(true);
+                  }}
+                >
+                  Guide
+                </button>
+                <button
+                  className="notification-trigger"
+                  type="button"
+                  aria-label={isNotificationCenterOpen
+                    ? 'Close notification center'
+                    : `Open notification center, ${workspaceData.nextActions.length} open follow-ups`}
+                  aria-expanded={isNotificationCenterOpen}
+                  onClick={() => {
+                    setIsNotificationCenterOpen((isOpen) => !isOpen);
+                    setIsQuickMenuOpen(false);
+                  }}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
+                  </svg>
+                  {workspaceData.nextActions.length > 0 && (
+                    <span className="notification-count">{workspaceData.nextActions.length}</span>
+                  )}
+                </button>
+              </div>
             </div>
           </header>
           {dataNotice && <div className="data-notice" role="alert">{dataNotice}</div>}
@@ -929,6 +1073,196 @@ function App() {
         <button className="tour-reopen" type="button" onClick={() => setIsTourCardHidden(false)}>
           Show walkthrough · {tourStep + 1}/{tourSteps.length}
         </button>
+      )}
+
+      {isNotificationCenterOpen && (
+        <aside className="notification-center" id="notification-center" role="dialog" aria-label="Notification center">
+          <div className="notification-center-header">
+            <div>
+              <span className="notification-kicker">Workspace alerts</span>
+              <h2>Follow-ups</h2>
+            </div>
+            <button type="button" className="notification-close" onClick={() => setIsNotificationCenterOpen(false)} aria-label="Close notifications">
+              ×
+            </button>
+          </div>
+          {workspaceData.nextActions.length > 0 ? (
+            <div className="notification-list">
+              {workspaceData.nextActions.map((action, index) => (
+                <article className="notification-item" key={`${action.name}-${action.due}-${index}`}>
+                  <button className="notification-open" type="button" onClick={() => openLead(action.name)}>
+                    <strong>{action.name}</strong>
+                    <span>{action.status}</span>
+                    <small>Due {action.due} · {action.owner}</small>
+                  </button>
+                  <button
+                    className="notification-complete"
+                    type="button"
+                    aria-label={`Complete follow-up for ${action.name}`}
+                    onClick={() => completeFollowUp(index)}
+                  >
+                    Done
+                  </button>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="notification-empty">You’re all caught up. New follow-ups will appear here.</div>
+          )}
+        </aside>
+      )}
+
+      {!isStartScreenOpen && (
+        <div className={`quick-action-dock ${tourStep !== null ? (isTourCardHidden ? 'tour-hidden' : 'tour-visible') : ''}`}>
+          <div className="quick-action-menu" id="quick-action-menu" hidden={!isQuickMenuOpen}>
+            <div className="quick-menu-heading">Quick actions</div>
+            <button type="button" onClick={() => openQuickAction('lead')}>
+              <span className="quick-action-symbol">＋</span>
+              <span><strong>Add prospect</strong><small>Save a new lead to the book</small></span>
+            </button>
+            <button
+              type="button"
+              disabled={workspaceData.leads.length === 0}
+              title={workspaceData.leads.length === 0 ? 'Add a prospect before logging a follow-up' : undefined}
+              onClick={() => openQuickAction('follow-up')}
+            >
+              <span className="quick-action-symbol">↗</span>
+              <span><strong>Log follow-up</strong><small>Set a reminder for a prospect</small></span>
+            </button>
+            <button type="button" onClick={() => openQuickAction('instagram')}>
+              <span className="quick-action-symbol">◎</span>
+              <span><strong>Prepare Instagram post</strong><small>Draft a caption and open Instagram</small></span>
+            </button>
+          </div>
+          <button
+            className={`quick-action-trigger ${isQuickMenuOpen ? 'open' : ''}`}
+            type="button"
+            aria-label={isQuickMenuOpen ? 'Close quick actions' : 'Open quick actions'}
+            aria-expanded={isQuickMenuOpen}
+            aria-controls="quick-action-menu"
+            onClick={() => {
+              setIsQuickMenuOpen((isOpen) => !isOpen);
+              setIsNotificationCenterOpen(false);
+            }}
+          >
+            <span>{isQuickMenuOpen ? '×' : '+'}</span>
+            <small>{isQuickMenuOpen ? 'Close' : 'Quick action'}</small>
+          </button>
+        </div>
+      )}
+
+      {quickAction && (
+        <div className="quick-sheet-backdrop" onClick={closeQuickAction}>
+          <section
+            className="quick-action-sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="quick-action-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="quick-sheet-header">
+              <div>
+                <span className="notification-kicker">Operator shortcuts</span>
+                <h2 id="quick-action-title">
+                  {quickAction === 'lead' ? 'Add prospect' : quickAction === 'follow-up' ? 'Log follow-up' : 'Instagram post'}
+                </h2>
+              </div>
+              <button type="button" className="notification-close" onClick={closeQuickAction} aria-label="Close quick action">
+                ×
+              </button>
+            </div>
+
+            {quickAction === 'lead' && (
+              <form className="quick-entry-form" onSubmit={saveLead}>
+                <label>
+                  Prospect name
+                  <input
+                    autoFocus
+                    required
+                    maxLength={100}
+                    value={leadDraft.name}
+                    onChange={(event) => {
+                      setQuickFormError('');
+                      setLeadDraft((current) => ({ ...current, name: event.target.value }));
+                    }}
+                    placeholder="Name"
+                  />
+                </label>
+                <div className="quick-form-row">
+                  <label>
+                    Source
+                    <select value={leadDraft.channel} onChange={(event) => setLeadDraft((current) => ({ ...current, channel: event.target.value }))}>
+                      {['IG', 'X', 'Referral', 'Event', 'Other'].map((channel) => <option key={channel}>{channel}</option>)}
+                    </select>
+                  </label>
+                  <label>
+                    Temperature
+                    <select value={leadDraft.temp} onChange={(event) => setLeadDraft((current) => ({ ...current, temp: event.target.value }))}>
+                      {['Cold', 'Warm', 'Hot'].map((temperature) => <option key={temperature}>{temperature}</option>)}
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  Seat value
+                  <input value={leadDraft.value} onChange={(event) => setLeadDraft((current) => ({ ...current, value: event.target.value }))} placeholder="$15k" />
+                </label>
+                {quickFormError && <p className="quick-form-error" role="alert">{quickFormError}</p>}
+                <button className="quick-submit" type="submit">Save prospect</button>
+              </form>
+            )}
+
+            {quickAction === 'follow-up' && (
+              <form className="quick-entry-form" onSubmit={saveFollowUp}>
+                <label>
+                  Prospect
+                  <select
+                    required
+                    value={followUpDraft.name}
+                    onChange={(event) => setFollowUpDraft((current) => ({ ...current, name: event.target.value }))}
+                  >
+                    {workspaceData.leads.map((lead) => <option key={lead.name}>{lead.name}</option>)}
+                  </select>
+                </label>
+                <div className="quick-form-row">
+                  <label>
+                    Due
+                    <select value={followUpDraft.due} onChange={(event) => setFollowUpDraft((current) => ({ ...current, due: event.target.value }))}>
+                      {['Today', 'Tomorrow', 'This week'].map((due) => <option key={due}>{due}</option>)}
+                    </select>
+                  </label>
+                  <label>
+                    Reminder
+                    <input value={followUpDraft.status} onChange={(event) => setFollowUpDraft((current) => ({ ...current, status: event.target.value }))} maxLength={80} />
+                  </label>
+                </div>
+                {quickFormError && <p className="quick-form-error" role="alert">{quickFormError}</p>}
+                <button className="quick-submit" type="submit">Save follow-up</button>
+              </form>
+            )}
+
+            {quickAction === 'instagram' && (
+              <div className="instagram-composer">
+                <label htmlFor="instagram-caption">Caption</label>
+                <textarea
+                  id="instagram-caption"
+                  autoFocus
+                  value={instagramCaption}
+                  onChange={(event) => setInstagramCaption(event.target.value)}
+                  placeholder="Write your caption..."
+                  rows={5}
+                />
+                <p>Copy your caption, then finish and publish in Instagram. This workspace does not post to your account.</p>
+                {instagramFeedback && <p className="instagram-feedback" role="status">{instagramFeedback}</p>}
+                <div className="instagram-actions">
+                  <button type="button" className="quick-submit" disabled={!instagramCaption.trim()} onClick={copyInstagramCaption}>
+                    Copy caption
+                  </button>
+                  <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Open Instagram ↗</a>
+                </div>
+              </div>
+            )}
+          </section>
+        </div>
       )}
     </div>
   );
