@@ -3200,16 +3200,32 @@ tbody tr:hover {
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  min-height: 0 !important;
   overflow-wrap: anywhere;
   word-break: break-word;
   white-space: normal;
   line-height: 1.55;
   padding: 0 !important;
   border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
   color: #9fdbc9 !important;
   font-size: 10px !important;
   letter-spacing: 0 !important;
+  text-align: left;
+  text-decoration: none;
   text-transform: none !important;
+  transform: none !important;
+}
+
+.asset-card .asset-primary-link:hover,
+.asset-card .asset-primary-link:focus-visible {
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--gold) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transform: none !important;
 }
 
 .asset-copy-text {
