@@ -4537,6 +4537,64 @@ tbody tr:hover {
   }
 }
 
+.outreach-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(197, 164, 90, 0.16);
+}
+
+.outreach-tab {
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(5, 11, 9, 0.75);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+.outreach-tab:hover,
+.outreach-tab:focus-visible {
+  border-color: var(--selection-border);
+  color: var(--selection-text);
+}
+
+.outreach-tab.active {
+  border-color: var(--selection-border);
+  background: var(--selection-gradient);
+  color: var(--selection-text);
+  box-shadow: var(--selection-glow);
+}
+
+.outreach-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.outreach-card {
+  min-height: 210px;
+}
+
+.outreach-card .asset-copy-text {
+  margin-top: 12px;
+}
+
+@media (max-width: 560px) {
+  .outreach-tabs {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .outreach-tab {
+    width: 100%;
+    text-align: left;
+  }
+}
+
 .manual-export-document {
   display: none;
 }

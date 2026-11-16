@@ -6,8 +6,9 @@ const navItems = [
   { index: '03', label: 'Leads', href: '#leads', target: 'leads' },
   { index: '04', label: 'Pipeline', href: '#pipeline', target: 'pipeline' },
   { index: '05', label: 'Assets', href: '#assets', target: 'assets' },
-  { index: '06', label: 'Pilot', href: '#pilot', target: 'pilot' },
-  { index: '07', label: 'Operators', href: '#operators', target: 'operators' },
+  { index: '06', label: 'Outreach', href: '#outreach', target: 'outreach' },
+  { index: '07', label: 'Pilot', href: '#pilot', target: 'pilot' },
+  { index: '08', label: 'Operators', href: '#operators', target: 'operators' },
 ];
 
 const navLabelByTarget = {
@@ -16,6 +17,7 @@ const navLabelByTarget = {
   leads: 'Leads',
   pipeline: 'Pipeline',
   assets: 'Assets',
+  outreach: 'Outreach',
   pilot: 'Pilot',
   operators: 'Operators',
 };
@@ -55,6 +57,11 @@ const tourSteps = [
     target: 'assets',
     title: 'Share approved assets',
     description: 'Use these Group links to introduce the doctrine, Method, and access path. Do not add performance claims.',
+  },
+  {
+    target: 'outreach',
+    title: 'Use approved outreach',
+    description: 'Copy the approved warm, outbound, follow-up, and objection responses from the quick-send library. Adapt lightly; never rewrite the law.',
   },
   {
     target: 'pilot',
@@ -106,6 +113,64 @@ const demoLeads = [
   { name: 'Tess Moran', channel: 'IG', temp: 'Warm', value: '$15k', stage: 'Method shared', owner: 'Harry' },
   { name: 'Iris Quinn', channel: 'Referral', temp: 'Hot', value: '$15k', stage: 'Seat conversation', owner: 'Harry' },
   { name: 'Sofia Laurent', channel: 'Warm intro', temp: 'Hot', value: '$15k', stage: 'Closed won', owner: 'Harry' },
+];
+
+const outreachTracks = [
+  {
+    title: 'Warm first touch',
+    text: 'I run process under Kurogami Group—operators, not spectators. Site is kurogamigroup.com. If you want how we actually work, start at Method. Happy to walk Desk Access only if that lands.',
+  },
+  {
+    title: 'Light outbound',
+    text: 'Most of this space sells noise. We sell seats under a standard—process before outcome. If that means something to you, the Group site is the door. No pitch deck spam.',
+  },
+  {
+    title: 'After they view the site',
+    text: 'You saw the posture. Next step for serious people is Method, then Access if it fits. What are you optimizing for—process or tips?',
+  },
+  {
+    title: 'If they ask for tips / signals',
+    text: 'We don’t sell signals. If that’s the need, we’re not the fit. Clean either way.',
+  },
+  {
+    title: 'Seat frame',
+    text: 'Desk Access is fifteen thousand. It’s process and desk access under Group terms—not a return promise. Risk stays yours. If you want in under that, we do terms and payment; if not, no friction.',
+  },
+  {
+    title: 'Close ask',
+    text: 'If you want the seat under published terms, we confirm payment path and onboard. If you need time, we date a next step or close the file. What do you want to do?',
+  },
+  {
+    title: 'Clean no',
+    text: 'Understood. Door stays the site if that ever changes. Respect either way.',
+  },
+];
+
+const objectionResponses = [
+  {
+    title: 'Price',
+    text: 'Desk Access is the published $15,000 seat for Group process and desk access. I can’t offer an in-field discount; any exception goes to Admin.',
+  },
+  {
+    title: 'Proof / returns',
+    text: 'We don’t promise returns. Method explains the process; outcomes and market risk remain yours.',
+  },
+  {
+    title: 'Smaller start',
+    text: 'The published unit is the seat. I can’t invent a smaller tier to close.',
+  },
+  {
+    title: 'How fast do I get paid?',
+    text: 'Desk Access is process access, not a payout or passive-income promise. Closer compensation is internal and only applies under its written terms.',
+  },
+  {
+    title: 'Equity / partner',
+    text: 'Desk Access is not equity or a partnership. Those requests go to Admin.',
+  },
+  {
+    title: 'Send it so I can think',
+    text: 'Take your time. Here are the Group site and Method. If you’d like, we can set a date to reconnect; otherwise, I’ll close the loop.',
+  },
 ];
 
 const manualSections = [
@@ -306,36 +371,7 @@ const manualSections = [
       {
         type: 'tracks',
         heading: 'Talk tracks',
-        items: [
-          {
-            title: 'Warm first touch',
-            text: 'I run process under Kurogami Group—operators, not spectators. Site is kurogamigroup.com. If you want how we actually work, start at Method. Happy to walk Desk Access only if that lands.',
-          },
-          {
-            title: 'Light outbound',
-            text: 'Most of this space sells noise. We sell seats under a standard—process before outcome. If that means something to you, the Group site is the door. No pitch deck spam.',
-          },
-          {
-            title: 'After they view the site',
-            text: 'You saw the posture. Next step for serious people is Method, then Access if it fits. What are you optimizing for—process or tips?',
-          },
-          {
-            title: 'If they ask for tips / signals',
-            text: 'We don’t sell signals. If that’s the need, we’re not the fit. Clean either way.',
-          },
-          {
-            title: 'Seat frame',
-            text: 'Desk Access is fifteen thousand. It’s process and desk access under Group terms—not a return promise. Risk stays yours. If you want in under that, we do terms and payment; if not, no friction.',
-          },
-          {
-            title: 'Close ask',
-            text: 'If you want the seat under published terms, we confirm payment path and onboard. If you need time, we date a next step or close the file. What do you want to do?',
-          },
-          {
-            title: 'Clean no',
-            text: 'Understood. Door stays the site if that ever changes. Respect either way.',
-          },
-        ],
+        items: outreachTracks,
       },
       {
         type: 'table',
@@ -775,6 +811,7 @@ function App() {
     () => navItems.find((item) => item.href === window.location.hash)?.label ?? 'Home',
   );
   const [manualTab, setManualTab] = useState(0);
+  const [outreachTab, setOutreachTab] = useState('tracks');
   const [leadSearch, setLeadSearch] = useState('');
   const [leadStageFilter, setLeadStageFilter] = useState('All stages');
   const [selectedLeadName, setSelectedLeadName] = useState(null);
@@ -1283,7 +1320,8 @@ function App() {
                 { label: 'Manual · The Black Book', item: navItems[1] },
                 { label: 'Pipeline', item: navItems[3] },
                 { label: 'Assets', item: navItems[4] },
-                { label: 'Pilot', item: navItems[5] },
+                { label: 'Outreach', item: navItems[5] },
+                { label: 'Pilot', item: navItems[6] },
               ].map(({ label, item }) => (
                 <a key={item.label} href={item.href} onClick={(event) => handleNavClick(event, item)}>
                   {label}<span aria-hidden="true">→</span>
@@ -1652,6 +1690,103 @@ function App() {
             </div>
             {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
           </section>
+          </div>
+
+          <div className="page-view" hidden={activeNav !== 'Outreach'}>
+            <div className="banner-warning">
+              Sell process and Desk Access only. No returns language.
+            </div>
+            <section className={`assets-panel outreach-panel ${isTourTarget('outreach') ? 'tour-target' : ''}`} id="outreach">
+              <div className="panel-header">
+                <span className="section-kicker">Outreach &amp; sales resources</span>
+                <span className="range-label">Approved quick sends / copy to clipboard</span>
+              </div>
+              <p className="assets-notice">Choose a message for the conversation stage, copy it, then personalize lightly without changing the law. Share only approved Group links.</p>
+              <div className="outreach-tabs" role="tablist" aria-label="Outreach resource categories">
+                <button
+                  type="button"
+                  role="tab"
+                  id="outreach-tracks-tab"
+                  aria-controls="outreach-tracks-panel"
+                  aria-selected={outreachTab === 'tracks'}
+                  className={`outreach-tab ${outreachTab === 'tracks' ? 'active' : ''}`}
+                  onClick={() => setOutreachTab('tracks')}
+                >
+                  Conversation tracks
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="outreach-objections-tab"
+                  aria-controls="outreach-objections-panel"
+                  aria-selected={outreachTab === 'objections'}
+                  className={`outreach-tab ${outreachTab === 'objections' ? 'active' : ''}`}
+                  onClick={() => setOutreachTab('objections')}
+                >
+                  Objection replies
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="outreach-assets-tab"
+                  aria-controls="outreach-assets-panel"
+                  aria-selected={outreachTab === 'assets'}
+                  className={`outreach-tab ${outreachTab === 'assets' ? 'active' : ''}`}
+                  onClick={() => setOutreachTab('assets')}
+                >
+                  Approved links
+                </button>
+              </div>
+              {outreachTab === 'tracks' && (
+                <div className="asset-grid outreach-card-grid" id="outreach-tracks-panel" role="tabpanel" aria-labelledby="outreach-tracks-tab">
+                  {outreachTracks.map((track) => (
+                    <article key={track.title} className="asset-card outreach-card">
+                      <div className="asset-label">{track.title}</div>
+                      <blockquote className="asset-copy-text">{track.text}</blockquote>
+                      <div className="asset-actions">
+                        <button className="copy-button" type="button" onClick={() => copyApprovedText(track.text, track.title)}>
+                          Copy message
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+              {outreachTab === 'objections' && (
+                <div className="asset-grid outreach-card-grid" id="outreach-objections-panel" role="tabpanel" aria-labelledby="outreach-objections-tab">
+                  {objectionResponses.map((response) => (
+                    <article key={response.title} className="asset-card outreach-card">
+                      <div className="asset-label">{response.title}</div>
+                      <blockquote className="asset-copy-text">{response.text}</blockquote>
+                      <div className="asset-actions">
+                        <button className="copy-button" type="button" onClick={() => copyApprovedText(response.text, response.title)}>
+                          Copy reply
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+              {outreachTab === 'assets' && (
+                <div className="asset-grid outreach-card-grid" id="outreach-assets-panel" role="tabpanel" aria-labelledby="outreach-assets-tab">
+                  {assetCards.map((asset) => (
+                    <article key={asset.title} className="asset-card outreach-card">
+                      <div className="asset-label">{asset.title}</div>
+                      <p>{asset.description}</p>
+                      <a className="asset-primary-link" href={asset.url} target="_blank" rel="noreferrer">{asset.url}</a>
+                      <blockquote className="asset-copy-text">{asset.copy}</blockquote>
+                      <div className="asset-actions">
+                        <button className="copy-button" type="button" onClick={() => copyApprovedText(asset.copy, asset.title)}>
+                          Copy message
+                        </button>
+                        <a href={asset.url} target="_blank" rel="noreferrer">Open link ↗</a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+              {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
+            </section>
           </div>
 
           <div className="page-view" hidden={activeNav !== 'Pilot'}>
