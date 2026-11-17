@@ -2,7 +2,7 @@
 
 Black Book = law; Continuum = desk that runs it.
 
-The Manual includes the field doctrine, approved sale process, resource routing, an LD-1042 practice exercise, and the Statecraft Curriculum I and II tracks. Curriculum I module progress is stored locally for operator self-tracking only.
+The Manual includes the field doctrine, approved sale process, resource routing, an LD-1042 practice exercise, and the Statecraft Curriculum I, II, and III tracks. Curriculum I module progress is stored locally for operator self-tracking only. Curriculum III adds the Capital Loop surface: hardening capital, collateral, borrowing, Black Card form factors, and agent governance under Group law.
 
 Use **Export manual PDF** in the Manual to print the complete eBook-style edition, including its cover, contents, and every section. Choose **Save as PDF** in the browser print dialog.
 

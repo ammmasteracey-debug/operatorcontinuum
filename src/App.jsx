@@ -624,6 +624,10 @@ const manualSections = [
     kind: 'curriculum-field',
   },
   {
+    title: 'Capital Loop — Curriculum III',
+    kind: 'curriculum-capital-loop',
+  },
+  {
     title: 'Field Training',
     blocks: [
       {
@@ -693,6 +697,57 @@ const manualSections = [
         note: 'The field standard: sell process and Desk Access only. A clean no protects the standard.',
       },
     ],
+  },
+];
+
+const capitalLoopModuleRows = [
+  ['III-0', 'Orientation & law', 'Capital Loop sits under Group law. Not a bank. Not tax advice.'],
+  ['III-1', 'Hardening', 'Why move capital off failing rails and into collateralizable surfaces.'],
+  ['III-2', 'Collateral Engine', 'Tokenize or stake → health factor → borrow without sale.'],
+  ['III-3', '40% recovery framing', 'Structural reduction of tax, inflation, and intermediary friction.'],
+  ['III-4', 'Borrow mechanics', 'Health factor, LTV, liquidation, repayment, and named risk.'],
+  ['III-5', 'Black Card & form factors', 'Spending surface funded by the borrow, not by selling the asset.'],
+  ['III-6', 'Redeploy', 'Borrowed capital back into desk, more collateral, or agent-managed positions.'],
+  ['III-7', 'Agent role', 'Process-trained agent monitors health factor and executes within written rules.'],
+  ['III-8', 'Business & individual tracks', 'Same loop under different authority and compliance requirements.'],
+];
+
+const capitalLoopModuleDetails = [
+  {
+    title: 'III-0 Orientation & law',
+    text: 'Capital Loop sits inside Desk Access under Group law. It is a process surface, not a product promise. Operator acknowledges: not a bank, not FDIC, not tax advice, health factor and liquidation rules apply.',
+  },
+  {
+    title: 'III-1 Hardening',
+    text: 'Idle capital in traditional rails faces outage, gate, inflation, and intermediary friction. Hardening moves capital onto surfaces where it can be collateralized. The move is deliberate, not automatic.',
+  },
+  {
+    title: 'III-2 Collateral Engine',
+    text: 'An asset is tokenized or staked. A health factor is calculated. The operator may borrow against the asset without selling it. The borrow is limited by the health factor. The asset remains owned.',
+  },
+  {
+    title: 'III-3 40% recovery framing',
+    text: 'Traditional banking creates friction through tax events on sale, inflation, and intermediary cost. Collateralized borrowing structurally reduces that friction relative to selling. The reduction is illustrative. Actual tax treatment is jurisdiction-specific and the operator’s responsibility.',
+  },
+  {
+    title: 'III-4 Borrow mechanics',
+    text: 'Health factor, loan-to-value, interest, repayment, and liquidation thresholds are defined before any borrow. The operator names the limit and owns the risk. Breach of health factor triggers defined consequences.',
+  },
+  {
+    title: 'III-5 Black Card & form factors',
+    text: 'Spending surfaces (card, phone, wearable, ring) draw from the borrow, not from a sale of the underlying asset. Available spend is capped by the current health factor. The form factor changes; the source does not.',
+  },
+  {
+    title: 'III-6 Redeploy',
+    text: 'Borrowed capital may be returned to the desk, used to acquire additional collateral, or directed to agent-managed positions under written rules. Each redeploy is a named action with a named risk.',
+  },
+  {
+    title: 'III-7 Agent role',
+    text: 'A process-trained agent may monitor health factor and execute within a written rule set. The human operator remains accountable. Override and kill switch are required. Agent actions are logged.',
+  },
+  {
+    title: 'III-8 Business & individual tracks',
+    text: 'The loop is available to an individual seat or a firm seat. Authority to collateralize and borrow must be documented. Compliance sensitivity is higher for business seats. Same law applies.',
   },
 ];
 
@@ -1539,6 +1594,10 @@ function ManualSectionBody({
     return <FieldCurriculumContent />;
   }
 
+  if (section.kind === 'curriculum-capital-loop') {
+    return <CapitalLoopCurriculumContent />;
+  }
+
   return section.blocks.map((block) => (
     <ManualBlock
       key={`${section.title}-${block.heading}`}
@@ -1709,6 +1768,96 @@ function CurriculumContent({ progress, onToggleModule, progressNotice }) {
         <p><strong>Curriculum complete as structure.</strong></p>
         <p>You drop paragraphs into M0–Capstone; tooling is strip + Forge card; pricing stays $15k until proof and demand say raise.</p>
       </section>
+    </div>
+  );
+}
+
+function CapitalLoopCurriculumContent() {
+  return (
+    <div className="curriculum-shell">
+      <section className="curriculum-intro">
+        <div className="manual-section-kicker">CAPITAL LOOP / GROUP LAW</div>
+        <h4>Curriculum III — Capital Loop</h4>
+        <p className="curriculum-subtitle">Hardening capital, collateral, and spend under written rules</p>
+        <p>
+          Harden capital, collateralize it, access liquidity without sale, and spend or redeploy under named risk. The asset stays owned. Liquidity is borrowed. The operator remains accountable.
+        </p>
+        <p className="curriculum-closer-rule">
+          Process before outcome. Risk is named, bounded, and owned. This is not a bank. This is not tax advice. No recovery is guaranteed. No spend is free of jurisdictional tax treatment.
+        </p>
+      </section>
+
+      <aside className="curriculum-field-rules" aria-label="Capital Loop rules">
+        <h4>Capital Loop doctrine</h4>
+        <ul>
+          <li>Capital Loop sits inside Desk Access under Group law.</li>
+          <li>Asset stays owned. Liquidity is borrowed.</li>
+          <li>III-0 and III-2 are required before any collateral or spend surface is enabled.</li>
+          <li>Agent actions require an explicit rule set, human override, and logs.</li>
+        </ul>
+      </aside>
+
+      <section className="curriculum-reference-section">
+        <h4>Core modules</h4>
+        <CurriculumDataTable headers={['#', 'Module', 'Outcome']} rows={capitalLoopModuleRows} />
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Black Book — new section</h4>
+        <p><strong>09 Capital Loop (Curriculum III)</strong></p>
+        <p><strong>Mandate:</strong> Harden capital, collateralize it, access liquidity without sale, and spend or redeploy under named risk. The asset stays owned. Liquidity is borrowed. The operator remains accountable.</p>
+        <p><strong>Law:</strong> Process before outcome. Risk is named, bounded, and owned. This is not a bank. This is not tax advice. No recovery is guaranteed. No spend is free of jurisdictional tax treatment.</p>
+        <p><strong>Gates:</strong> III-0 and III-2 must be completed before any collateral or spend surface is enabled. Agent actions require an explicit rule set. No module grants a tax or recovery guarantee.</p>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Group site copy</h4>
+        <div className="curriculum-full-module">
+          <p><strong>Access page:</strong> Desk Access includes entry to the Capital Loop surfaces — collateral, borrow, and spending form factors — under published terms. The asset stays owned. Liquidity is borrowed. This is not a bank. This is not tax advice. No recovery is guaranteed.</p>
+          <p><strong>Operators page:</strong> Operators may place seats that interact with the Capital Loop under Group law. The loop is a process surface inside Desk Access, not a separate product. Same standard. Same accountability. Not a bank. Not tax advice. No guaranteed income.</p>
+        </div>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Continuum entries</h4>
+        <div className="manual-split-lists">
+          <div>
+            <h5>Seat type</h5>
+            <ul>
+              <li><strong>Name:</strong> Capital Loop</li>
+              <li><strong>Requires:</strong> Desk Access</li>
+              <li><strong>Curriculum:</strong> III</li>
+              <li><strong>Gate:</strong> III-0 + III-2 complete</li>
+              <li><strong>Surfaces:</strong> Collateral Engine, Black Card, Agent rules</li>
+              <li><strong>Status:</strong> In development</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Asset registry</h5>
+            <ul>
+              <li><strong>Collateral Engine:</strong> Spec — Tokenize or stake → health factor → borrow without sale.</li>
+              <li><strong>Black Card:</strong> Spec — Spending form factor funded from the borrow.</li>
+              <li><strong>Capital Loop Agent:</strong> Spec — Monitors health factor and executes under written rules.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Module details</h4>
+        <div className="curriculum-full-module">
+          {capitalLoopModuleDetails.map((module) => (
+            <article key={module.title}>
+              <p><strong>{module.title}</strong></p>
+              <p>{module.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer className="curriculum-footer">
+        Curriculum III — Capital Loop · Kurogami Group · Process before outcome · Not investment advice
+      </footer>
     </div>
   );
 }
