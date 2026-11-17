@@ -701,63 +701,133 @@ const manualSections = [
 ];
 
 const capitalLoopModuleRows = [
-  ['III-0', 'Orientation & law', 'Capital Loop sits under Group law. Not a bank. Not tax advice.'],
-  ['III-1', 'Hardening', 'Why move capital off failing rails and into collateralizable surfaces.'],
-  ['III-2', 'Collateral Engine', 'Tokenize or stake → health factor → borrow without sale.'],
-  ['III-3', '40% recovery framing', 'Structural reduction of tax, inflation, and intermediary friction.'],
-  ['III-4', 'Borrow mechanics', 'Health factor, LTV, liquidation, repayment, and named risk.'],
-  ['III-5', 'Black Card & form factors', 'Spending surface funded by the borrow, not by selling the asset.'],
-  ['III-6', 'Redeploy', 'Borrowed capital back into desk, more collateral, or agent-managed positions.'],
-  ['III-7', 'Agent role', 'Process-trained agent monitors health factor and executes within written rules.'],
-  ['III-8', 'Business & individual tracks', 'Same loop under different authority and compliance requirements.'],
+  ['III-0', 'Orientation & Law · Gate', 'Acknowledge the surface, banking, tax, health-factor, liquidation, and accountability boundaries.'],
+  ['III-1', 'Hardening', 'Choose and record what capital moves to a collateralizable surface.'],
+  ['III-2', 'Collateral Engine · Gate', 'Name the asset, initial borrow limit, and repayment path; record and monitor the position.'],
+  ['III-3', '40% Recovery Framing', 'Illustrative comparison of friction, not a return, recovery schedule, or tax result.'],
+  ['III-4', 'Borrow Mechanics', 'Name and record the asset, limits, fees, repayment path, and liquidation consequences.'],
+  ['III-5', 'Black Card & Form Factors', 'Spending draws against the existing borrow and remains subject to health factor.'],
+  ['III-6', 'Redeploy', 'Record the destination and risk before borrowed capital moves.'],
+  ['III-7', 'Agent Role', 'Review and acknowledge written permissions, approvals, override, kill switch, and logging.'],
+  ['III-8', 'Business & Individual Tracks', 'Use the same process with the required authority and compliance documentation.'],
 ];
 
 const capitalLoopModuleDetails = [
   {
-    title: 'III-0 Orientation & law',
-    text: 'Capital Loop sits inside Desk Access under Group law. It is a process surface, not a product promise. Operator acknowledges: not a bank, not FDIC, not tax advice, health factor and liquidation rules apply.',
+    title: 'III-0 Orientation & Law',
+    gate: true,
+    paragraphs: [
+      'Capital Loop is a process surface inside Desk Access. It is not a separate product. It is not a bank. It is not tax advice.',
+      'The operator acknowledges before any further module:',
+    ],
+    lists: [{
+      items: [
+        'This surface does not create a bank account.',
+        'This surface does not provide FDIC insurance.',
+        'Spending or borrowing against collateral does not automatically eliminate taxable events in every jurisdiction. Tax treatment is the operator’s responsibility.',
+        'Health factor and liquidation rules apply to every borrow.',
+        'No recovery of traditional banking friction is guaranteed.',
+        'The asset remains owned only while the health factor is maintained.',
+      ],
+    }],
+    closing: 'Process before outcome. Risk is named, bounded, and owned. The operator remains accountable.',
   },
   {
     title: 'III-1 Hardening',
-    text: 'Idle capital in traditional rails faces outage, gate, inflation, and intermediary friction. Hardening moves capital onto surfaces where it can be collateralized. The move is deliberate, not automatic.',
+    paragraphs: [
+      'Idle capital in traditional banking rails faces three structural costs: outage or gate risk, inflation erosion, and intermediary friction. Hardening is the deliberate movement of capital onto surfaces where it can be collateralized.',
+      'Hardening is not automatic. The operator chooses which capital moves, when it moves, and into which asset class. The decision is recorded. The capital that remains in traditional rails is acknowledged as remaining exposed to those rails.',
+      'Once capital is hardened, it becomes eligible for the Collateral Engine. Until it is hardened, it cannot be collateralized under this surface.',
+    ],
   },
   {
     title: 'III-2 Collateral Engine',
-    text: 'An asset is tokenized or staked. A health factor is calculated. The operator may borrow against the asset without selling it. The borrow is limited by the health factor. The asset remains owned.',
+    gate: true,
+    paragraphs: [
+      'An asset is tokenized or staked. A health factor is calculated against the current value of the asset and the amount borrowed against it. The operator may borrow against the asset without selling it.',
+      'The asset remains owned. The borrow is a liability against the asset. The maximum borrow is limited by the health factor. If the health factor falls below the defined threshold, the protocol may liquidate a portion of the collateral to restore the threshold.',
+      'The operator names the asset, the initial borrow limit, and the repayment path before any borrow is executed. The Collateral Engine records the position. The operator can view the health factor at any time.',
+      'No borrow is available until III-0 and this module are complete.',
+    ],
   },
   {
-    title: 'III-3 40% recovery framing',
-    text: 'Traditional banking creates friction through tax events on sale, inflation, and intermediary cost. Collateralized borrowing structurally reduces that friction relative to selling. The reduction is illustrative. Actual tax treatment is jurisdiction-specific and the operator’s responsibility.',
+    title: 'III-3 40% Recovery Framing',
+    paragraphs: [
+      'Traditional banking creates friction through three mechanisms: a taxable event when an asset is sold to create liquidity, inflation that reduces purchasing power of idle capital, and intermediary cost that extracts a portion of every transaction.',
+      'Collateralized borrowing structurally reduces that friction relative to selling the underlying asset. The reduction is illustrative. It is not a guarantee. Actual tax treatment depends on jurisdiction, holding period, and the specific structure of the borrow. The operator is responsible for reporting.',
+      'The 40% figure is a framing device for the combined friction of tax, inflation, and intermediary cost in traditional rails. It is not a promised return. It is not a recovery schedule. It is a description of the structural difference between selling and borrowing against an owned asset.',
+    ],
   },
   {
-    title: 'III-4 Borrow mechanics',
-    text: 'Health factor, loan-to-value, interest, repayment, and liquidation thresholds are defined before any borrow. The operator names the limit and owns the risk. Breach of health factor triggers defined consequences.',
+    title: 'III-4 Borrow Mechanics',
+    paragraphs: ['Before any borrow is executed, the operator names:'],
+    lists: [{
+      items: [
+        'The asset being collateralized.',
+        'The current health factor threshold.',
+        'The maximum loan-to-value permitted.',
+        'The interest or fee structure of the borrow.',
+        'The repayment path.',
+        'The liquidation threshold and consequence.',
+      ],
+    }],
+    closing: 'The borrow is limited by the health factor. Interest accrues against the borrowed amount. Repayment restores health factor. Failure to maintain the health factor triggers the defined liquidation process. The operator owns the risk. The protocol enforces the rules. No borrow proceeds until these parameters are named and recorded.',
   },
   {
-    title: 'III-5 Black Card & form factors',
-    text: 'Spending surfaces (card, phone, wearable, ring) draw from the borrow, not from a sale of the underlying asset. Available spend is capped by the current health factor. The form factor changes; the source does not.',
+    title: 'III-5 Black Card & Form Factors',
+    paragraphs: [
+      'Spending surfaces draw from the borrow, not from a sale of the underlying asset. Available spend is capped by the current health factor. If the health factor falls, available spend falls with it.',
+      'Form factors include card, phone wallet, wearable, and ring. The form factor changes the interface. It does not change the source of funds. Every spend is a draw against the existing borrow. Every spend is logged. Every spend is subject to the health factor at the time of the spend.',
+      'The Black Card is a payment rail. It is not a bank account. It is not ownership of the collateral. It is a form factor of the Collateral Engine borrow.',
+    ],
   },
   {
     title: 'III-6 Redeploy',
-    text: 'Borrowed capital may be returned to the desk, used to acquire additional collateral, or directed to agent-managed positions under written rules. Each redeploy is a named action with a named risk.',
+    paragraphs: ['Borrowed capital may be directed in three ways:'],
+    lists: [{
+      items: [
+        'Returned to the desk for process execution under Curriculum I rules.',
+        'Used to acquire additional collateral, increasing the base against which future borrows can be taken.',
+        'Directed to agent-managed positions under a written rule set.',
+      ],
+    }],
+    closing: 'Each redeploy is a named action. Each redeploy carries the risk of the surface it enters. The operator records the direction before the capital moves. The health factor of the original collateral position remains visible. Redeploy does not erase the borrow. The liability remains until repaid.',
   },
   {
-    title: 'III-7 Agent role',
-    text: 'A process-trained agent may monitor health factor and execute within a written rule set. The human operator remains accountable. Override and kill switch are required. Agent actions are logged.',
+    title: 'III-7 Agent Role',
+    paragraphs: [
+      'A process-trained agent may monitor the health factor of collateralized positions and execute within a written rule set. The rule set names what the agent may do without human confirmation and what requires explicit approval.',
+      'The human operator remains accountable for every action the agent takes. An override and a kill switch are required. Agent actions are logged in Continuum. The agent does not own the collateral. The agent does not own the borrow. The agent executes process under rules the operator has written.',
+      'No agent is enabled until the operator has reviewed and acknowledged the rule set.',
+    ],
   },
   {
-    title: 'III-8 Business & individual tracks',
-    text: 'The loop is available to an individual seat or a firm seat. Authority to collateralize and borrow must be documented. Compliance sensitivity is higher for business seats. Same law applies.',
+    title: 'III-8 Business & Individual Tracks',
+    paragraphs: [
+      'The Capital Loop is available to an individual seat or a firm seat. The process is the same. The authority and compliance requirements differ.',
+      'An individual seat requires the operator’s acknowledgment of III-0 and III-2. A firm seat requires documented authority to collateralize assets and to borrow against them. The firm seat also requires a named compliance contact and a written acknowledgment that the firm remains responsible for its own regulatory and tax obligations.',
+      'Same law. Same health factor. Same accountability. The track changes the documentation required, not the process.',
+    ],
+  },
+];
+
+const capitalLoopPolicies = [
+  {
+    title: 'Gates',
+    text: 'III-0 and III-2 must be marked complete in Continuum before any collateral position can be opened or any spend surface can be enabled. All other modules may be reviewed at any time. Agent surfaces require an additional rule-set acknowledgment after III-7.',
+  },
+  {
+    title: 'Never-sell',
+    text: 'No module in Curriculum III grants a tax exemption, a recovery guarantee, a bank account, or a promise that spending creates zero taxable events. The operator remains responsible for jurisdiction-specific obligations.',
   },
 ];
 
 const capitalLoopOnboardChecklist = [
   'Capital Loop orientation (III-0) completed',
   'Collateral Engine mechanics (III-2) completed',
-  'Health factor and liquidation rules acknowledged',
-  'Tax and bank disclaimers acknowledged',
-  'Agent rule set reviewed (if agent surface is enabled)',
-  'Seat type marked Capital Loop in Continuum',
+  'III-0 and III-2 marked complete in Continuum before opening a collateral position or enabling a spend surface',
+  'Agent rule set reviewed and acknowledged before enabling an agent surface',
+  'Firm authority, compliance contact, and firm regulatory and tax responsibility documented (firm seat)',
 ];
 
 const curriculumOverview = [
@@ -1789,10 +1859,10 @@ function CapitalLoopCurriculumContent() {
         <h4>Curriculum III — Capital Loop</h4>
         <p className="curriculum-subtitle">Hardening capital, collateral, and spend under written rules</p>
         <p>
-          Harden capital, collateralize it, access liquidity without sale, and spend or redeploy under named risk. The asset stays owned. Liquidity is borrowed. The operator remains accountable.
+          Capital Loop is a process surface inside Desk Access, not a separate product. This curriculum covers hardening capital, collateral, borrowing, spending, and redeploying under named risk.
         </p>
         <p className="curriculum-closer-rule">
-          Process before outcome. Risk is named, bounded, and owned. This is not a bank. This is not tax advice. No recovery is guaranteed. No spend is free of jurisdictional tax treatment.
+          Process before outcome. Risk is named, bounded, and owned. This is not a bank, does not create a bank account or provide FDIC insurance, and is not tax advice. No recovery is guaranteed.
         </p>
       </section>
 
@@ -1800,9 +1870,10 @@ function CapitalLoopCurriculumContent() {
         <h4>Capital Loop doctrine</h4>
         <ul>
           <li>Capital Loop sits inside Desk Access under Group law.</li>
-          <li>Asset stays owned. Liquidity is borrowed.</li>
-          <li>III-0 and III-2 are required before any collateral or spend surface is enabled.</li>
-          <li>Agent actions require an explicit rule set, human override, and logs.</li>
+          <li>A collateralized asset remains owned only while its health factor is maintained; liquidation rules apply.</li>
+          <li>III-0 and III-2 must be marked complete in Continuum before a collateral position is opened or a spend surface is enabled.</li>
+          <li>Agent surfaces require a reviewed and acknowledged rule set, human override, kill switch, and action logs.</li>
+          <li>Tax treatment is the operator’s responsibility. No tax exemption, recovery guarantee, or zero-tax-spend promise is made.</li>
         </ul>
       </aside>
 
@@ -1814,16 +1885,17 @@ function CapitalLoopCurriculumContent() {
       <section className="curriculum-reference-section">
         <h4>Black Book — new section</h4>
         <p><strong>09 Capital Loop (Curriculum III)</strong></p>
-        <p><strong>Mandate:</strong> Harden capital, collateralize it, access liquidity without sale, and spend or redeploy under named risk. The asset stays owned. Liquidity is borrowed. The operator remains accountable.</p>
-        <p><strong>Law:</strong> Process before outcome. Risk is named, bounded, and owned. This is not a bank. This is not tax advice. No recovery is guaranteed. No spend is free of jurisdictional tax treatment.</p>
-        <p><strong>Gates:</strong> III-0 and III-2 must be completed before any collateral or spend surface is enabled. Agent actions require an explicit rule set. No module grants a tax or recovery guarantee.</p>
+        <p><strong>Mandate:</strong> Capital Loop is a process surface inside Desk Access. The operator remains accountable for every action and obligation.</p>
+        <p><strong>Law:</strong> The asset remains owned only while the health factor is maintained. A borrow is a liability against the asset and may result in liquidation. This surface is not a bank, does not create a bank account or provide FDIC insurance, and is not tax advice.</p>
+        <p><strong>Gates:</strong> III-0 and III-2 must be marked complete in Continuum before any collateral position is opened or any spend surface is enabled. Agent surfaces require an additional rule-set acknowledgment after III-7.</p>
+        <p><strong>Never-sell:</strong> No tax exemption, recovery guarantee, bank account, or promise that spending creates zero taxable events is granted. The operator remains responsible for jurisdiction-specific obligations.</p>
       </section>
 
       <section className="curriculum-reference-section">
         <h4>Group site copy</h4>
         <div className="curriculum-full-module">
-          <p><strong>Access page:</strong> Desk Access includes entry to the Capital Loop surfaces — collateral, borrow, and spending form factors — under published terms. The asset stays owned. Liquidity is borrowed. This is not a bank. This is not tax advice. No recovery is guaranteed.</p>
-          <p><strong>Operators page:</strong> Operators may place seats that interact with the Capital Loop under Group law. The loop is a process surface inside Desk Access, not a separate product. Same standard. Same accountability. Not a bank. Not tax advice. No guaranteed income.</p>
+          <p><strong>Access page:</strong> Capital Loop is a process surface inside Desk Access, not a separate product. Collateral, borrowing, and spending remain subject to the stated gates and health-factor rules. This is not a bank or tax advice. No recovery is guaranteed.</p>
+          <p><strong>Operators page:</strong> The process runs under Group law. The operator remains accountable for collateral, borrowing, tax, and compliance obligations. The surface is not a bank, provides no tax exemption, and makes no guaranteed outcome claim.</p>
         </div>
       </section>
 
@@ -1866,8 +1938,26 @@ function CapitalLoopCurriculumContent() {
         <div className="curriculum-full-module">
           {capitalLoopModuleDetails.map((module) => (
             <article key={module.title}>
-              <p><strong>{module.title}</strong></p>
-              <p>{module.text}</p>
+              <p><strong>{module.title}{module.gate ? ' · Gate' : ''}</strong></p>
+              {module.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {module.lists?.map((list, listIndex) => (
+                <ul key={`${module.title}-list-${listIndex}`}>
+                  {list.items.map((item) => <li key={item}><CurriculumText>{item}</CurriculumText></li>)}
+                </ul>
+              ))}
+              {module.closing && <p>{module.closing}</p>}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Operating boundaries</h4>
+        <div className="curriculum-full-module">
+          {capitalLoopPolicies.map((policy) => (
+            <article key={policy.title}>
+              <p><strong>{policy.title}</strong></p>
+              <p>{policy.text}</p>
             </article>
           ))}
         </div>
