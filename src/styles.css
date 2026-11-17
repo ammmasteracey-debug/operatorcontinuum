@@ -3235,6 +3235,58 @@ tbody tr:hover {
   accent-color: #79ddc4;
 }
 
+.capital-loop-progress-list,
+.capital-loop-onboard-list {
+  display: grid;
+  gap: 9px;
+  margin: 10px 0;
+}
+
+.capital-loop-progress-item,
+.capital-loop-onboard-list label {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: #b6c0b9;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.capital-loop-progress-item input,
+.capital-loop-onboard-list input {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+  accent-color: #79ddc4;
+}
+
+.capital-loop-progress-item small {
+  margin-left: 8px;
+  color: var(--gold);
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+
+.capital-loop-gate-status {
+  padding: 9px 12px;
+  border-left: 2px solid var(--gold);
+  background: rgba(197, 164, 90, 0.06);
+}
+
+.capital-loop-xp-field {
+  display: grid;
+  gap: 7px;
+  max-width: 220px;
+  margin-top: 16px;
+  color: #b6c0b9;
+  font-size: 12px;
+}
+
+.capital-loop-xp-field input {
+  width: 100%;
+}
+
 .curriculum-ops-checklist {
   list-style: none;
   padding-left: 0;

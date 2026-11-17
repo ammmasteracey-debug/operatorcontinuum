@@ -822,13 +822,56 @@ const capitalLoopPolicies = [
   },
 ];
 
-const capitalLoopOnboardChecklist = [
-  'Capital Loop orientation (III-0) completed',
-  'Collateral Engine mechanics (III-2) completed',
-  'III-0 and III-2 marked complete in Continuum before opening a collateral position or enabling a spend surface',
-  'Agent rule set reviewed and acknowledged before enabling an agent surface',
-  'Firm authority, compliance contact, and firm regulatory and tax responsibility documented (firm seat)',
+const capitalLoopModuleIds = [
+  'III-0',
+  'III-1',
+  'III-2',
+  'III-3',
+  'III-4',
+  'III-5',
+  'III-6',
+  'III-7',
+  'III-8',
 ];
+
+const capitalLoopAssets = [
+  { id: 'collateralEngine', name: 'Collateral Engine', status: 'Spec' },
+  { id: 'blackCard', name: 'Black Card', status: 'Spec' },
+  { id: 'capitalLoopAgent', name: 'Capital Loop Agent', status: 'Spec' },
+];
+
+const capitalLoopVeilDrills = [
+  { id: 'veilRun', name: 'Veil Run' },
+  { id: 'veilCut', name: 'Veil Cut' },
+  { id: 'veilUnit', name: 'Veil Unit' },
+  { id: 'veilMark', name: 'Veil Mark' },
+  { id: 'veilHold', name: 'Veil Hold' },
+];
+
+const capitalLoopOnboardItems = [
+  { label: 'III-0 completed', group: 'moduleProgress', field: 'III-0' },
+  { label: 'III-2 completed', group: 'moduleProgress', field: 'III-2' },
+  { label: 'Health factor rules acknowledged', group: 'onboarding', field: 'healthFactorRulesAcknowledged' },
+  { label: 'Tax and bank disclaimers acknowledged', group: 'onboarding', field: 'taxAndBankDisclaimersAcknowledged' },
+  { label: 'Agent rule set reviewed (if agent surface is enabled)', group: 'onboarding', field: 'agentRuleSetReviewed' },
+];
+
+function createCapitalLoopTrack() {
+  return {
+    seatType: 'Capital Loop',
+    required: 'Desk Access',
+    curriculum: 'III',
+    moduleProgress: Object.fromEntries(capitalLoopModuleIds.map((id) => [id, false])),
+    assets: Object.fromEntries(capitalLoopAssets.map(({ id, status }) => [id, status])),
+    veilDrills: Object.fromEntries(capitalLoopVeilDrills.map(({ id }) => [id, false])),
+    veilXp: 0,
+    onboarding: {
+      healthFactorRulesAcknowledged: false,
+      taxAndBankDisclaimersAcknowledged: false,
+      agentRuleSetReviewed: false,
+    },
+  };
+}
 
 const curriculumOverview = [
   ['Name', 'Statecraft Academy'],
@@ -1623,6 +1666,8 @@ function ManualSectionBody({
   curriculumProgress,
   onToggleCurriculumModule,
   curriculumProgressNotice,
+  capitalLoopTrack,
+  onUpdateCapitalLoopField,
 }) {
   if (section.kind === 'curriculum') {
     return (
@@ -1674,7 +1719,12 @@ function ManualSectionBody({
   }
 
   if (section.kind === 'curriculum-capital-loop') {
-    return <CapitalLoopCurriculumContent />;
+    return (
+      <CapitalLoopCurriculumContent
+        track={capitalLoopTrack}
+        onUpdateField={onUpdateCapitalLoopField}
+      />
+    );
   }
 
   return section.blocks.map((block) => (
@@ -1851,7 +1901,9 @@ function CurriculumContent({ progress, onToggleModule, progressNotice }) {
   );
 }
 
-function CapitalLoopCurriculumContent() {
+function CapitalLoopCurriculumContent({ track, onUpdateField }) {
+  const surfacesUnlocked = track.moduleProgress['III-0'] && track.moduleProgress['III-2'];
+
   return (
     <div className="curriculum-shell">
       <section className="curriculum-intro">
@@ -1900,37 +1952,105 @@ function CapitalLoopCurriculumContent() {
       </section>
 
       <section className="curriculum-reference-section">
-        <h4>Continuum entries</h4>
+        <h4>Continuum track</h4>
         <h5>Seat type</h5>
         <CurriculumDataTable
           headers={['Field', 'Entry']}
           rows={[
-            ['Name', 'Capital Loop'],
-            ['Requires', 'Desk Access'],
-            ['Curriculum', 'III'],
-            ['Gate', 'III-0 + III-2 complete'],
-            ['Surfaces', 'Collateral Engine, Black Card (when live), Agent rules'],
-            ['Status', 'In development'],
+            ['Seat type', track.seatType],
+            ['Requires', track.required],
+            ['Curriculum', track.curriculum],
           ]}
         />
+
+        <h5>Module progress</h5>
+        <div className="capital-loop-progress-list">
+          {capitalLoopModuleIds.map((id, index) => {
+            const isGate = id === 'III-0' || id === 'III-2';
+            const [, moduleName] = capitalLoopModuleRows[index];
+            return (
+              <label className="capital-loop-progress-item" key={id}>
+                <input
+                  type="checkbox"
+                  checked={track.moduleProgress[id]}
+                  onChange={(event) => onUpdateField('moduleProgress', id, event.target.checked)}
+                />
+                <span><strong>{id}</strong> {moduleName.replace(' · Gate', '')}{isGate && <small>Gate</small>}</span>
+              </label>
+            );
+          })}
+        </div>
+        <p className="capital-loop-gate-status" role="status">
+          <strong>Surface gates:</strong>{' '}
+          {surfacesUnlocked ? 'III-0 and III-2 complete.' : 'Locked until both III-0 and III-2 are complete.'}
+        </p>
+
         <h5>Asset registry</h5>
         <CurriculumDataTable
-          headers={['Asset', 'Status', 'Description']}
+          headers={['Asset', 'Status', 'Gate access']}
           rows={[
-            ['Collateral Engine', 'Spec', 'Tokenize or stake → health factor → borrow without sale'],
-            ['Black Card', 'Spec', 'Spending form factor (card, phone, wearable, ring) funded from Collateral Engine borrow'],
-            ['Capital Loop Agent', 'Spec', 'Process-trained agent that monitors health factor and executes within written rules'],
+            ...capitalLoopAssets.map((asset) => [
+              asset.name,
+              track.assets[asset.id],
+              !surfacesUnlocked
+                ? 'Locked'
+                : asset.id === 'capitalLoopAgent' && !track.onboarding.agentRuleSetReviewed
+                  ? 'Rule-set review required'
+                  : 'Gates complete',
+            ]),
           ]}
         />
       </section>
 
       <section className="curriculum-reference-section">
         <h4>Onboard checklist</h4>
-        <ul className="curriculum-ops-checklist">
-          {capitalLoopOnboardChecklist.map((item) => (
-            <li key={item}><span aria-hidden="true">☐</span><CurriculumText>{item}</CurriculumText></li>
+        <div className="capital-loop-onboard-list">
+          {capitalLoopOnboardItems.map((item) => (
+            <label key={item.field}>
+              <input
+                type="checkbox"
+                checked={item.group === 'moduleProgress'
+                  ? track.moduleProgress[item.field]
+                  : track.onboarding[item.field]}
+                onChange={(event) => onUpdateField(item.group, item.field, event.target.checked)}
+              />
+              <span>{item.label}</span>
+            </label>
           ))}
-        </ul>
+        </div>
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Veil drills</h4>
+        <p>External links only. XP is tracked in Continuum.</p>
+        <p><a href="https://veilcapacity-brown.vercel.app/" target="_blank" rel="noopener noreferrer">Open Veil ↗</a></p>
+        <div className="capital-loop-progress-list">
+          {capitalLoopVeilDrills.map((drill) => (
+            <label className="capital-loop-progress-item" key={drill.id}>
+              <input
+                type="checkbox"
+                checked={track.veilDrills[drill.id]}
+                onChange={(event) => onUpdateField('veilDrills', drill.id, event.target.checked)}
+              />
+              <span>{drill.name}</span>
+            </label>
+          ))}
+        </div>
+        <label className="capital-loop-xp-field">
+          XP recorded
+          <input
+            type="number"
+            min="0"
+            step="1"
+            value={track.veilXp}
+            onChange={(event) => {
+              const nextValue = Number(event.target.value);
+              if (Number.isSafeInteger(nextValue) && nextValue >= 0) {
+                onUpdateField('veilXp', 'veilXp', nextValue);
+              }
+            }}
+          />
+        </label>
       </section>
 
       <section className="curriculum-reference-section">
@@ -2199,6 +2319,7 @@ function createDemoWorkspaceData() {
     ],
     pilotRows,
     pilotAcknowledgement: defaultPilotAcknowledgement,
+    capitalLoop: createCapitalLoopTrack(),
   };
 }
 
@@ -2212,6 +2333,7 @@ const freshWorkspaceData = {
   nextActions: [],
   pilotRows: [],
   pilotAcknowledgement: defaultPilotAcknowledgement,
+  capitalLoop: createCapitalLoopTrack(),
 };
 
 const workspaceDataStorageKey = 'operator-continuum-workspace-data';
@@ -2298,10 +2420,60 @@ function readWorkspaceData() {
     }
 
     const pilotAcknowledgement = { ...defaultPilotAcknowledgement, ...acknowledgement };
+    const savedCapitalLoop = parsedData.capitalLoop === undefined
+      ? createCapitalLoopTrack()
+      : parsedData.capitalLoop;
+    const defaultCapitalLoop = createCapitalLoopTrack();
+    const isRecord = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
+    if (
+      !isRecord(savedCapitalLoop)
+      || (savedCapitalLoop.seatType !== undefined && savedCapitalLoop.seatType !== defaultCapitalLoop.seatType)
+      || (savedCapitalLoop.required !== undefined && savedCapitalLoop.required !== defaultCapitalLoop.required)
+      || (savedCapitalLoop.curriculum !== undefined && savedCapitalLoop.curriculum !== defaultCapitalLoop.curriculum)
+    ) {
+      throw new Error('Saved Capital Loop track has an invalid shape.');
+    }
+
+    const moduleProgress = savedCapitalLoop.moduleProgress === undefined
+      ? defaultCapitalLoop.moduleProgress
+      : savedCapitalLoop.moduleProgress;
+    const assets = savedCapitalLoop.assets === undefined ? defaultCapitalLoop.assets : savedCapitalLoop.assets;
+    const veilDrills = savedCapitalLoop.veilDrills === undefined ? defaultCapitalLoop.veilDrills : savedCapitalLoop.veilDrills;
+    const onboarding = savedCapitalLoop.onboarding === undefined ? defaultCapitalLoop.onboarding : savedCapitalLoop.onboarding;
+    const validBooleanFields = (value, allowedFields) => (
+      isRecord(value)
+      && Object.entries(value).every(([field, fieldValue]) => allowedFields.includes(field) && typeof fieldValue === 'boolean')
+    );
+    if (
+      !validBooleanFields(moduleProgress, capitalLoopModuleIds)
+      || capitalLoopModuleIds.some((id) => typeof moduleProgress[id] !== 'boolean')
+      || !isRecord(assets)
+      || Object.entries(assets).some(([id, status]) => (
+        !capitalLoopAssets.some((asset) => asset.id === id && asset.status === status)
+      ))
+      || !validBooleanFields(veilDrills, capitalLoopVeilDrills.map(({ id }) => id))
+      || capitalLoopVeilDrills.some(({ id }) => typeof veilDrills[id] !== 'boolean')
+      || !validBooleanFields(onboarding, Object.keys(defaultCapitalLoop.onboarding))
+      || Object.keys(defaultCapitalLoop.onboarding).some((field) => typeof onboarding[field] !== 'boolean')
+      || (savedCapitalLoop.veilXp !== undefined && (!Number.isSafeInteger(savedCapitalLoop.veilXp) || savedCapitalLoop.veilXp < 0))
+    ) {
+      throw new Error('Saved Capital Loop progress has an invalid shape.');
+    }
+
+    const capitalLoop = {
+      ...defaultCapitalLoop,
+      ...savedCapitalLoop,
+      moduleProgress: { ...defaultCapitalLoop.moduleProgress, ...moduleProgress },
+      assets: { ...defaultCapitalLoop.assets, ...assets },
+      veilDrills: { ...defaultCapitalLoop.veilDrills, ...veilDrills },
+      veilXp: savedCapitalLoop.veilXp ?? defaultCapitalLoop.veilXp,
+      onboarding: { ...defaultCapitalLoop.onboarding, ...onboarding },
+    };
     const prospectingData = {
       prospects,
       fastStart: { ...createFastStartChecklist(), ...fastStart },
       presentationAssets: { ...createPresentationAssets(), ...presentationAssets },
+      capitalLoop,
       leadershipSession: {
         ...createLeadershipSession(),
         ...savedLeadershipSession,
@@ -2619,7 +2791,7 @@ function App() {
   };
 
   const resetWorkspaceData = () => {
-    if (!window.confirm('Reset leads, prospecting list, checklist, next actions, and pilot records for this browser? This cannot be undone.')) return;
+    if (!window.confirm('Reset leads, prospecting list, checklists, Capital Loop progress, next actions, and pilot records for this browser? This cannot be undone.')) return;
     setWorkspaceData(freshWorkspaceData);
     setSelectedLeadName(null);
     setSelectedProspectId('');
@@ -2672,6 +2844,18 @@ function App() {
         ...current.pilotAcknowledgement,
         [field]: value,
       },
+    }));
+  };
+
+  const updateCapitalLoopField = (group, field, value) => {
+    setWorkspaceData((current) => ({
+      ...current,
+      capitalLoop: group === 'veilXp'
+        ? { ...current.capitalLoop, veilXp: value }
+        : {
+          ...current.capitalLoop,
+          [group]: { ...current.capitalLoop[group], [field]: value },
+        },
     }));
   };
 
@@ -3390,6 +3574,8 @@ function App() {
                       setCurriculumProgress((current) => ({ ...current, [moduleId]: isCompleted }));
                     }}
                     curriculumProgressNotice={curriculumProgressNotice}
+                    capitalLoopTrack={workspaceData.capitalLoop}
+                    onUpdateCapitalLoopField={updateCapitalLoopField}
                   />
                   {clipboardFeedback && <p className="copy-feedback" role="status" aria-live="polite">{clipboardFeedback}</p>}
                 </article>
@@ -3474,6 +3660,8 @@ function App() {
                     setCurriculumProgress((current) => ({ ...current, [moduleId]: isCompleted }));
                   }}
                   curriculumProgressNotice={curriculumProgressNotice}
+                  capitalLoopTrack={workspaceData.capitalLoop}
+                  onUpdateCapitalLoopField={updateCapitalLoopField}
                 />
               </section>
             ))}
