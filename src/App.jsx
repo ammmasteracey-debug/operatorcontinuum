@@ -841,11 +841,11 @@ const capitalLoopAssets = [
 ];
 
 const capitalLoopVeilDrills = [
-  { id: 'veilRun', name: 'Veil Run' },
-  { id: 'veilCut', name: 'Veil Cut' },
-  { id: 'veilUnit', name: 'Veil Unit' },
-  { id: 'veilMark', name: 'Veil Mark' },
-  { id: 'veilHold', name: 'Veil Hold' },
+  { id: 'veilRun', name: 'Veil Run', url: 'https://veil-run.vercel.app/' },
+  { id: 'veilCut', name: 'Veil Cut', url: 'https://veil-cut.vercel.app/' },
+  { id: 'veilUnit', name: 'Veil Unit', url: 'https://veil-unit.vercel.app/' },
+  { id: 'veilMark', name: 'Veil Mark', url: 'https://veil-mark.vercel.app/' },
+  { id: 'veilHold', name: 'Veil Hold', url: 'https://veil-hold.vercel.app/' },
 ];
 
 const capitalLoopOnboardItems = [
@@ -853,6 +853,7 @@ const capitalLoopOnboardItems = [
   { label: 'III-2 completed', group: 'moduleProgress', field: 'III-2' },
   { label: 'Health factor rules acknowledged', group: 'onboarding', field: 'healthFactorRulesAcknowledged' },
   { label: 'Tax and bank disclaimers acknowledged', group: 'onboarding', field: 'taxAndBankDisclaimersAcknowledged' },
+  { label: 'Veil drills available (links visible)', group: 'onboarding', field: 'veilDrillsAvailable' },
   { label: 'Agent rule set reviewed (if agent surface is enabled)', group: 'onboarding', field: 'agentRuleSetReviewed' },
 ];
 
@@ -868,6 +869,7 @@ function createCapitalLoopTrack() {
     onboarding: {
       healthFactorRulesAcknowledged: false,
       taxAndBankDisclaimersAcknowledged: false,
+      veilDrillsAvailable: false,
       agentRuleSetReviewed: false,
     },
   };
@@ -2023,7 +2025,6 @@ function CapitalLoopCurriculumContent({ track, onUpdateField }) {
       <section className="curriculum-reference-section">
         <h4>Veil drills</h4>
         <p>External links only. XP is tracked in Continuum.</p>
-        <p><a href="https://veilcapacity-brown.vercel.app/" target="_blank" rel="noopener noreferrer">Open Veil ↗</a></p>
         <div className="capital-loop-progress-list">
           {capitalLoopVeilDrills.map((drill) => (
             <label className="capital-loop-progress-item" key={drill.id}>
@@ -2032,7 +2033,17 @@ function CapitalLoopCurriculumContent({ track, onUpdateField }) {
                 checked={track.veilDrills[drill.id]}
                 onChange={(event) => onUpdateField('veilDrills', drill.id, event.target.checked)}
               />
-              <span>{drill.name}</span>
+              <span>
+                {drill.name}{' '}
+                <a
+                  href={drill.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  Open drill ↗
+                </a>
+              </span>
             </label>
           ))}
         </div>
@@ -2043,12 +2054,7 @@ function CapitalLoopCurriculumContent({ track, onUpdateField }) {
             min="0"
             step="1"
             value={track.veilXp}
-            onChange={(event) => {
-              const nextValue = Number(event.target.value);
-              if (Number.isSafeInteger(nextValue) && nextValue >= 0) {
-                onUpdateField('veilXp', 'veilXp', nextValue);
-              }
-            }}
+            readOnly
           />
         </label>
       </section>
@@ -2466,7 +2472,7 @@ function readWorkspaceData() {
       moduleProgress: { ...defaultCapitalLoop.moduleProgress, ...moduleProgress },
       assets: { ...defaultCapitalLoop.assets, ...assets },
       veilDrills: { ...defaultCapitalLoop.veilDrills, ...veilDrills },
-      veilXp: savedCapitalLoop.veilXp ?? defaultCapitalLoop.veilXp,
+      veilXp: capitalLoopVeilDrills.filter(({ id }) => veilDrills[id]).length,
       onboarding: { ...defaultCapitalLoop.onboarding, ...onboarding },
     };
     const prospectingData = {
@@ -2850,8 +2856,15 @@ function App() {
   const updateCapitalLoopField = (group, field, value) => {
     setWorkspaceData((current) => ({
       ...current,
-      capitalLoop: group === 'veilXp'
-        ? { ...current.capitalLoop, veilXp: value }
+      capitalLoop: group === 'veilDrills'
+        ? (() => {
+          const veilDrills = { ...current.capitalLoop.veilDrills, [field]: value };
+          return {
+            ...current.capitalLoop,
+            veilDrills,
+            veilXp: capitalLoopVeilDrills.filter(({ id }) => veilDrills[id]).length,
+          };
+        })()
         : {
           ...current.capitalLoop,
           [group]: { ...current.capitalLoop[group], [field]: value },
