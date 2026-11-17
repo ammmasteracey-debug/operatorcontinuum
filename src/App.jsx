@@ -1820,27 +1820,27 @@ function CapitalLoopCurriculumContent() {
 
       <section className="curriculum-reference-section">
         <h4>Continuum entries</h4>
-        <div className="manual-split-lists">
-          <div>
-            <h5>Seat type</h5>
-            <ul>
-              <li><strong>Name:</strong> Capital Loop</li>
-              <li><strong>Requires:</strong> Desk Access</li>
-              <li><strong>Curriculum:</strong> III</li>
-              <li><strong>Gate:</strong> III-0 + III-2 complete</li>
-              <li><strong>Surfaces:</strong> Collateral Engine, Black Card, Agent rules</li>
-              <li><strong>Status:</strong> In development</li>
-            </ul>
-          </div>
-          <div>
-            <h5>Asset registry</h5>
-            <ul>
-              <li><strong>Collateral Engine:</strong> Spec — Tokenize or stake → health factor → borrow without sale.</li>
-              <li><strong>Black Card:</strong> Spec — Spending form factor funded from the borrow.</li>
-              <li><strong>Capital Loop Agent:</strong> Spec — Monitors health factor and executes under written rules.</li>
-            </ul>
-          </div>
-        </div>
+        <h5>Seat type</h5>
+        <CurriculumDataTable
+          headers={['Field', 'Entry']}
+          rows={[
+            ['Name', 'Capital Loop'],
+            ['Requires', 'Desk Access'],
+            ['Curriculum', 'III'],
+            ['Gate', 'III-0 + III-2 complete'],
+            ['Surfaces', 'Collateral Engine, Black Card (when live), Agent rules'],
+            ['Status', 'In development'],
+          ]}
+        />
+        <h5>Asset registry</h5>
+        <CurriculumDataTable
+          headers={['Asset', 'Status', 'Description']}
+          rows={[
+            ['Collateral Engine', 'Spec', 'Tokenize or stake → health factor → borrow without sale'],
+            ['Black Card', 'Spec', 'Spending form factor (card, phone, wearable, ring) funded from Collateral Engine borrow'],
+            ['Capital Loop Agent', 'Spec', 'Process-trained agent that monitors health factor and executes within written rules'],
+          ]}
+        />
       </section>
 
       <section className="curriculum-reference-section">
