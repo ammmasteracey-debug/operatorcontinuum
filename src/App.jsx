@@ -751,6 +751,15 @@ const capitalLoopModuleDetails = [
   },
 ];
 
+const capitalLoopOnboardChecklist = [
+  'Capital Loop orientation (III-0) completed',
+  'Collateral Engine mechanics (III-2) completed',
+  'Health factor and liquidation rules acknowledged',
+  'Tax and bank disclaimers acknowledged',
+  'Agent rule set reviewed (if agent surface is enabled)',
+  'Seat type marked Capital Loop in Continuum',
+];
+
 const curriculumOverview = [
   ['Name', 'Statecraft Academy'],
   ['Flagship track', 'Money Process (Ac3y desk machine)'],
@@ -1841,6 +1850,15 @@ function CapitalLoopCurriculumContent() {
             ['Capital Loop Agent', 'Spec', 'Process-trained agent that monitors health factor and executes within written rules'],
           ]}
         />
+      </section>
+
+      <section className="curriculum-reference-section">
+        <h4>Onboard checklist</h4>
+        <ul className="curriculum-ops-checklist">
+          {capitalLoopOnboardChecklist.map((item) => (
+            <li key={item}><span aria-hidden="true">☐</span><CurriculumText>{item}</CurriculumText></li>
+          ))}
+        </ul>
       </section>
 
       <section className="curriculum-reference-section">
