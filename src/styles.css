@@ -705,6 +705,80 @@ button {
   gap: 9px;
 }
 
+.operating-asset-branches {
+  display: grid;
+  gap: 26px;
+}
+
+.operating-asset-branch h3 {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.operating-asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 10px;
+}
+
+.operating-asset-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.operating-asset-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.operating-asset-heading h4 {
+  margin: 0;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.operating-asset-status {
+  flex: 0 0 auto;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.operating-asset-card p {
+  min-height: 34px;
+  margin: 9px 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.operating-asset-card a {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.operating-asset-card a:hover,
+.operating-asset-card a:focus-visible {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 .action-row {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 90px;
