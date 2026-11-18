@@ -14,43 +14,6 @@ const navItems = [
 
 const navItemByTarget = Object.fromEntries(navItems.map((item) => [item.target, item]));
 
-const operatingAssetBranches = [
-  {
-    branch: 'Core',
-    surfaces: [
-      { name: 'Operator Continuum', function: 'Runs the Group operating system and operator desk.', url: 'https://operatorcontinuum.vercel.app/' },
-      { name: 'Kurogami Group', function: 'Publishes the Group’s public doctrine.', url: 'https://www.kurogamigroup.com/doctrine' },
-      { name: 'Kurogami Core', function: 'Carries the process-infrastructure narrative.' },
-      { name: 'Desk OS Terminal', function: 'Provides the operator terminal.' },
-      { name: 'Statecraft Control Surface', function: 'Runs the process engine and Agent Mirror.', url: 'https://statecraft-control-surface.vercel.app/desk' },
-      { name: 'Statecraft Academy', function: 'Delivers Money Process and Desk Access.', url: 'https://statecraft-academy.vercel.app/' },
-      { name: 'Forge Index', function: 'Grades process.', url: 'https://kurogami-forge-index.vercel.app/' },
-      { name: 'Forge Network', function: 'Runs process distribution.' },
-      { name: 'Gami Boyz', function: 'Carries the culture and distribution face.' },
-      { name: 'FieldForge', function: 'Captures field process.' },
-    ],
-  },
-  {
-    branch: 'Drills',
-    surfaces: [
-      { name: 'Veil Run', function: 'Runs Veil drills.', url: 'https://veil-run.vercel.app/' },
-      { name: 'Veil Capacity', function: 'Governs capacity and bounded risk.', url: 'https://veilcapacity-brown.vercel.app/' },
-      { name: 'Kurogami Arcade', function: 'Provides practice under rules.', url: 'https://kurogami-arcade.vercel.app/' },
-    ],
-  },
-  {
-    branch: 'Verticals / Markets',
-    surfaces: [
-      { name: 'RWA Intelligence', function: 'Organizes intelligence for real-world asset markets.' },
-      { name: 'Yachts Protocol', function: 'Structures process for the yacht market.' },
-      { name: 'Agentic MM', function: 'Runs agentic market-making process.' },
-      { name: 'Job Board', function: 'Connects roles and operators.' },
-      { name: 'Swish', function: 'Runs the Swish market workflow.' },
-      { name: 'Fracture Arena', function: 'Provides an arena for competitive participation.' },
-    ],
-  },
-];
-
 const navLabelByTarget = {
   home: 'Home',
   manual: 'Manual',
@@ -3525,36 +3488,6 @@ function App() {
                   <span className="stat-value">{card.value}</span>
                   <span className="stat-detail">{card.detail}</span>
                 </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="operating-assets-panel signal-panel" aria-labelledby="operating-assets-title">
-            <div className="panel-header">
-              <span className="section-kicker" id="operating-assets-title">Operating assets</span>
-              <span className="range-label">Active surfaces / Group system map</span>
-            </div>
-            <div className="operating-asset-branches">
-              {operatingAssetBranches.map(({ branch, surfaces }) => (
-                <section className="operating-asset-branch" key={branch} aria-label={branch}>
-                  <h3>{branch}</h3>
-                  <div className="operating-asset-grid">
-                    {surfaces.map(({ name, function: surfaceFunction, url }) => (
-                      <article className="operating-asset-card" key={name}>
-                        <div className="operating-asset-heading">
-                          <h4>{name}</h4>
-                          <span className="operating-asset-status">Live</span>
-                        </div>
-                        <p>{surfaceFunction}</p>
-                        {url && (
-                          <a href={url} target="_blank" rel="noopener noreferrer">
-                            Open deployment <span aria-hidden="true">↗</span>
-                          </a>
-                        )}
-                      </article>
-                    ))}
-                  </div>
-                </section>
               ))}
             </div>
           </section>
